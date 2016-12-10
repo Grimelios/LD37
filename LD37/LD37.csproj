@@ -43,8 +43,9 @@
     <Compile Include="Core\Sprite.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\KeyButton.cs" />
+    <Compile Include="Entities\Lasers\FixedLaserSource.cs" />
     <Compile Include="Entities\Lasers\Laser.cs" />
-    <Compile Include="Entities\Lasers\LaserSource.cs" />
+    <Compile Include="Entities\Lasers\AbstractLaserSource.cs" />
     <Compile Include="Entities\Mirror.cs" />
     <Compile Include="Entities\Organization\EntityLayer.cs" />
     <Compile Include="Entities\Organization\Scene.cs" />

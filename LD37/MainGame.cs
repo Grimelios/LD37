@@ -79,7 +79,7 @@ namespace LD37
 		private void CreatePrimaryLayer(IKernel kernel)
 		{
 			Tilemap tilemap = JsonUtilities.Deserialize<Tilemap>("Tilemaps/OneRoom.json");
-			LaserSource laserSource = kernel.Get<LaserSource>();
+			AbstractLaserSource laserSource = kernel.Get<FixedLaserSource>();
 			Player player = kernel.Get<Player>();
 			player.LoadPosition = new Vector2(800, 200);
 
@@ -88,13 +88,13 @@ namespace LD37
 				typeof(Player)
 			}, new []
 			{
-				typeof(LaserSource),
+				typeof(AbstractLaserSource),
 				typeof(Laser),
 				typeof(Player),
 				typeof(Tilemap)
 			});
 
-			primaryLayer.Add(typeof(LaserSource), laserSource);
+			primaryLayer.Add(typeof(AbstractLaserSource), laserSource);
 			primaryLayer.Add(typeof(Laser), laserSource.Laser);
 			primaryLayer.Add(typeof(Player), player);
 			primaryLayer.Add(typeof(Tilemap), tilemap);
