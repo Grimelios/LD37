@@ -28,7 +28,7 @@ namespace LD37.Entities.Lasers
 			points.Clear();
 			points.Add(source);
 
-			Vector2 currentSource = source;
+			Vector2 currentSource = PhysicsConvert.ToMeters(source);
 			Mirror mirror;
 
 			float currentAngle = angle;
@@ -36,14 +36,12 @@ namespace LD37.Entities.Lasers
 			do
 			{
 				RayCastResults results = physicsHelper.RayCast(currentSource, currentAngle, RayCastRange);
+				points.Add(PhysicsConvert.ToPixels(results.Position));
 				mirror = results.Entity as Mirror;
 
 				if (mirror != null)
 				{
-					Vector2 position = results.Position;
-
-					points.Add(position);
-					currentSource = results.Position;
+					currentSource = PhysicsConvert.ToMeters(results.Position);
 					currentAngle = mirror.ComputeReflectionAngle(angle);
 				}
 			} while (mirror != null);

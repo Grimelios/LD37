@@ -25,6 +25,8 @@ namespace LD37.Entities.Lasers
 			{
 				sprite.Position = value;
 				Laser.RecomputePoints(value, rotation);
+
+				base.Position = value;
 			}
 		}
 
@@ -45,6 +47,8 @@ namespace LD37.Entities.Lasers
 
 		public override void Render(SpriteBatch sb)
 		{
+			Rotation = rotation + 0.01f;
+
 			sprite.Render(sb);
 		}
 	}

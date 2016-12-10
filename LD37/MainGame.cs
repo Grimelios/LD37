@@ -32,6 +32,7 @@ namespace LD37
 
 		private Camera camera;
 		private InputGenerator inputGenerator;
+		private PhysicsDebugDrawer physicsDebugDrawer;
 		private Scene scene;
 		private World world;
 
@@ -55,9 +56,10 @@ namespace LD37
 			IKernel kernel = new StandardKernel();
 			kernel.Bind<ContentLoader>().ToConstant(new ContentLoader(Content));
 			kernel.Bind<MessageSystem>().ToSelf().InSingletonScope();
-			kernel.Bind<PhysicsFactory>().ToConstant(new PhysicsFactory(world));
-			kernel.Bind<PhysicsHelper>().ToConstant(new PhysicsHelper(world));
+			kernel.Bind<PhysicsFactory>().ToSelf().InSingletonScope();
+			kernel.Bind<PhysicsHelper>().ToSelf().InSingletonScope();
 			kernel.Bind<PrimitiveDrawer>().ToSelf().InSingletonScope();
+			kernel.Bind<World>().ToConstant(world);
 
 			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
 			{
@@ -67,6 +69,7 @@ namespace LD37
 
 			camera = kernel.Get<Camera>();
 			inputGenerator = kernel.Get<InputGenerator>();
+			physicsDebugDrawer = kernel.Get<PhysicsDebugDrawer>();
 
 			CreatePrimaryLayer(kernel);
 
@@ -93,14 +96,18 @@ namespace LD37
 			scene.LayerMap.Add("Primary", primaryLayer);
 
 			AddRoomEdges(kernel, tilemap);
+
+			laserSource.Position = new Vector2(300);
+			laserSource.Rotation = 0;
+			laserSource.Color = Color.Red;
 		}
 
 		private void AddRoomEdges(IKernel kernel, Tilemap tilemap)
 		{
 			Vector2 topLeft = Vector2.One;
-			Vector2 topRight = new Vector2(RoomWidth - 2, 1);
+			Vector2 topRight = new Vector2(RoomWidth - 1, 1);
 			Vector2 bottomLeft = new Vector2(1, RoomHeight - 1);
-			Vector2 bottomRight = new Vector2(RoomWidth - 2, RoomHeight - 1);
+			Vector2 bottomRight = new Vector2(RoomWidth - 1, RoomHeight - 1);
 
 			PhysicsFactory physicsFactory = kernel.Get<PhysicsFactory>();
 			Body body = physicsFactory.CreateBody(tilemap);
@@ -109,6 +116,8 @@ namespace LD37
 			physicsFactory.AttachEdge(body, topLeft, bottomLeft, Units.Meters);
 			physicsFactory.AttachEdge(body, topRight, bottomRight, Units.Meters);
 			physicsFactory.AttachEdge(body, bottomLeft, bottomRight, Units.Meters);
+
+			world.ProcessChanges();
 		}
 
 		protected override void LoadContent()
@@ -136,6 +145,7 @@ namespace LD37
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.Transform);
 			scene.Render(spriteBatch);
+			physicsDebugDrawer.Render(spriteBatch);
 			spriteBatch.End();
 		}
 	}

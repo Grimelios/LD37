@@ -4,7 +4,7 @@ namespace LD37.Physics
 {
 	public class PhysicsConvert
 	{
-		private const int PixelsPerMeter = 48;
+		private const int PixelsPerMeter = 32;
 
 		public static float ToPixels(float value)
 		{
