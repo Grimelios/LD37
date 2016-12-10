@@ -46,8 +46,6 @@ namespace LD37.Entities
 
 		public Rectangle BoundingBox { get; private set; }
 		
-		public override bool TileAttach => true;
-
 		public void InteractionResponse()
 		{
 			messageSystem.Send(new LevelRefreshMessage(TileConvert.ToTile(Position)));

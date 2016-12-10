@@ -1,4 +1,5 @@
-﻿using LD37.Interfaces;
+﻿using System;
+using LD37.Interfaces;
 using LD37.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace LD37.Entities
 {
-	internal abstract class Entity : IDynamic, IRenderable
+	internal abstract class Entity : IDynamic, IRenderable, IDisposable
 	{
 		private Vector2 position;
 		private Vector2 scale;
@@ -39,7 +40,10 @@ namespace LD37.Entities
 		}
 
 		public virtual string EntityGroup => null;
-		public virtual bool TileAttach => false;
+
+		public virtual void Dispose()
+		{
+		}
 
 		public virtual void Update(float dt)
 		{

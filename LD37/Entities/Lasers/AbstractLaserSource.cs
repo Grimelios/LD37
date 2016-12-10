@@ -11,7 +11,6 @@ namespace LD37.Entities.Lasers
 
 	internal abstract class AbstractLaserSource : Entity, IPowered
 	{
-		private Scene scene;
 		private Laser laser;
 		private EntityMap entityMap;
 
@@ -84,8 +83,16 @@ namespace LD37.Entities.Lasers
 				}
 				else
 				{
-					entityMap["Laser"].Add(laser);
+					entityMap["Laser"].Remove(laser);
 				}
+			}
+		}
+
+		public override void Dispose()
+		{
+			if (powered)
+			{
+				Powered = false;
 			}
 		}
 	}

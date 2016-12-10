@@ -46,8 +46,6 @@ namespace LD37.Entities.Lasers
 			}
 		}
 		
-		public override bool TileAttach => true;
-
 		public override void Render(SpriteBatch sb)
 		{
 			sprite.Render(sb);

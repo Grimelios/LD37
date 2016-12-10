@@ -4,9 +4,9 @@ namespace LD37.Utility
 {
 	internal static class TileConvert
 	{
-		public static Vector2 ToPixels(Vector2 position)
+		public static Vector2 ToPixels(Vector2 point)
 		{
-			return position * Constants.TileSize + new Vector2(Constants.TileSize) * 1.5f;
+			return point * Constants.TileSize + new Vector2(Constants.TileSize) * 1.5f;
 		}
 
 		public static Point ToTile(Vector2 position)

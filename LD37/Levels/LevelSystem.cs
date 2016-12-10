@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using LD37.Entities;
 using LD37.Entities.Organization;
+using LD37.Entities.Platforms;
 using LD37.Interfaces;
 using LD37.Json;
 using LD37.Messaging;
@@ -13,12 +14,13 @@ namespace LD37.Levels
 
 	internal class LevelSystem : IMessageReceiver
 	{
-		private const int DelayMultiplier = 2;
+		private const float DelayMultiplier = 1.5f;
 
 		private int levelCounter;
 
 		private InteractionSystem interactionSystem;
 		private Scene scene;
+		private Level currentLevel;
 		private Tile[,] tiles;
 
 		public LevelSystem(InteractionSystem interactionSystem, MessageSystem messageSystem, Scene scene)
@@ -56,32 +58,45 @@ namespace LD37.Levels
 		{
 			Level level = JsonUtilities.Deserialize<Level>("Levels/Level" + levelCounter + ".json");
 			levelCounter++;
+			level.TileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
 
-			EntityMap entityMap = scene.LayerMap["Primary"].EntityMap;
-
-			foreach (Entity entity in level.Entities)
+			if (level.Platforms != null)
 			{
-				if (entity.TileAttach)
-				{
-					Point tileCoordinates = TileConvert.ToTile(entity.Position);
-					Tile tile = tiles[tileCoordinates.X, tileCoordinates.Y];
-					tile.ReversedEntity = entity;
-
-					if (!cascadeTiles)
-					{
-						tile.Flip();
-					}
-				}
-				else
-				{
-					entityMap[entity.EntityGroup].Add(entity);
-				}
+				AttachPlatforms(level.Platforms, cascadeTiles);
 			}
 
 			if (cascadeTiles)
 			{
 				CascadeTiles(sourceCoordinates);
 				interactionSystem.Items.Clear();
+			}
+		}
+
+		private void AttachPlatforms(List<Platform> platforms, bool cascadeTiles)
+		{
+			foreach (Platform platform in platforms)
+			{
+				PlatformSegment[,] segments = platform.Segments;
+
+				for (int i = 0; i < platform.Height; i++)
+				{
+					for (int j = 0; j < platform.Width; j++)
+					{
+						AttachToTile(segments[j, i], cascadeTiles);
+					}
+				}
+			}
+		}
+
+		private void AttachToTile(Entity entity, bool cascadeTiles)
+		{
+			Point tileCoordinates = TileConvert.ToTile(entity.Position);
+			Tile tile = tiles[tileCoordinates.X, tileCoordinates.Y];
+			tile.ReversedEntity = entity;
+
+			if (!cascadeTiles)
+			{
+				tile.Flip();
 			}
 		}
 

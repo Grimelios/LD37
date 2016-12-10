@@ -86,7 +86,7 @@ namespace LD37
 		{
 			Tilemap tilemap = JsonUtilities.Deserialize<Tilemap>("Tilemaps/OneRoom.json");
 			Player player = kernel.Get<Player>();
-			player.LoadPosition = new Vector2(800, 200);
+			player.LoadPosition = new Vector2(600, 600);
 
 			EntityLayer primaryLayer = new EntityLayer(new []
 			{

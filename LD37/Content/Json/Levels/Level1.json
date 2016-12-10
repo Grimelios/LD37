@@ -1,6 +1,6 @@
 ﻿{
 	"Name": "",
-	"Entities": [
+	"TileEntities": [
 		{
 			"$type": "LD37.Entities.KeyButton, LD37",
 			"ID": 0,
