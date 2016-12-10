@@ -47,6 +47,7 @@
     <Compile Include="Entities\Mirror.cs" />
     <Compile Include="Entities\Organization\EntityLayer.cs" />
     <Compile Include="Entities\Organization\Scene.cs" />
+    <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\Tilemap.cs" />
     <Compile Include="GameFunctions.cs" />
     <Compile Include="Input\GamepadData.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Physics\RayCastResults.cs" />
     <Compile Include="PrimitiveDrawer.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Json\Tilemaps\OneRoom.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Properties\Player.properties">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

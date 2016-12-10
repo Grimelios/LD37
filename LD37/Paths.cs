@@ -6,5 +6,6 @@ namespace LD37
 	{
 		public static readonly string Levels = Environment.CurrentDirectory + @"\Content\Levels\";
 		public static readonly string Json = Environment.CurrentDirectory + @"\Content\Json\";
+		public static readonly string Properties = Environment.CurrentDirectory + @"\Content\Properties\";
 	}
 }

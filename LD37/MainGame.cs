@@ -80,16 +80,23 @@ namespace LD37
 		{
 			Tilemap tilemap = JsonUtilities.Deserialize<Tilemap>("Tilemaps/OneRoom.json");
 			LaserSource laserSource = kernel.Get<LaserSource>();
+			Player player = kernel.Get<Player>();
+			player.LoadPosition = new Vector2(800, 200);
 
-			EntityLayer primaryLayer = new EntityLayer(new Type[0], new []
+			EntityLayer primaryLayer = new EntityLayer(new []
+			{
+				typeof(Player)
+			}, new []
 			{
 				typeof(LaserSource),
 				typeof(Laser),
+				typeof(Player),
 				typeof(Tilemap)
 			});
 
 			primaryLayer.Add(typeof(LaserSource), laserSource);
 			primaryLayer.Add(typeof(Laser), laserSource.Laser);
+			primaryLayer.Add(typeof(Player), player);
 			primaryLayer.Add(typeof(Tilemap), tilemap);
 
 			scene = new Scene();
