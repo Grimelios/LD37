@@ -44,6 +44,8 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Lasers\Laser.cs" />
     <Compile Include="Entities\Lasers\LaserSource.cs" />
+    <Compile Include="Entities\Organization\EntityLayer.cs" />
+    <Compile Include="Entities\Organization\Scene.cs" />
     <Compile Include="GameFunctions.cs" />
     <Compile Include="Input\GamepadData.cs" />
     <Compile Include="Input\InputGenerator.cs" />

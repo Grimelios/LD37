@@ -1,5 +1,7 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using System;
+using FarseerPhysics.Dynamics;
 using LD37.Entities.Lasers;
+using LD37.Entities.Organization;
 using LD37.Input;
 using LD37.Messaging;
 using LD37.Physics;
@@ -25,10 +27,8 @@ namespace LD37
 
 		private Camera camera;
 		private InputGenerator inputGenerator;
+		private Scene scene;
 		private World world;
-
-		private Laser laser;
-		private LaserSource laserSource;
 
 		public MainGame()
 		{
@@ -57,12 +57,21 @@ namespace LD37
 			camera = kernel.Get<Camera>();
 			inputGenerator = kernel.Get<InputGenerator>();
 
-			laser = kernel.Get<Laser>();
-			laser.Color = Color.Red;
-			laserSource = kernel.Get<LaserSource>();
-			laserSource.Position = new Vector2(400);
+			CreatePrimaryLayer();
 
 			base.Initialize();
+		}
+
+		private void CreatePrimaryLayer()
+		{
+			EntityLayer primaryLayer = new EntityLayer(new Type[0], new []
+			{
+				typeof(LaserSource),
+				typeof(Laser)
+			});
+
+			scene = new Scene();
+			scene.LayerMap.Add("Primary", primaryLayer);
 		}
 
 		protected override void LoadContent()
@@ -80,6 +89,7 @@ namespace LD37
 
 			inputGenerator.GenerateInputMessages();
 			world.Step(dt);
+			scene.Update(dt);
 			camera.Update(dt);
 		}
 
@@ -88,8 +98,7 @@ namespace LD37
 			GraphicsDevice.Clear(Color.Black);
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.Transform);
-			laserSource.Render(spriteBatch);
-			laser.Render(spriteBatch);
+			scene.Render(spriteBatch);
 			spriteBatch.End();
 		}
 	}
