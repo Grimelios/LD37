@@ -1,4 +1,5 @@
 ﻿using LD37.Interfaces;
+using LD37.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
@@ -22,7 +23,7 @@ namespace LD37.Entities
 		public virtual Vector2 LoadPosition
 		{
 			get { return position; }
-			set { Position = value * Constants.TileSize + new Vector2(Constants.TileSize) * 1.5f; }
+			set { Position = TileConvert.ToPixels(value); }
 		}
 
 		public virtual Vector2 Scale

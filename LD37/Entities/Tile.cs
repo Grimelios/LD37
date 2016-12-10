@@ -27,7 +27,12 @@ namespace LD37.Entities
 
 		public override Vector2 Position
 		{
-			set { sprite.Position = value; }
+			set
+			{
+				sprite.Position = value;
+
+				base.Position = value;
+			}
 		}
 
 		public override Vector2 Scale
@@ -53,17 +58,21 @@ namespace LD37.Entities
 		public Entity AttachedEntity { get; set; }
 		public Entity ReversedEntity { get; set; }
 
-		public void Flip()
+		public void Flip(float initialDelay = 0)
+		{
+			timer = new Timer(initialDelay, BeginFlip, false);
+		}
+
+		private void BeginFlip()
 		{
 			timer = new Timer(flipTime, (progress) =>
 			{
 				Scale = new Vector2(1 - progress * progress, 1);
-			}, ReverseFlip, true);
+			}, ReverseFlip, false);
 		}
 
 		private void ReverseFlip()
 		{
-			// TODO: Remove the attached entity from the world.
 			AttachedEntity = ReversedEntity;
 			ReversedEntity = null;
 

@@ -73,6 +73,7 @@
     <Compile Include="Messaging\Input\GamepadMessage.cs" />
     <Compile Include="Messaging\Input\KeyboardMessage.cs" />
     <Compile Include="Messaging\Input\MouseMessage.cs" />
+    <Compile Include="Messaging\LevelRefreshMessage.cs" />
     <Compile Include="Messaging\MessageSystem.cs" />
     <Compile Include="Paths.cs" />
     <Compile Include="Physics\PhysicsConvert.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\TileConvert.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FarseerPhysics MonoGame, Version=3.5.0.40766, Culture=neutral, processorArchitecture=MSIL">
@@ -113,6 +115,9 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="Content\Json\Levels\Level1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Json\Levels\Level2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Json\Tilemaps\OneRoom.json">

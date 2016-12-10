@@ -4,6 +4,7 @@ using LD37.Entities.Organization;
 using LD37.Interfaces;
 using LD37.Json;
 using LD37.Messaging;
+using LD37.Utility;
 using Microsoft.Xna.Framework;
 
 namespace LD37.Levels
@@ -12,13 +13,18 @@ namespace LD37.Levels
 
 	internal class LevelSystem : IMessageReceiver
 	{
+		private const int DelayMultiplier = 2;
+
 		private int levelCounter;
 
+		private InteractionSystem interactionSystem;
 		private Scene scene;
 		private Tile[,] tiles;
 
-		public LevelSystem(MessageSystem messageSystem)
+		public LevelSystem(InteractionSystem interactionSystem, MessageSystem messageSystem)
 		{
+			this.interactionSystem = interactionSystem;
+
 			levelCounter = 1;
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
 		}
@@ -44,10 +50,10 @@ namespace LD37.Levels
 
 		public void Receive(GameMessage message)
 		{
-			Refresh();
+			Refresh(((LevelRefreshMessage)message).TileCoordinates);
 		}
 
-		public void Refresh()
+		public void Refresh(Point sourceCoordinates, bool cascadeTiles = true)
 		{
 			Level level = JsonUtilities.Deserialize<Level>("Levels/Level" + levelCounter + ".json");
 			levelCounter++;
@@ -58,14 +64,38 @@ namespace LD37.Levels
 			{
 				if (entity.TileAttach)
 				{
-					Vector2 tileCoordinates = (entity.Position - new Vector2(Constants.TileSize) * 1.5f) / Constants.TileSize;
-					Tile tile = tiles[(int)tileCoordinates.X, (int)tileCoordinates.Y];
+					Point tileCoordinates = TileConvert.ToTile(entity.Position);
+					Tile tile = tiles[tileCoordinates.X, tileCoordinates.Y];
 					tile.ReversedEntity = entity;
-					tile.Flip();
+
+					if (!cascadeTiles)
+					{
+						tile.Flip();
+					}
 				}
 				else
 				{
 					entityMap[entity.EntityGroup].Add(entity);
+				}
+			}
+
+			if (cascadeTiles)
+			{
+				CascadeTiles(sourceCoordinates);
+				interactionSystem.Items.Clear();
+			}
+		}
+
+		private void CascadeTiles(Point sourceCoordinates)
+		{
+			Vector2 source = TileConvert.ToPixels(new Vector2(sourceCoordinates.X, sourceCoordinates.Y));
+
+			for (int i = 0; i < Constants.RoomHeight - 2; i++)
+			{
+				for (int j = 0; j < Constants.RoomWidth - 2; j++)
+				{
+					Tile tile = tiles[j, i];
+					tile.Flip(Vector2.Distance(source, tile.Position) * DelayMultiplier);
 				}
 			}
 		}

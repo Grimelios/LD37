@@ -2,6 +2,7 @@
 using LD37.Core;
 using LD37.Interfaces;
 using LD37.Messaging;
+using LD37.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -49,7 +50,7 @@ namespace LD37.Entities
 
 		public void InteractionResponse()
 		{
-			messageSystem.Send(new GameMessage(MessageTypes.LevelRefresh));
+			messageSystem.Send(new LevelRefreshMessage(TileConvert.ToTile(Position)));
 		}
 
 		public override void Render(SpriteBatch sb)

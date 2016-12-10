@@ -109,7 +109,7 @@ namespace LD37
 
 			LevelSystem levelSystem = kernel.Get<LevelSystem>();
 			levelSystem.Scene = scene;
-			levelSystem.Refresh();
+			levelSystem.Refresh(Point.Zero, false);
 		}
 
 		private void CreateTiles(IKernel kernel)
