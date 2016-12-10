@@ -24,6 +24,8 @@ namespace LD37
 	{
 		private const int DefaultScreenWidth = 1024;
 		private const int DefaultScreenHeight = 768;
+		private const int RoomWidth = 32;
+		private const int RoomHeight = 24;
 
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
@@ -89,6 +91,24 @@ namespace LD37
 
 			scene = new Scene();
 			scene.LayerMap.Add("Primary", primaryLayer);
+
+			AddRoomEdges(kernel, tilemap);
+		}
+
+		private void AddRoomEdges(IKernel kernel, Tilemap tilemap)
+		{
+			Vector2 topLeft = Vector2.One;
+			Vector2 topRight = new Vector2(RoomWidth - 2, 1);
+			Vector2 bottomLeft = new Vector2(1, RoomHeight - 1);
+			Vector2 bottomRight = new Vector2(RoomWidth - 2, RoomHeight - 1);
+
+			PhysicsFactory physicsFactory = kernel.Get<PhysicsFactory>();
+			Body body = physicsFactory.CreateBody(tilemap);
+
+			physicsFactory.AttachEdge(body, topLeft, topRight, Units.Meters);
+			physicsFactory.AttachEdge(body, topLeft, bottomLeft, Units.Meters);
+			physicsFactory.AttachEdge(body, topRight, bottomRight, Units.Meters);
+			physicsFactory.AttachEdge(body, bottomLeft, bottomRight, Units.Meters);
 		}
 
 		protected override void LoadContent()

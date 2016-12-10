@@ -20,6 +20,11 @@ namespace LD37.Physics
 			this.world = world;
 		}
 
+		public Body CreateBody(Entity entity)
+		{
+			return BodyFactory.CreateBody(world, entity);
+		}
+
 		public Body CreateRectangle(float width, float height, Units units, BodyType bodyType, Entity entity)
 		{
 			return CreateRectangle(width, height, Vector2.Zero, units, bodyType, entity);
@@ -38,6 +43,17 @@ namespace LD37.Physics
 			body.BodyType = bodyType;
 
 			return body;
+		}
+
+		public void AttachEdge(Body body, Vector2 start, Vector2 end, Units units)
+		{
+			if (units == Units.Pixels)
+			{
+				start = PhysicsConvert.ToMeters(start);
+				end = PhysicsConvert.ToMeters(end);
+			}
+
+			FixtureFactory.AttachEdge(start, end, body);
 		}
 	}
 }
