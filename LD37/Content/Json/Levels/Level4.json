@@ -3,15 +3,15 @@
 	"TileEntities": [
 		{
 			"$type": "LD37.Entities.KeyButton, LD37",
-			"LoadPosition": "25, 18"
+			"LoadPosition": "18, 14"
 		}
 	],
 
 	"Platforms": [
 		{
-			"Width": 9,
-			"Height": 2,
-			"Position": "21, 20"
+			"Width": 5,
+			"Height": 6,
+			"Position": "16, 16"
 		}
 	]
 }

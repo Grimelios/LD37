@@ -81,6 +81,8 @@ namespace LD37.Levels
 				levelCounter++;
 			}
 
+			interactionSystem.Items.Clear();
+
 			currentLevel?.Dispose();
 			currentLevel = JsonUtilities.Deserialize<Level>("Levels/Level" + levelCounter + ".json");
 			currentLevel.TileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
@@ -93,7 +95,6 @@ namespace LD37.Levels
 			if (cascadeTiles)
 			{
 				CascadeTiles(sourceCoordinates);
-				interactionSystem.Items.Clear();
 			}
 		}
 
