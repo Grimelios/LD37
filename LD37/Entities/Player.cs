@@ -91,7 +91,7 @@ namespace LD37.Entities
 		{
 			Entity entity = fixtureB.Body.UserData as Entity;
 
-			if (contact.Manifold.LocalNormal == -Vector2.UnitY && (entity is Tilemap || entity is Platform))
+			if (Math.Abs(contact.Manifold.LocalNormal.Y) == 1 && body.LinearVelocity.Y > 0 && (entity is Tilemap || entity is Platform))
 			{
 				jumpEnabled = true;
 			}

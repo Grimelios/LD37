@@ -26,7 +26,7 @@ namespace LD37
 	{
 		private const int DefaultScreenWidth = 1024;
 		private const int DefaultScreenHeight = 768;
-		private const int Gravity = 16;
+		private const int Gravity = 30;
 
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
