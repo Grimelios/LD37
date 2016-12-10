@@ -29,6 +29,7 @@ namespace LD37
 	{
 		private const int DefaultScreenWidth = 1024;
 		private const int DefaultScreenHeight = 768;
+		private const int Gravity = 16;
 
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
@@ -54,7 +55,7 @@ namespace LD37
 		
 		protected override void Initialize()
 		{
-			world = new World(new Vector2(0, 10));
+			world = new World(new Vector2(0, Gravity));
 			scene = new Scene();
 
 			IKernel kernel = new StandardKernel();

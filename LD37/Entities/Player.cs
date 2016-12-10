@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Contacts;
 using LD37.Core;
+using LD37.Entities.Platforms;
 using LD37.Input;
 using LD37.Interfaces;
 using LD37.Messaging;
@@ -25,6 +27,10 @@ namespace LD37.Entities
 		private float acceleration;
 		private float deceleration;
 		private float maxSpeed;
+		private float jumpSpeedInitial;
+		private float jumpSpeedLimited;
+
+		private bool jumpEnabled;
 
 		private int movementSign;
 
@@ -37,7 +43,9 @@ namespace LD37.Entities
 
 			acceleration = PhysicsConvert.ToMeters(int.Parse(properties["Acceleration"]));
 			deceleration = PhysicsConvert.ToMeters(int.Parse(properties["Deceleration"]));
-			maxSpeed = PhysicsConvert.ToMeters(int.Parse(properties["MaxSpeed"]));
+			maxSpeed = PhysicsConvert.ToMeters(int.Parse(properties["Max.Speed"]));
+			jumpSpeedInitial = PhysicsConvert.ToMeters(int.Parse(properties["Jump.Speed.Initial"]));
+			jumpSpeedLimited = PhysicsConvert.ToMeters(int.Parse(properties["Jump.Speed.Limited"]));
 
 			int width = int.Parse(properties["Width"]);
 			int height = int.Parse(properties["Height"]);
@@ -47,9 +55,11 @@ namespace LD37.Entities
 			body = physicsFactory.CreateRectangle(width, height, Units.Pixels, BodyType.Dynamic, this);
 			body.FixedRotation = true;
 			body.Friction = 0;
+			body.OnCollision += HandleCollision;
 
 			acceleration *= body.Mass;
 			deceleration *= body.Mass;
+			jumpSpeedInitial *= body.Mass;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 		}
@@ -76,6 +86,18 @@ namespace LD37.Entities
 		}
 
 		public override string EntityGroup => "Player";
+
+		private bool HandleCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+		{
+			Entity entity = fixtureB.Body.UserData as Entity;
+
+			if (contact.Manifold.LocalNormal == -Vector2.UnitY && (entity is Tilemap || entity is Platform))
+			{
+				jumpEnabled = true;
+			}
+
+			return true;
+		}
 
 		public void Receive(GameMessage message)
 		{
@@ -120,6 +142,24 @@ namespace LD37.Entities
 
 		private void HandleJumping(KeyboardData data)
 		{
+			if (jumpEnabled)
+			{
+				if (data.KeysPressedThisFrame.Contains(Keys.Space))
+				{
+					body.ApplyLinearImpulse(new Vector2(0, -jumpSpeedInitial));
+					jumpEnabled = false;
+				}
+			}
+			else
+			{
+				Vector2 velocity = body.LinearVelocity;
+
+				if (velocity.Y < -jumpSpeedLimited && data.KeysReleasedThisFrame.Contains(Keys.Space))
+				{
+					velocity.Y = -jumpSpeedLimited;
+					body.LinearVelocity = velocity;
+				}
+			}
 		}
 
 		public override void Update(float dt)
