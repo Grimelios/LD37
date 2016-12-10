@@ -38,6 +38,11 @@ namespace LD37.Entities
 			}
 		}
 
+		public override Vector2 Scale
+		{
+			set { sprite.Scale = value; }
+		}
+
 		public Rectangle BoundingBox { get; private set; }
 		
 		public override bool TileAttach => true;

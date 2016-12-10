@@ -122,7 +122,7 @@ namespace LD37
 				for (int j = 0; j < Constants.RoomWidth - 2; j++)
 				{
 					Tile tile = kernel.Get<Tile>();
-					tile.LoadPosition = new Vector2(j + 1, i + 1);
+					tile.LoadPosition = new Vector2(j, i);
 					tiles[j, i] = tile;
 					tileList.Add(tile);
 				}

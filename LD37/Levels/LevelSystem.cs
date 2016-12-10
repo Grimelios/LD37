@@ -58,7 +58,7 @@ namespace LD37.Levels
 			{
 				if (entity.TileAttach)
 				{
-					Vector2 tileCoordinates = entity.Position / Constants.TileSize - new Vector2(Constants.TileSize) / 2;
+					Vector2 tileCoordinates = (entity.Position - new Vector2(Constants.TileSize) * 1.5f) / Constants.TileSize;
 					Tile tile = tiles[(int)tileCoordinates.X, (int)tileCoordinates.Y];
 					tile.ReversedEntity = entity;
 					tile.Flip();

@@ -22,7 +22,7 @@ namespace LD37.Entities
 		public virtual Vector2 LoadPosition
 		{
 			get { return position; }
-			set { Position = value * Constants.TileSize + new Vector2(Constants.TileSize) / 2; }
+			set { Position = value * Constants.TileSize + new Vector2(Constants.TileSize) * 1.5f; }
 		}
 
 		public virtual Vector2 Scale
