@@ -17,8 +17,10 @@ namespace LD37.Entities
 
 	internal class Player : Entity, IMessageReceiver
 	{
+		private InteractionSystem interactionSystem;
 		private Sprite sprite;
 		private Body body;
+		private Rectangle boundingBox;
 
 		private float acceleration;
 		private float deceleration;
@@ -26,8 +28,11 @@ namespace LD37.Entities
 
 		private int movementSign;
 
-		public Player(ContentLoader contentLoader, MessageSystem messageSystem, PhysicsFactory physicsFactory)
+		public Player(ContentLoader contentLoader, InteractionSystem interactionSystem, MessageSystem messageSystem,
+			PhysicsFactory physicsFactory)
 		{
+			this.interactionSystem = interactionSystem;
+
 			PropertyMap properties = Properties.Load("Player.properties");
 
 			acceleration = PhysicsConvert.ToMeters(int.Parse(properties["Acceleration"]));
@@ -37,6 +42,7 @@ namespace LD37.Entities
 			int width = int.Parse(properties["Width"]);
 			int height = int.Parse(properties["Height"]);
 
+			boundingBox = new Rectangle(0, 0, width, height);
 			sprite = new Sprite(contentLoader, "Player", OriginLocations.Center);
 			body = physicsFactory.CreateRectangle(width, height, Units.Pixels, BodyType.Dynamic, this);
 			body.FixedRotation = true;
@@ -50,7 +56,14 @@ namespace LD37.Entities
 
 		public override Vector2 Position
 		{
-			set { sprite.Position = value; }
+			set
+			{
+				sprite.Position = value;
+				boundingBox.X = (int)value.X - boundingBox.Width / 2;
+				boundingBox.Y = (int)value.Y - boundingBox.Height / 2;
+
+				base.Position = value;
+			}
 		}
 
 		public override Vector2 LoadPosition
@@ -74,6 +87,17 @@ namespace LD37.Entities
 
 		private void HandleKeyboard(KeyboardData data)
 		{
+			if (data.KeysPressedThisFrame.Contains(Keys.E))
+			{
+				interactionSystem.CheckInteraction(boundingBox);
+			}
+
+			HandleRunning(data);
+			HandleJumping(data);
+		}
+
+		private void HandleRunning(KeyboardData data)
+		{
 			bool aDown = data.KeysDown.Contains(Keys.A);
 			bool dDown = data.KeysDown.Contains(Keys.D);
 
@@ -90,6 +114,10 @@ namespace LD37.Entities
 			}
 
 			body.ApplyForce(force);
+		}
+
+		private void HandleJumping(KeyboardData data)
+		{
 		}
 
 		public override void Update(float dt)

@@ -1,5 +1,4 @@
-﻿using System;
-using FarseerPhysics.Dynamics;
+﻿using FarseerPhysics.Dynamics;
 using LD37.Entities;
 using LD37.Entities.Lasers;
 using LD37.Entities.Organization;
@@ -55,6 +54,7 @@ namespace LD37
 
 			IKernel kernel = new StandardKernel();
 			kernel.Bind<ContentLoader>().ToConstant(new ContentLoader(Content));
+			kernel.Bind<InteractionSystem>().ToSelf().InSingletonScope();
 			kernel.Bind<MessageSystem>().ToSelf().InSingletonScope();
 			kernel.Bind<PhysicsFactory>().ToSelf().InSingletonScope();
 			kernel.Bind<PhysicsHelper>().ToSelf().InSingletonScope();

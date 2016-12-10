@@ -4,12 +4,13 @@
 	{
 		Mouse,
 		Keyboard,
-		Gamepad
+		Gamepad,
+		LevelAdvance
 	}
 
-	internal abstract class GameMessage
+	internal class GameMessage
 	{
-		protected GameMessage(MessageTypes type)
+		public GameMessage(MessageTypes type)
 		{
 			Type = type;
 		}
