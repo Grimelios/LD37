@@ -17,35 +17,23 @@ namespace LD37.Entities.Organization
 			this.renderOrder = renderOrder;
 
 			EntityMap = new EntityMap();
+
+			HashSet<string> typeSet = new HashSet<string>(updateOrder);
+			typeSet.UnionWith(renderOrder);
+
+			foreach (string type in typeSet)
+			{
+				EntityMap.Add(type, new List<Entity>());
+			}
 		}
 
 		public EntityMap EntityMap { get; }
-
-		public void Add(string entityGroup, Entity entity)
-		{
-			if (!EntityMap.ContainsKey(entityGroup))
-			{
-				EntityMap.Add(entityGroup, new List<Entity>
-				{
-					entity
-				});
-
-				return;
-			}
-
-			EntityMap[entityGroup].Add(entity);
-		}
 
 		public void Update(float dt)
 		{
 			foreach (string type in updateOrder)
 			{
-				List<Entity> entityList;
-
-				if (EntityMap.TryGetValue(type, out entityList))
-				{
-					entityList.ForEach(entity => entity.Update(dt));
-				}
+				EntityMap[type].ForEach(entity => entity.Update(dt));
 			}
 		}
 
@@ -53,12 +41,7 @@ namespace LD37.Entities.Organization
 		{
 			foreach (string type in renderOrder)
 			{
-				List<Entity> entityList;
-
-				if (EntityMap.TryGetValue(type, out entityList))
-				{
-					entityList.ForEach(entity => entity.Render(sb));
-				}
+				EntityMap[type].ForEach(entity => entity.Render(sb));
 			}
 		}
 	}

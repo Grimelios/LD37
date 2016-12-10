@@ -55,6 +55,7 @@ namespace LD37
 		protected override void Initialize()
 		{
 			world = new World(new Vector2(0, 10));
+			scene = new Scene();
 
 			IKernel kernel = new StandardKernel();
 			kernel.Bind<ContentLoader>().ToConstant(new ContentLoader(Content));
@@ -63,6 +64,7 @@ namespace LD37
 			kernel.Bind<PhysicsFactory>().ToSelf().InSingletonScope();
 			kernel.Bind<PhysicsHelper>().ToSelf().InSingletonScope();
 			kernel.Bind<PrimitiveDrawer>().ToSelf().InSingletonScope();
+			kernel.Bind<Scene>().ToConstant(scene);
 			kernel.Bind<World>().ToConstant(world);
 
 			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -97,18 +99,16 @@ namespace LD37
 				"Player",
 				"Tilemap"
 			});
-			
-			primaryLayer.Add("Player", player);
-			primaryLayer.Add("Tilemap", tilemap);
 
-			scene = new Scene();
+			EntityMap entityMap = primaryLayer.EntityMap;
+			entityMap["Player"].Add(player);
+			entityMap["Tilemap"].Add(tilemap);
 			scene.LayerMap.Add("Primary", primaryLayer);
 
 			AddRoomEdges(kernel, tilemap);
 			CreateTiles(kernel);
 
 			LevelSystem levelSystem = kernel.Get<LevelSystem>();
-			levelSystem.Scene = scene;
 			levelSystem.Refresh(Point.Zero, false);
 		}
 
@@ -129,7 +129,7 @@ namespace LD37
 			}
 
 			EntityMap entityMap = scene.LayerMap["Primary"].EntityMap;
-			entityMap.Add("Tile", tileList);
+			entityMap["Tile"].AddRange(tileList);
 		}
 
 		private void AddRoomEdges(IKernel kernel, Tilemap tilemap)

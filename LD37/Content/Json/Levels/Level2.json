@@ -4,7 +4,9 @@
 		{
 			"$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
 			"ID": 0,
-			"LoadPosition": "1, 16"
+			"LoadPosition": "1, 16",
+			"Powered": true,
+			"ColorString": "255, 0, 0" 
 		}
 	]
 }

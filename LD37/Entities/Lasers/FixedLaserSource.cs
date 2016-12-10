@@ -1,4 +1,5 @@
 ﻿using LD37.Core;
+using LD37.Entities.Organization;
 using LD37.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,8 +10,8 @@ namespace LD37.Entities.Lasers
 	{
 		private Sprite sprite;
 
-		public FixedLaserSource(ContentLoader contentLoader, PhysicsHelper physicsHelper, PrimitiveDrawer primitiveDrawer) :
-			base(physicsHelper, primitiveDrawer)
+		public FixedLaserSource(ContentLoader contentLoader, PhysicsHelper physicsHelper, PrimitiveDrawer primitiveDrawer, Scene scene) :
+			base(physicsHelper, primitiveDrawer, scene)
 		{
 			sprite = new Sprite(contentLoader, "FixedLaserSource", OriginLocations.Center);
 		}

@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\IDynamic.cs" />
     <Compile Include="Interfaces\IInteractive.cs" />
     <Compile Include="Interfaces\IMessageReceiver.cs" />
+    <Compile Include="Interfaces\IPowered.cs" />
     <Compile Include="Interfaces\IRenderable.cs" />
     <Compile Include="Json\DIContractResolver.cs" />
     <Compile Include="Json\JsonUtilities.cs" />

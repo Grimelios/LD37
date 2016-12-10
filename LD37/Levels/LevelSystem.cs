@@ -21,29 +21,28 @@ namespace LD37.Levels
 		private Scene scene;
 		private Tile[,] tiles;
 
-		public LevelSystem(InteractionSystem interactionSystem, MessageSystem messageSystem)
+		public LevelSystem(InteractionSystem interactionSystem, MessageSystem messageSystem, Scene scene)
 		{
 			this.interactionSystem = interactionSystem;
+			this.scene = scene;
+
+			RetrieveTiles();
 
 			levelCounter = 1;
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
 		}
 
-		public Scene Scene
+		private void RetrieveTiles()
 		{
-			set
+			tiles = new Tile[Constants.RoomWidth - 2, Constants.RoomHeight - 2];
+
+			List<Entity> tileList = scene.LayerMap["Primary"].EntityMap["Tile"];
+
+			for (int i = 0; i < Constants.RoomHeight - 2; i++)
 			{
-				scene = value;
-				tiles = new Tile[Constants.RoomWidth - 2, Constants.RoomHeight - 2];
-
-				List<Entity> tileList = scene.LayerMap["Primary"].EntityMap["Tile"];
-
-				for (int i = 0; i < Constants.RoomHeight - 2; i++)
+				for (int j = 0; j < Constants.RoomWidth - 2; j++)
 				{
-					for (int j = 0; j < Constants.RoomWidth - 2; j++)
-					{
-						tiles[j, i] = (Tile)tileList[i * (Constants.RoomWidth - 2) + j];
-					}
+					tiles[j, i] = (Tile)tileList[i * (Constants.RoomWidth - 2) + j];
 				}
 			}
 		}
