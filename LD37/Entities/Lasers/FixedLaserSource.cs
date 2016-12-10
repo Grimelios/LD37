@@ -25,6 +25,16 @@ namespace LD37.Entities.Lasers
 			}
 		}
 
+		public override Vector2 Scale
+		{
+			set
+			{
+				sprite.Scale = value;
+
+				base.Scale = value;
+			}
+		}
+
 		public override float Rotation
 		{
 			set

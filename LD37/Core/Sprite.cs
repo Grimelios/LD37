@@ -13,17 +13,17 @@ namespace LD37.Core
 			texture = contentLoader.LoadTexture(filename);
 			Origin = originLocation == OriginLocations.Center ? new Vector2(texture.Width, texture.Height) / 2 :
 				Vector2.Zero;
-			Scale = 1;
+			Scale = Vector2.One;
 			Color = Color.White;
 		}
 
 		public Rectangle? SourceRect { get; set; }
 		public Vector2 Position { get; set; }
 		public Vector2 Origin { get; set; }
+		public Vector2 Scale { get; set; }
 		public Color Color { get; set; }
 
 		public float Rotation { get; set; }
-		public float Scale { get; set; }
 
 		public SpriteEffects Effects { get; set; }
 

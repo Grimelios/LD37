@@ -3,8 +3,10 @@ using LD37.Entities;
 using LD37.Entities.Lasers;
 using LD37.Entities.Organization;
 using LD37.Input;
+using LD37.Interfaces;
 using LD37.Json;
 using LD37.Messaging;
+using LD37.Messaging.Input;
 using LD37.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,7 +21,7 @@ namespace LD37
 		Default
 	}
 
-	internal class MainGame : Game
+	internal class MainGame : Game, IMessageReceiver
 	{
 		private const int DefaultScreenWidth = 1024;
 		private const int DefaultScreenHeight = 768;
@@ -34,6 +36,8 @@ namespace LD37
 		private PhysicsDebugDrawer physicsDebugDrawer;
 		private Scene scene;
 		private World world;
+
+		private Tile tile;
 
 		public MainGame()
 		{
@@ -73,6 +77,8 @@ namespace LD37
 
 			CreatePrimaryLayer(kernel);
 
+			kernel.Get<MessageSystem>().Subscribe(MessageTypes.Mouse, this);
+
 			base.Initialize();
 		}
 
@@ -85,16 +91,21 @@ namespace LD37
 
 			EntityLayer primaryLayer = new EntityLayer(new []
 			{
+				typeof(Tile),
 				typeof(Player)
 			}, new []
 			{
-				typeof(AbstractLaserSource),
+				typeof(Tile),
 				typeof(Laser),
 				typeof(Player),
 				typeof(Tilemap)
 			});
 
-			primaryLayer.Add(typeof(AbstractLaserSource), laserSource);
+			tile = kernel.Get<Tile>();
+			tile.Position = new Vector2(100);
+			tile.AttachedEntity = laserSource;
+
+			primaryLayer.Add(typeof(Tile), tile);
 			primaryLayer.Add(typeof(Laser), laserSource.Laser);
 			primaryLayer.Add(typeof(Player), player);
 			primaryLayer.Add(typeof(Tilemap), tilemap);
@@ -104,7 +115,7 @@ namespace LD37
 
 			AddRoomEdges(kernel, tilemap);
 
-			laserSource.Position = new Vector2(300);
+			laserSource.Position = new Vector2(100);
 			laserSource.Rotation = 0;
 			laserSource.Color = Color.Red;
 		}
@@ -134,6 +145,16 @@ namespace LD37
 
 		protected override void UnloadContent()
 		{
+		}
+
+		public void Receive(GameMessage message)
+		{
+			MouseData data = ((MouseMessage)message).Data;
+
+			if (data.LeftClickState == ClickStates.PressedThisFrame)
+			{
+				tile.Flip();
+			}
 		}
 
 		protected override void Update(GameTime gameTime)

@@ -5,7 +5,7 @@
 		Mouse,
 		Keyboard,
 		Gamepad,
-		LevelAdvance
+		LevelRefresh
 	}
 
 	internal class GameMessage

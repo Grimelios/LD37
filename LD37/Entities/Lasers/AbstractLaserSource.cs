@@ -5,8 +5,6 @@ namespace LD37.Entities.Lasers
 {
 	internal abstract class AbstractLaserSource : Entity
 	{
-		private float rotation;
-
 		protected AbstractLaserSource(PhysicsHelper physicsHelper, PrimitiveDrawer primitiveDrawer)
 		{
 			Laser = new Laser(physicsHelper, primitiveDrawer);
@@ -18,7 +16,7 @@ namespace LD37.Entities.Lasers
 		{
 			set
 			{
-				Laser.RecomputePoints(value, rotation);
+				Laser.RecomputePoints(value, Rotation);
 
 				base.Position = value;
 			}
@@ -29,12 +27,13 @@ namespace LD37.Entities.Lasers
 			set { Laser.Color = value; }
 		}
 
-		public virtual float Rotation
+		public override float Rotation
 		{
 			set
 			{
-				rotation = value;
 				Laser.RecomputePoints(Position, value);
+
+				base.Rotation = value;
 			}
 		}
 	}

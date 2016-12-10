@@ -39,8 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="ContentLoader.cs" />
     <Compile Include="Core\Sprite.cs" />
+    <Compile Include="Core\Timer.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\KeyButton.cs" />
     <Compile Include="Entities\Lasers\FixedLaserSource.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Entities\Organization\EntityLayer.cs" />
     <Compile Include="Entities\Organization\Scene.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\Tilemap.cs" />
     <Compile Include="GameFunctions.cs" />
     <Compile Include="Input\GamepadData.cs" />
@@ -63,6 +66,8 @@
     <Compile Include="Interfaces\IRenderable.cs" />
     <Compile Include="Json\DIContractResolver.cs" />
     <Compile Include="Json\JsonUtilities.cs" />
+    <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\LevelSystem.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Messaging\GameMessage.cs" />
     <Compile Include="Messaging\Input\GamepadMessage.cs" />
@@ -105,11 +110,13 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Content\Levels\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="Content\Json\Levels\Level1.json" />
     <None Include="Content\Json\Tilemaps\OneRoom.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Properties\Miscellaneous.properties">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Properties\Player.properties">

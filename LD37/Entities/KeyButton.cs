@@ -42,7 +42,7 @@ namespace LD37.Entities
 
 		public void InteractionResponse()
 		{
-			messageSystem.Send(new GameMessage(MessageTypes.LevelAdvance));
+			messageSystem.Send(new GameMessage(MessageTypes.LevelRefresh));
 		}
 
 		public override void Render(SpriteBatch sb)
