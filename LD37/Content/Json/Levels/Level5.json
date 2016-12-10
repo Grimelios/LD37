@@ -3,26 +3,26 @@
 	"TileEntities": [
 		{
 			"$type": "LD37.Entities.Switch, LD37",
-			"LoadPosition": "10, 19",
+			"LoadPosition": "3, 20",
 			"TargetIDs": [1]
 		},
 		// ID = 1
 		{
 			"$type": "LD37.Entities.KeyButton, LD37",
-			"LoadPosition": "20, 18"
+			"LoadPosition": "15, 19"
 		}
 	],
 
 	"Platforms": [
 		{
 			"Width": 5,
-			"Height": 2,
-			"Position": "8, 20"
+			"Height": 1,
+			"Position": "1, 21"
 		},
 		{
-			"Width": 5,
-			"Height": 2,
-			"Position": "18, 20"
+			"Width": 7,
+			"Height": 1,
+			"Position": "12, 21"
 		}
 	]
 }
