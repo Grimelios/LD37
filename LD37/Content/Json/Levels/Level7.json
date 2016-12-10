@@ -1,0 +1,33 @@
+﻿{
+	"Name": "",
+	"TileEntities": [
+		{
+			"$type": "LD37.Entities.Switch, LD37",
+			"LoadPosition": "27, 9",
+			"TargetIDs": [ 1 ],
+			"Powered": true
+		},
+		{
+			"$type": "LD37.Entities.KeyButton, LD37",
+			"LoadPosition": "5, 20"
+		}
+	],
+
+	"Platforms": [
+		{
+			"Width": 13,
+			"Height": 4,
+			"Position": "17, 18"
+		},
+		{
+			"Width": 9,
+			"Height": 4,
+			"Position": "21, 14"
+		},
+		{
+			"Width": 5,
+			"Height": 4,
+			"Position": "25, 10"
+		}
+	]
+}

@@ -65,6 +65,15 @@ namespace LD37.Entities
 			}
 		}
 
+		public override Vector2 Scale
+		{
+			set
+			{
+				mainSprite.Scale = value;
+				leverSprite.Scale = value;
+			}
+		}
+
 		public Rectangle InteractionBox { get; private set; }
 
 		[JsonProperty]
@@ -74,10 +83,15 @@ namespace LD37.Entities
 			{
 				powered = value;
 
-				foreach (IPowered target in powerTargets)
+				if (powerTargets != null)
 				{
-					target.Powered = value;
+					foreach (IPowered target in powerTargets)
+					{
+						target.Powered = value;
+					}
 				}
+
+				leverSprite.Position = Position + (powered ? poweredLeverOffset : unpoweredLeverOffset);
 			}
 		}
 
