@@ -2,11 +2,14 @@
 using LD37.Entities;
 using LD37.Entities.Organization;
 using LD37.Entities.Platforms;
+using LD37.Input;
 using LD37.Interfaces;
 using LD37.Json;
 using LD37.Messaging;
+using LD37.Messaging.Input;
 using LD37.Utility;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace LD37.Levels
 {
@@ -30,7 +33,7 @@ namespace LD37.Levels
 
 			RetrieveTiles();
 
-			levelCounter = 1;
+			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
 		}
 
@@ -51,18 +54,40 @@ namespace LD37.Levels
 
 		public void Receive(GameMessage message)
 		{
-			Refresh(((LevelRefreshMessage)message).TileCoordinates);
+			switch (message.Type)
+			{
+				case MessageTypes.Keyboard:
+					HandleKeyboard(((KeyboardMessage)message).Data);
+					break;
+
+				case MessageTypes.LevelRefresh:
+					Refresh(((LevelRefreshMessage)message).TileCoordinates);
+					break;
+			}
 		}
 
-		public void Refresh(Point sourceCoordinates, bool cascadeTiles = true)
+		private void HandleKeyboard(KeyboardData data)
 		{
-			Level level = JsonUtilities.Deserialize<Level>("Levels/Level" + levelCounter + ".json");
-			levelCounter++;
-			level.TileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
-
-			if (level.Platforms != null)
+			if (data.KeysPressedThisFrame.Contains(Keys.R))
 			{
-				AttachPlatforms(level.Platforms, cascadeTiles);
+				Refresh(Point.Zero, true, false);
+			}
+		}
+
+		public void Refresh(Point sourceCoordinates, bool cascadeTiles = true, bool incrementLevel = true)
+		{
+			if (incrementLevel)
+			{
+				levelCounter++;
+			}
+
+			currentLevel?.Dispose();
+			currentLevel = JsonUtilities.Deserialize<Level>("Levels/Level" + levelCounter + ".json");
+			currentLevel.TileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
+
+			if (currentLevel.Platforms != null)
+			{
+				AttachPlatforms(currentLevel.Platforms, cascadeTiles);
 			}
 
 			if (cascadeTiles)

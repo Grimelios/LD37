@@ -5,5 +5,13 @@
 			"$type": "LD37.Entities.KeyButton, LD37",
 			"LoadPosition": "15, 20"
 		}
+	],
+
+	"Platforms": [
+		{
+			"Width": 8,
+			"Height": 3,
+			"Position": "22, 19"
+		}
 	]
 }

@@ -24,7 +24,7 @@ namespace LD37.Levels
 		public void Dispose()
 		{
 			TileEntities.ForEach(entity => entity.Dispose());
-			Platforms.ForEach(platform => platform.Dispose());
+			Platforms?.ForEach(platform => platform.Dispose());
 		}
 	}
 }
