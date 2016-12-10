@@ -47,6 +47,7 @@
     <Compile Include="Entities\Mirror.cs" />
     <Compile Include="Entities\Organization\EntityLayer.cs" />
     <Compile Include="Entities\Organization\Scene.cs" />
+    <Compile Include="Entities\Tilemap.cs" />
     <Compile Include="GameFunctions.cs" />
     <Compile Include="Input\GamepadData.cs" />
     <Compile Include="Input\InputGenerator.cs" />
@@ -55,12 +56,15 @@
     <Compile Include="Interfaces\IDynamic.cs" />
     <Compile Include="Interfaces\IMessageReceiver.cs" />
     <Compile Include="Interfaces\IRenderable.cs" />
+    <Compile Include="Json\DIContractResolver.cs" />
+    <Compile Include="Json\JsonUtilities.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Messaging\GameMessage.cs" />
     <Compile Include="Messaging\Input\GamepadMessage.cs" />
     <Compile Include="Messaging\Input\KeyboardMessage.cs" />
     <Compile Include="Messaging\Input\MouseMessage.cs" />
     <Compile Include="Messaging\MessageSystem.cs" />
+    <Compile Include="Paths.cs" />
     <Compile Include="Physics\PhysicsConvert.cs" />
     <Compile Include="Physics\PhysicsFactory.cs" />
     <Compile Include="Physics\PhysicsHelper.cs" />
@@ -77,6 +81,10 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
@@ -90,8 +98,13 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Content\Levels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Json\Tilemaps\OneRoom.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

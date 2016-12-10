@@ -1,12 +1,15 @@
 ﻿using System;
 using FarseerPhysics.Dynamics;
+using LD37.Entities;
 using LD37.Entities.Lasers;
 using LD37.Entities.Organization;
 using LD37.Input;
+using LD37.Json;
 using LD37.Messaging;
 using LD37.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using Ninject;
 
 namespace LD37
@@ -54,6 +57,12 @@ namespace LD37
 			kernel.Bind<PhysicsHelper>().ToConstant(new PhysicsHelper(world));
 			kernel.Bind<PrimitiveDrawer>().ToSelf().InSingletonScope();
 
+			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+			{
+				TypeNameHandling = TypeNameHandling.Auto,
+				ContractResolver = new DIContractResolver(kernel)
+			};
+
 			camera = kernel.Get<Camera>();
 			inputGenerator = kernel.Get<InputGenerator>();
 
@@ -64,16 +73,19 @@ namespace LD37
 
 		private void CreatePrimaryLayer(IKernel kernel)
 		{
+			Tilemap tilemap = JsonUtilities.Deserialize<Tilemap>("Tilemaps/OneRoom.json");
 			LaserSource laserSource = kernel.Get<LaserSource>();
 
 			EntityLayer primaryLayer = new EntityLayer(new Type[0], new []
 			{
 				typeof(LaserSource),
-				typeof(Laser)
+				typeof(Laser),
+				typeof(Tilemap)
 			});
 
 			primaryLayer.Add(typeof(LaserSource), laserSource);
 			primaryLayer.Add(typeof(Laser), laserSource.Laser);
+			primaryLayer.Add(typeof(Tilemap), tilemap);
 
 			scene = new Scene();
 			scene.LayerMap.Add("Primary", primaryLayer);

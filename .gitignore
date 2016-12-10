@@ -2,6 +2,7 @@
 *.suo
 
 # Folders
+.vs
 bin
 obj
 packages
