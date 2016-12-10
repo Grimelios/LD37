@@ -60,7 +60,7 @@ namespace LD37.Entities
 
 		public void Flip(float initialDelay = 0)
 		{
-			timer = new Timer(initialDelay, BeginFlip, false);
+			timer = new Timer(initialDelay, BeginFlip);
 		}
 
 		private void BeginFlip()
@@ -68,7 +68,7 @@ namespace LD37.Entities
 			timer = new Timer(flipTime, (progress) =>
 			{
 				Scale = new Vector2(1 - progress * progress, 1);
-			}, ReverseFlip, false);
+			}, ReverseFlip);
 		}
 
 		private void ReverseFlip()
@@ -83,7 +83,7 @@ namespace LD37.Entities
 			{
 				Scale = Vector2.One;
 				timer = null;
-			}, false, timer.Elapsed);
+			}, timer.Elapsed);
 		}
 
 		public override void Update(float dt)

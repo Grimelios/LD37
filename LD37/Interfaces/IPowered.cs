@@ -2,6 +2,6 @@
 {
 	internal interface IPowered
 	{
-		bool Powered { get; set; }
+		bool Powered { set; }
 	}
 }

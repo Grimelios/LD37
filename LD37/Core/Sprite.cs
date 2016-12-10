@@ -8,11 +8,22 @@ namespace LD37.Core
 	{
 		private Texture2D texture;
 
-		public Sprite(ContentLoader contentLoader, string filename, OriginLocations originLocation)
+		public Sprite(ContentLoader contentLoader, string filename, OriginLocations originLocation) :
+			this(contentLoader.LoadTexture(filename), null, originLocation)
 		{
-			texture = contentLoader.LoadTexture(filename);
-			Origin = originLocation == OriginLocations.Center ? new Vector2(texture.Width, texture.Height) / 2 :
-				Vector2.Zero;
+		}
+
+		public Sprite(Texture2D texture, Rectangle? sourceRect, OriginLocations originLocation)
+		{
+			this.texture = texture;
+
+			if (originLocation == OriginLocations.Center)
+			{
+				Origin = sourceRect == null ? new Vector2(texture.Width, texture.Height) / 2 :
+					new Vector2(sourceRect.Value.Width, sourceRect.Value.Height) / 2;
+			}
+
+			SourceRect = sourceRect;
 			Scale = Vector2.One;
 			Color = Color.White;
 		}

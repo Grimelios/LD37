@@ -1,14 +1,14 @@
-﻿using System;
-using LD37.Core;
+﻿using LD37.Core;
 using LD37.Interfaces;
 using LD37.Messaging;
 using LD37.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 
 namespace LD37.Entities
 {
-	internal class KeyButton : Entity, IInteractive
+	internal class KeyButton : Entity, IInteractive, IPowered
 	{
 		private const int InteractionSize = 32;
 
@@ -20,8 +20,9 @@ namespace LD37.Entities
 			this.messageSystem = messageSystem;
 
 			sprite = new Sprite(contentLoader, "KeyButton", OriginLocations.Center);
-			BoundingBox = new Rectangle(0, 0, InteractionSize, InteractionSize);
+			InteractionBox = new Rectangle(0, 0, InteractionSize, InteractionSize);
 			interactionSystem.Items.Add(this);
+			Powered = true;
 		}
 
 		public override Vector2 Position
@@ -30,10 +31,10 @@ namespace LD37.Entities
 			{
 				sprite.Position = value;
 
-				Rectangle boundingBox = BoundingBox;
-				boundingBox.X = (int)value.X - boundingBox.Width / 2;
-				boundingBox.Y = (int)value.Y - boundingBox.Height / 2;
-				BoundingBox = boundingBox;
+				Rectangle box = InteractionBox;
+				box.X = (int)value.X - box.Width / 2;
+				box.Y = (int)value.Y - box.Height / 2;
+				InteractionBox = box;
 
 				base.Position = value;
 			}
@@ -44,11 +45,17 @@ namespace LD37.Entities
 			set { sprite.Scale = value; }
 		}
 
-		public Rectangle BoundingBox { get; private set; }
+		public Rectangle InteractionBox { get; private set; }
 		
+		[JsonProperty]
+		public bool Powered { get; set; }
+
 		public void InteractionResponse()
 		{
-			messageSystem.Send(new LevelRefreshMessage(TileConvert.ToTile(Position)));
+			if (Powered)
+			{
+				messageSystem.Send(new LevelRefreshMessage(TileConvert.ToTile(Position)));
+			}
 		}
 
 		public override void Render(SpriteBatch sb)

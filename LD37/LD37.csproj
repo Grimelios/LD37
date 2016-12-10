@@ -48,12 +48,14 @@
     <Compile Include="Entities\Lasers\FixedLaserSource.cs" />
     <Compile Include="Entities\Lasers\Laser.cs" />
     <Compile Include="Entities\Lasers\AbstractLaserSource.cs" />
+    <Compile Include="Entities\Lasers\RotatingLaserSource.cs" />
     <Compile Include="Entities\Mirror.cs" />
     <Compile Include="Entities\Organization\EntityLayer.cs" />
     <Compile Include="Entities\Organization\Scene.cs" />
     <Compile Include="Entities\Platforms\Platform.cs" />
     <Compile Include="Entities\Platforms\PlatformSegment.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\Switch.cs" />
     <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\Tilemap.cs" />
     <Compile Include="GameFunctions.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Interfaces\IInteractive.cs" />
     <Compile Include="Interfaces\IMessageReceiver.cs" />
     <Compile Include="Interfaces\IPowered.cs" />
+    <Compile Include="Interfaces\IPowerSource.cs" />
     <Compile Include="Interfaces\IRenderable.cs" />
     <Compile Include="Json\DIContractResolver.cs" />
     <Compile Include="Json\JsonUtilities.cs" />
@@ -129,6 +132,9 @@
     <None Include="Content\Json\Levels\Level4.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Json\Levels\Level5.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Json\Tilemaps\OneRoom.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -136,6 +142,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Properties\Player.properties">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Properties\Switch.properties">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

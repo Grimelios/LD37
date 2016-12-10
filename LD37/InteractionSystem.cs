@@ -17,7 +17,7 @@ namespace LD37
 		{
 			foreach (IInteractive item in Items)
 			{
-				if (playerRect.Intersects(item.BoundingBox))
+				if (playerRect.Intersects(item.InteractionBox))
 				{
 					item.InteractionResponse();
 

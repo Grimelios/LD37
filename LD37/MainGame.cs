@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using LD37.Entities;
-using LD37.Entities.Lasers;
 using LD37.Entities.Organization;
 using LD37.Input;
-using LD37.Interfaces;
 using LD37.Json;
 using LD37.Levels;
 using LD37.Messaging;
-using LD37.Messaging.Input;
 using LD37.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

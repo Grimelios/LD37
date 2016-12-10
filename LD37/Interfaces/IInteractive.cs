@@ -4,7 +4,7 @@ namespace LD37.Interfaces
 {
 	internal interface IInteractive
 	{
-		Rectangle BoundingBox { get; }
+		Rectangle InteractionBox { get; }
 
 		void InteractionResponse();
 	}

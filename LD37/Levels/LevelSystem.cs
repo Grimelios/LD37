@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using LD37.Entities;
 using LD37.Entities.Organization;
 using LD37.Entities.Platforms;
@@ -13,8 +14,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LD37.Levels
 {
-	using EntityMap = Dictionary<string, List<Entity>>;
-
 	internal class LevelSystem : IMessageReceiver
 	{
 		private const float DelayMultiplier = 1.5f;
@@ -32,6 +31,8 @@ namespace LD37.Levels
 			this.scene = scene;
 
 			RetrieveTiles();
+
+			levelCounter = 4;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
@@ -92,6 +93,8 @@ namespace LD37.Levels
 				AttachPlatforms(currentLevel.Platforms, cascadeTiles);
 			}
 
+			WireElements(currentLevel.TileEntities);
+
 			if (cascadeTiles)
 			{
 				CascadeTiles(sourceCoordinates);
@@ -123,6 +126,19 @@ namespace LD37.Levels
 			if (!cascadeTiles)
 			{
 				tile.Flip();
+			}
+		}
+
+		private void WireElements(List<Entity> entities)
+		{
+			foreach (Entity entity in entities)
+			{
+				IPowerSource powerSource = entity as IPowerSource;
+
+				if (powerSource != null)
+				{
+					powerSource.PowerTargets = powerSource.TargetIDs.Select(id => entities[id]).Cast<IPowered>().ToArray();
+				}
 			}
 		}
 

@@ -8,18 +8,15 @@ namespace LD37.Core
 		private Action<float> tick;
 		private Action trigger;
 
-		private bool repeating;
-
-		public Timer(float duration, Action trigger, bool repeating, float initialElapsed = 0) :
-			this(duration, null, trigger, repeating)
+		public Timer(float duration, Action trigger, float initialElapsed = 0) :
+			this(duration, null, trigger)
 		{
 		}
 
-		public Timer(float duration, Action<float> tick, Action trigger, bool repeating, float initialElapsed = 0)
+		public Timer(float duration, Action<float> tick, Action trigger, float initialElapsed = 0)
 		{
 			this.tick = tick;
 			this.trigger = trigger;
-			this.repeating = repeating;
 
 			Duration = duration;
 			Elapsed = initialElapsed;
