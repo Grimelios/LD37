@@ -40,7 +40,10 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="ContentLoader.cs" />
+    <Compile Include="Core\Sprite.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Lasers\Laser.cs" />
+    <Compile Include="Entities\Lasers\LaserSource.cs" />
     <Compile Include="GameFunctions.cs" />
     <Compile Include="Input\GamepadData.cs" />
     <Compile Include="Input\InputGenerator.cs" />

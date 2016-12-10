@@ -1,4 +1,5 @@
 ﻿using FarseerPhysics.Dynamics;
+using LD37.Entities.Lasers;
 using LD37.Input;
 using LD37.Messaging;
 using LD37.Physics;
@@ -8,7 +9,13 @@ using Ninject;
 
 namespace LD37
 {
-	public class MainGame : Game
+	internal enum OriginLocations
+	{
+		Center,
+		Default
+	}
+
+	internal class MainGame : Game
 	{
 		private const int DefaultScreenWidth = 1024;
 		private const int DefaultScreenHeight = 768;
@@ -19,6 +26,8 @@ namespace LD37
 		private Camera camera;
 		private InputGenerator inputGenerator;
 		private World world;
+
+		private LaserSource laserSource;
 
 		public MainGame()
 		{
@@ -46,6 +55,9 @@ namespace LD37
 			camera = kernel.Get<Camera>();
 			inputGenerator = kernel.Get<InputGenerator>();
 
+			laserSource = kernel.Get<LaserSource>();
+			laserSource.Position = new Vector2(400);
+
 			base.Initialize();
 		}
 
@@ -72,6 +84,7 @@ namespace LD37
 			GraphicsDevice.Clear(Color.Black);
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.Transform);
+			laserSource.Render(spriteBatch);
 			spriteBatch.End();
 		}
 	}
