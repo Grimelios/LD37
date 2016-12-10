@@ -1,31 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LD37.Interfaces;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LD37.Entities.Organization
 {
-	using EntityMap = Dictionary<Type, List<Entity>>;
+	using EntityMap = Dictionary<string, List<Entity>>;
 
 	internal class EntityLayer : IDynamic, IRenderable
 	{
-		private Type[] updateOrder;
-		private Type[] renderOrder;
-		private EntityMap entityMap;
+		private string[] updateOrder;
+		private string[] renderOrder;
 
-		public EntityLayer(Type[] updateOrder, Type[] renderOrder)
+		public EntityLayer(string[] updateOrder, string[] renderOrder)
 		{
 			this.updateOrder = updateOrder;
 			this.renderOrder = renderOrder;
 
-			entityMap = new EntityMap();
+			EntityMap = new EntityMap();
 		}
 
-		public void Add(Type entityType, Entity entity)
+		public EntityMap EntityMap { get; }
+
+		public void Add(string entityGroup, Entity entity)
 		{
-			if (!entityMap.ContainsKey(entityType))
+			if (!EntityMap.ContainsKey(entityGroup))
 			{
-				entityMap.Add(entityType, new List<Entity>
+				EntityMap.Add(entityGroup, new List<Entity>
 				{
 					entity
 				});
@@ -33,16 +33,16 @@ namespace LD37.Entities.Organization
 				return;
 			}
 
-			entityMap[entityType].Add(entity);
+			EntityMap[entityGroup].Add(entity);
 		}
 
 		public void Update(float dt)
 		{
-			foreach (Type type in updateOrder)
+			foreach (string type in updateOrder)
 			{
 				List<Entity> entityList;
 
-				if (entityMap.TryGetValue(type, out entityList))
+				if (EntityMap.TryGetValue(type, out entityList))
 				{
 					entityList.ForEach(entity => entity.Update(dt));
 				}
@@ -51,11 +51,11 @@ namespace LD37.Entities.Organization
 
 		public void Render(SpriteBatch sb)
 		{
-			foreach (Type type in renderOrder)
+			foreach (string type in renderOrder)
 			{
 				List<Entity> entityList;
 
-				if (entityMap.TryGetValue(type, out entityList))
+				if (EntityMap.TryGetValue(type, out entityList))
 				{
 					entityList.ForEach(entity => entity.Render(sb));
 				}

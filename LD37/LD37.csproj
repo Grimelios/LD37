@@ -112,7 +112,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Content\Json\Levels\Level1.json" />
+    <None Include="Content\Json\Levels\Level1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Json\Tilemaps\OneRoom.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

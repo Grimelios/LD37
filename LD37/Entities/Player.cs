@@ -75,6 +75,8 @@ namespace LD37.Entities
 			}
 		}
 
+		public override string EntityGroup => "Player";
+
 		public void Receive(GameMessage message)
 		{
 			switch (message.Type)

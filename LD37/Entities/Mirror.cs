@@ -4,6 +4,8 @@ namespace LD37.Entities
 {
 	internal class Mirror : Entity
 	{
+		public override bool TileAttach => true;
+
 		public float ComputeReflectionAngle(float incomingAngle)
 		{
 			return 0;

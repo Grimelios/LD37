@@ -48,6 +48,8 @@ namespace LD37.Entities
 			}
 		}
 
+		public override string EntityGroup => "Tile";
+
 		public Entity AttachedEntity { get; set; }
 		public Entity ReversedEntity { get; set; }
 

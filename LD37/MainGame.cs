@@ -1,10 +1,12 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using System.Collections.Generic;
+using FarseerPhysics.Dynamics;
 using LD37.Entities;
 using LD37.Entities.Lasers;
 using LD37.Entities.Organization;
 using LD37.Input;
 using LD37.Interfaces;
 using LD37.Json;
+using LD37.Levels;
 using LD37.Messaging;
 using LD37.Messaging.Input;
 using LD37.Physics;
@@ -15,18 +17,18 @@ using Ninject;
 
 namespace LD37
 {
+	using EntityMap = Dictionary<string, List<Entity>>;
+
 	internal enum OriginLocations
 	{
 		Center,
 		Default
 	}
 
-	internal class MainGame : Game, IMessageReceiver
+	internal class MainGame : Game
 	{
 		private const int DefaultScreenWidth = 1024;
 		private const int DefaultScreenHeight = 768;
-		private const int RoomWidth = 32;
-		private const int RoomHeight = 24;
 
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
@@ -36,8 +38,6 @@ namespace LD37
 		private PhysicsDebugDrawer physicsDebugDrawer;
 		private Scene scene;
 		private World world;
-
-		private Tile tile;
 
 		public MainGame()
 		{
@@ -77,55 +77,67 @@ namespace LD37
 
 			CreatePrimaryLayer(kernel);
 
-			kernel.Get<MessageSystem>().Subscribe(MessageTypes.Mouse, this);
-
 			base.Initialize();
 		}
 
 		private void CreatePrimaryLayer(IKernel kernel)
 		{
 			Tilemap tilemap = JsonUtilities.Deserialize<Tilemap>("Tilemaps/OneRoom.json");
-			AbstractLaserSource laserSource = kernel.Get<FixedLaserSource>();
 			Player player = kernel.Get<Player>();
 			player.LoadPosition = new Vector2(800, 200);
 
 			EntityLayer primaryLayer = new EntityLayer(new []
 			{
-				typeof(Tile),
-				typeof(Player)
+				"Tile",
+				"Player"
 			}, new []
 			{
-				typeof(Tile),
-				typeof(Laser),
-				typeof(Player),
-				typeof(Tilemap)
+				"Tile",
+				"Laser",
+				"Player",
+				"Tilemap"
 			});
-
-			tile = kernel.Get<Tile>();
-			tile.Position = new Vector2(100);
-			tile.AttachedEntity = laserSource;
-
-			primaryLayer.Add(typeof(Tile), tile);
-			primaryLayer.Add(typeof(Laser), laserSource.Laser);
-			primaryLayer.Add(typeof(Player), player);
-			primaryLayer.Add(typeof(Tilemap), tilemap);
+			
+			primaryLayer.Add("Player", player);
+			primaryLayer.Add("Tilemap", tilemap);
 
 			scene = new Scene();
 			scene.LayerMap.Add("Primary", primaryLayer);
 
 			AddRoomEdges(kernel, tilemap);
+			CreateTiles(kernel);
 
-			laserSource.Position = new Vector2(100);
-			laserSource.Rotation = 0;
-			laserSource.Color = Color.Red;
+			LevelSystem levelSystem = kernel.Get<LevelSystem>();
+			levelSystem.Scene = scene;
+			levelSystem.Refresh();
+		}
+
+		private void CreateTiles(IKernel kernel)
+		{
+			Tile[,] tiles = new Tile[Constants.RoomWidth - 2, Constants.RoomHeight - 2];
+			List<Entity> tileList = new List<Entity>();
+
+			for (int i = 0; i < Constants.RoomHeight - 2; i++)
+			{
+				for (int j = 0; j < Constants.RoomWidth - 2; j++)
+				{
+					Tile tile = kernel.Get<Tile>();
+					tile.LoadPosition = new Vector2(j + 1, i + 1);
+					tiles[j, i] = tile;
+					tileList.Add(tile);
+				}
+			}
+
+			EntityMap entityMap = scene.LayerMap["Primary"].EntityMap;
+			entityMap.Add("Tile", tileList);
 		}
 
 		private void AddRoomEdges(IKernel kernel, Tilemap tilemap)
 		{
 			Vector2 topLeft = Vector2.One;
-			Vector2 topRight = new Vector2(RoomWidth - 1, 1);
-			Vector2 bottomLeft = new Vector2(1, RoomHeight - 1);
-			Vector2 bottomRight = new Vector2(RoomWidth - 1, RoomHeight - 1);
+			Vector2 topRight = new Vector2(Constants.RoomWidth - 1, 1);
+			Vector2 bottomLeft = new Vector2(1, Constants.RoomHeight - 1);
+			Vector2 bottomRight = new Vector2(Constants.RoomWidth - 1, Constants.RoomHeight - 1);
 
 			PhysicsFactory physicsFactory = kernel.Get<PhysicsFactory>();
 			Body body = physicsFactory.CreateBody(tilemap);
@@ -147,16 +159,6 @@ namespace LD37
 		{
 		}
 
-		public void Receive(GameMessage message)
-		{
-			MouseData data = ((MouseMessage)message).Data;
-
-			if (data.LeftClickState == ClickStates.PressedThisFrame)
-			{
-				tile.Flip();
-			}
-		}
-
 		protected override void Update(GameTime gameTime)
 		{
 			float dt = (float)gameTime.ElapsedGameTime.Milliseconds / 1000;
@@ -169,7 +171,7 @@ namespace LD37
 
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.Black);
+			GraphicsDevice.Clear(new Color(90, 90, 90));
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.Transform);
 			scene.Render(spriteBatch);

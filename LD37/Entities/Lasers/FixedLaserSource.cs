@@ -44,6 +44,8 @@ namespace LD37.Entities.Lasers
 				base.Rotation = value;
 			}
 		}
+		
+		public override bool TileAttach => true;
 
 		public override void Render(SpriteBatch sb)
 		{

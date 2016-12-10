@@ -22,7 +22,7 @@ namespace LD37.Entities
 		public virtual Vector2 LoadPosition
 		{
 			get { return position; }
-			set { Position = value * Constants.TileSize; }
+			set { Position = value * Constants.TileSize + new Vector2(Constants.TileSize) / 2; }
 		}
 
 		public virtual Vector2 Scale
@@ -36,6 +36,9 @@ namespace LD37.Entities
 			get { return rotation; }
 			set { rotation = value; }
 		}
+
+		public virtual string EntityGroup => null;
+		public virtual bool TileAttach => false;
 
 		public virtual void Update(float dt)
 		{
