@@ -50,25 +50,30 @@ namespace LD37
 			IKernel kernel = new StandardKernel();
 			kernel.Bind<ContentLoader>().ToConstant(new ContentLoader(Content));
 			kernel.Bind<MessageSystem>().ToSelf().InSingletonScope();
-			kernel.Bind<PhysicsFactory>().ToSelf().InSingletonScope();
+			kernel.Bind<PhysicsFactory>().ToConstant(new PhysicsFactory(world));
+			kernel.Bind<PhysicsHelper>().ToConstant(new PhysicsHelper(world));
 			kernel.Bind<PrimitiveDrawer>().ToSelf().InSingletonScope();
-			kernel.Bind<World>().ToConstant(world);
 
 			camera = kernel.Get<Camera>();
 			inputGenerator = kernel.Get<InputGenerator>();
 
-			CreatePrimaryLayer();
+			CreatePrimaryLayer(kernel);
 
 			base.Initialize();
 		}
 
-		private void CreatePrimaryLayer()
+		private void CreatePrimaryLayer(IKernel kernel)
 		{
+			LaserSource laserSource = kernel.Get<LaserSource>();
+
 			EntityLayer primaryLayer = new EntityLayer(new Type[0], new []
 			{
 				typeof(LaserSource),
 				typeof(Laser)
 			});
+
+			primaryLayer.Add(typeof(LaserSource), laserSource);
+			primaryLayer.Add(typeof(Laser), laserSource.Laser);
 
 			scene = new Scene();
 			scene.LayerMap.Add("Primary", primaryLayer);

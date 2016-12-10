@@ -44,6 +44,7 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Lasers\Laser.cs" />
     <Compile Include="Entities\Lasers\LaserSource.cs" />
+    <Compile Include="Entities\Mirror.cs" />
     <Compile Include="Entities\Organization\EntityLayer.cs" />
     <Compile Include="Entities\Organization\Scene.cs" />
     <Compile Include="GameFunctions.cs" />
@@ -62,6 +63,8 @@
     <Compile Include="Messaging\MessageSystem.cs" />
     <Compile Include="Physics\PhysicsConvert.cs" />
     <Compile Include="Physics\PhysicsFactory.cs" />
+    <Compile Include="Physics\PhysicsHelper.cs" />
+    <Compile Include="Physics\RayCastResults.cs" />
     <Compile Include="PrimitiveDrawer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
