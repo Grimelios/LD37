@@ -7,6 +7,7 @@ namespace LD37.Entities.Lasers
 	internal class LaserSource : Entity
 	{
 		private Sprite sprite;
+		private Laser laser;
 
 		public LaserSource(ContentLoader contentLoader)
 		{
@@ -16,6 +17,11 @@ namespace LD37.Entities.Lasers
 		public override Vector2 Position
 		{
 			set { sprite.Position = value; }
+		}
+
+		public Color Color
+		{
+			set { laser.Color = value; }
 		}
 
 		public float Rotation

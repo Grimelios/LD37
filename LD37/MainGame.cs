@@ -27,6 +27,7 @@ namespace LD37
 		private InputGenerator inputGenerator;
 		private World world;
 
+		private Laser laser;
 		private LaserSource laserSource;
 
 		public MainGame()
@@ -50,11 +51,14 @@ namespace LD37
 			kernel.Bind<ContentLoader>().ToConstant(new ContentLoader(Content));
 			kernel.Bind<MessageSystem>().ToSelf().InSingletonScope();
 			kernel.Bind<PhysicsFactory>().ToSelf().InSingletonScope();
+			kernel.Bind<PrimitiveDrawer>().ToSelf().InSingletonScope();
 			kernel.Bind<World>().ToConstant(world);
 
 			camera = kernel.Get<Camera>();
 			inputGenerator = kernel.Get<InputGenerator>();
 
+			laser = kernel.Get<Laser>();
+			laser.Color = Color.Red;
 			laserSource = kernel.Get<LaserSource>();
 			laserSource.Position = new Vector2(400);
 
@@ -85,6 +89,7 @@ namespace LD37
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.Transform);
 			laserSource.Render(spriteBatch);
+			laser.Render(spriteBatch);
 			spriteBatch.End();
 		}
 	}
