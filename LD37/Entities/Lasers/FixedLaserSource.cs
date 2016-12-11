@@ -11,15 +11,21 @@ namespace LD37.Entities.Lasers
 
 	internal class FixedLaserSource : AbstractLaserSource
 	{
+		private static int sourceOffset;
+
+		static FixedLaserSource()
+		{
+			PropertyMap properties = Properties.Load("Laser.properties");
+			sourceOffset = int.Parse(properties["Fixed.Source.Offset"]);
+		}
+
 		private Sprite sprite;
 
 		public FixedLaserSource(ContentLoader contentLoader, PhysicsHelper physicsHelper, PrimitiveDrawer primitiveDrawer, Scene scene) :
 			base(physicsHelper, primitiveDrawer, scene)
 		{
-			PropertyMap properties = Properties.Load("Laser.properties");
-
 			sprite = new Sprite(contentLoader, "Lasers/FixedLaserSource", OriginLocations.Center);
-			SourceOffset = int.Parse(properties["Fixed.Source.Offset"]);
+			SourceOffset = sourceOffset;
 		}
 
 		public override Vector2 Position
