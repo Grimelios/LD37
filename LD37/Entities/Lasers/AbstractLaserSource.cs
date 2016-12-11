@@ -22,36 +22,10 @@ namespace LD37.Entities.Lasers
 			entityMap = scene.LayerMap["Primary"].EntityMap;
 			laser = new Laser(physicsHelper, primitiveDrawer);
 		}
-
-		public override Vector2 Position
-		{
-			set
-			{
-				if (powered)
-				{
-					laser.Recast(value, Rotation);
-				}
-
-				base.Position = value;
-			}
-		}
 		
 		public virtual Color Color
 		{
 			set { laser.Color = value; }
-		}
-
-		public override float Rotation
-		{
-			set
-			{
-				if (powered)
-				{
-					laser.Recast(Position, value);
-				}
-
-				base.Rotation = value;
-			}
 		}
 
 		[JsonProperty]
@@ -70,11 +44,11 @@ namespace LD37.Entities.Lasers
 
 				if (powered)
 				{
-					laser.Recast(Position, Rotation);
 					entityMap["Laser"].Add(laser);
 				}
 				else
 				{
+					laser.Unpower();
 					entityMap["Laser"].Remove(laser);
 				}
 			}
@@ -85,6 +59,14 @@ namespace LD37.Entities.Lasers
 			if (powered)
 			{
 				Powered = false;
+			}
+		}
+
+		public override void Update(float dt)
+		{
+			if (Powered)
+			{
+				laser.Recast(Position, Rotation);
 			}
 		}
 	}

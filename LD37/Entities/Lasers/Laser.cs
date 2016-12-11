@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using LD37.Entities.Abstract;
+using LD37.Interfaces;
 using LD37.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,6 +14,7 @@ namespace LD37.Entities.Lasers
 		private List<Vector2> points;
 		private PhysicsHelper physicsHelper;
 		private PrimitiveDrawer primitiveDrawer;
+		private LaserReceiver activatedReceiver;
 
 		public Laser(PhysicsHelper physicsHelper, PrimitiveDrawer primitiveDrawer)
 		{
@@ -24,6 +26,15 @@ namespace LD37.Entities.Lasers
 
 		public Color Color { get; set; }
 
+		public void Unpower()
+		{
+			if (activatedReceiver != null)
+			{
+				activatedReceiver.Powered = false;
+				activatedReceiver = null;
+			}
+		}
+
 		public void Recast(Vector2 source, float angle)
 		{
 			points.Clear();
@@ -31,6 +42,7 @@ namespace LD37.Entities.Lasers
 
 			Vector2 currentSource = PhysicsConvert.ToMeters(source);
 			Mirror mirror;
+			LaserReceiver receiver = null;
 
 			float currentAngle = angle;
 
@@ -47,14 +59,23 @@ namespace LD37.Entities.Lasers
 				}
 				else
 				{
-					LaserReceiver receiver = results.Entity as LaserReceiver;
-
-					if (receiver != null)
-					{
-						receiver.Powered = true;
-					}
+					receiver = results.Entity as LaserReceiver;
 				}
 			} while (mirror != null);
+
+			if (receiver != activatedReceiver)
+			{
+				if (receiver == null)
+				{
+					activatedReceiver.Powered = false;
+					activatedReceiver = null;
+				}
+				else
+				{
+					activatedReceiver = receiver;
+					activatedReceiver.Powered = true;
+				}
+			}
 		}
 
 		public override void Render(SpriteBatch sb)
