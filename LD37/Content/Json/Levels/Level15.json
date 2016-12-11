@@ -3,7 +3,7 @@
 	"TileEntities": [
 		{
 			"$type": "LD37.Entities.Switch, LD37",
-			"LoadPosition": "2, 15",
+			"LoadPosition": "8, 21",
 			"TargetIDs": [2]
 		},
 		{
@@ -12,27 +12,43 @@
 		},
 		{
 			"$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
-			"LoadPosition": "0, 19",
+			"LoadPosition": "2, 16",
+			"Rotation": -1.57,
 			"Tint": "255, 0, 0"
 		},
 		{
 			"$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
-			"LoadPosition": "29, 19",
-			"Rotation": 3.14,
+			"LoadPosition": "27, 16",
+			"Rotation": -1.57,
 			"TargetIDs": [1]
+		},
+		{
+			"$type": "LD37.Entities.Mirror, LD37",
+			"LoadPosition": "2, 15",
+			"Rotation": 0.393
+		},
+		{
+			"$type": "LD37.Entities.Mirror, LD37",
+			"LoadPosition": "15, 5",
+			"Rotation": 0.785
+		},
+		{
+			"$type": "LD37.Entities.Mirror, LD37",
+			"LoadPosition": "20, 15",
+			"Rotation": 0.785
 		}
 	],
 
 	"Platforms": [
 		{
-			"Width": 6,
-			"Height": 2,
-			"Position": "0, 16"
+			"Width": 5,
+			"Height": 5,
+			"Position": "0, 17"
 		},
 		{
-			"Width": 6,
-			"Height": 2,
-			"Position": "24, 16"
+			"Width": 5,
+			"Height": 5,
+			"Position": "25, 17"
 		}
 	]
 }

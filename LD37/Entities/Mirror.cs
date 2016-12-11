@@ -69,7 +69,7 @@ namespace LD37.Entities
 
 		public float? ComputeReflectionAngle(float incomingAngle)
 		{
-			if (Math.Abs(Rotation - (incomingAngle - MathHelper.Pi * Math.Sign(incomingAngle))) > reflectionThreshold)
+			if (Math.Abs(Rotation - incomingAngle) > reflectionThreshold)
 			{
 				return null;
 			}

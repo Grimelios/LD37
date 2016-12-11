@@ -60,8 +60,8 @@ namespace LD37.Entities.Lasers
 
 					if (reflectionAngle != null)
 					{
-						currentSource = results.Position;
 						currentAngle = reflectionAngle.Value;
+						currentSource = results.Position + GameFunctions.ComputeDirection(currentAngle) * 0.5f;
 					}
 				}
 				else
