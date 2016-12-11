@@ -1,5 +1,7 @@
-﻿using LD37.Core;
+﻿using FarseerPhysics.Dynamics;
+using LD37.Core;
 using LD37.Entities.Abstract;
+using LD37.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
@@ -8,26 +10,21 @@ namespace LD37.Entities.Lasers
 {
 	internal class LaserReceiver : AbstractPowerSource
 	{
-		private Sprite mainSprite;
-		private Sprite fillSprite;
-		private Color color;
+		private Sprite sprite;
+		private Body body;
 
-		public LaserReceiver(ContentLoader contentLoader)
+		public LaserReceiver(ContentLoader contentLoader, PhysicsFactory physicsFactory)
 		{
-			Texture2D texture = contentLoader.LoadTexture("Lasers/LaserReceiver");
-			Rectangle mainRect = new Rectangle(0, 0, 32, 32);
-			Rectangle fillRect = new Rectangle(32, 0, 32, 32);
-
-			mainSprite = new Sprite(texture, mainRect, OriginLocations.Center);
-			fillSprite = new Sprite(texture, fillRect, OriginLocations.Center);
+			sprite = new Sprite(contentLoader, "Lasers/LaserReceiver", OriginLocations.Center);
+			body = physicsFactory.CreateRectangle(1, 1, Units.Meters, BodyType.Static, this);
 		}
 
 		public override Vector2 Position
 		{
 			set
 			{
-				mainSprite.Position = value;
-				fillSprite.Position = value;
+				body.Position = PhysicsConvert.ToMeters(value);
+				sprite.Position = value;
 
 				base.Position = value;
 			}
@@ -37,20 +34,9 @@ namespace LD37.Entities.Lasers
 		{
 			set
 			{
-				mainSprite.Scale = value;
-				fillSprite.Scale = value;
+				sprite.Scale = value;
 
 				base.Scale = value;
-			}
-		}
-
-		[JsonProperty]
-		public string Tint
-		{
-			set
-			{
-				color = GameFunctions.ParseColor(value) * 0.5f;
-				fillSprite.Color = Powered ? color : color * 0.5f;
 			}
 		}
 
@@ -58,27 +44,20 @@ namespace LD37.Entities.Lasers
 		{
 			set
 			{
-				mainSprite.Rotation = value;
-				fillSprite.Rotation = value;
+				sprite.Rotation = value;
 
 				base.Rotation = value;
 			}
 		}
 
-		public override bool Powered
+		public override void Dispose()
 		{
-			set
-			{
-				fillSprite.Color = Powered ? color : color * 0.5f;
-
-				base.Powered = value;
-			}
+			body.Dispose();
 		}
 
 		public override void Render(SpriteBatch sb)
 		{
-			mainSprite.Render(sb);
-			fillSprite.Render(sb);
+			sprite.Render(sb);
 		}
 	}
 }

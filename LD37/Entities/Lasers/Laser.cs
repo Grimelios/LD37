@@ -24,7 +24,7 @@ namespace LD37.Entities.Lasers
 
 		public Color Color { get; set; }
 
-		public void RecomputePoints(Vector2 source, float angle)
+		public void Recast(Vector2 source, float angle)
 		{
 			points.Clear();
 			points.Add(source);
@@ -44,6 +44,15 @@ namespace LD37.Entities.Lasers
 				{
 					currentSource = PhysicsConvert.ToMeters(results.Position);
 					currentAngle = mirror.ComputeReflectionAngle(angle);
+				}
+				else
+				{
+					LaserReceiver receiver = results.Entity as LaserReceiver;
+
+					if (receiver != null)
+					{
+						receiver.Powered = true;
+					}
 				}
 			} while (mirror != null);
 		}

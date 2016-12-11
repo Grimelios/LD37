@@ -29,7 +29,7 @@ namespace LD37.Entities.Lasers
 			{
 				if (powered)
 				{
-					laser.RecomputePoints(value, Rotation);
+					laser.Recast(value, Rotation);
 				}
 
 				base.Position = value;
@@ -47,7 +47,7 @@ namespace LD37.Entities.Lasers
 			{
 				if (powered)
 				{
-					laser.RecomputePoints(Position, value);
+					laser.Recast(Position, value);
 				}
 
 				base.Rotation = value;
@@ -70,7 +70,7 @@ namespace LD37.Entities.Lasers
 
 				if (powered)
 				{
-					laser.RecomputePoints(Position, Rotation);
+					laser.Recast(Position, Rotation);
 					entityMap["Laser"].Add(laser);
 				}
 				else

@@ -17,8 +17,7 @@
 		},
 		{
 			"$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
-			"LoadPosition": "28, 12",
-			"Tint": "255, 0, 0",
+			"LoadPosition": "29, 12",
 			"Rotation": 3.14,
 			"TargetIDs": [1]
 		}
