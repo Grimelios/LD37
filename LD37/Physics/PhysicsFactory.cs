@@ -25,6 +25,20 @@ namespace LD37.Physics
 			return BodyFactory.CreateBody(world, entity);
 		}
 
+		public Body CreateEdge(Vector2 start, Vector2 end, Units units, Entity entity)
+		{
+			if (units == Units.Pixels)
+			{
+				start = PhysicsConvert.ToMeters(start);
+				end = PhysicsConvert.ToMeters(end);
+			}
+
+			Body body = BodyFactory.CreateEdge(world, start, end);
+			body.UserData = entity;
+
+			return body;
+		}
+
 		public Body CreateRectangle(float width, float height, Units units, BodyType bodyType, Entity entity)
 		{
 			return CreateRectangle(width, height, Vector2.Zero, units, bodyType, entity);

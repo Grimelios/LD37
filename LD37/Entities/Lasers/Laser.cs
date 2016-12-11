@@ -41,27 +41,36 @@ namespace LD37.Entities.Lasers
 			points.Add(source);
 
 			Vector2 currentSource = PhysicsConvert.ToMeters(source);
-			Mirror mirror;
-			LaserReceiver receiver = null;
+			Mirror currentMirror = null;
+			LaserReceiver receiver;
 
 			float currentAngle = angle;
 
-			do
+			while (true)
 			{
 				RayCastResults results = physicsHelper.RayCast(currentSource, currentAngle, RayCastRange);
 				points.Add(PhysicsConvert.ToPixels(results.Position));
-				mirror = results.Entity as Mirror;
+				Mirror newMirror = results.Entity as Mirror;
 
-				if (mirror != null)
+				if (newMirror != null && newMirror != currentMirror)
 				{
-					currentSource = PhysicsConvert.ToMeters(results.Position);
-					currentAngle = mirror.ComputeReflectionAngle(angle);
+					currentMirror = newMirror;
+
+					float? reflectionAngle = currentMirror.ComputeReflectionAngle(angle);
+
+					if (reflectionAngle != null)
+					{
+						currentSource = results.Position;
+						currentAngle = reflectionAngle.Value;
+					}
 				}
 				else
 				{
 					receiver = results.Entity as LaserReceiver;
+
+					break;
 				}
-			} while (mirror != null);
+			}
 
 			if (receiver != activatedReceiver)
 			{
