@@ -4,11 +4,17 @@
 		{
 			"$type": "LD37.Entities.Switch, LD37",
 			"LoadPosition": "3, 20",
-			"TargetIDs": [1]
+			"TargetIDs": [2]
 		},
 		{
 			"$type": "LD37.Entities.KeyButton, LD37",
-			"LoadPosition": "15, 19"
+			"LoadPosition": "26, 19"
+		},
+		{
+			"$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
+			"LoadPosition": "0, 12",
+			"Tint": "255, 0, 0",
+			"TargetIDs": [1]
 		}
 	],
 
@@ -19,9 +25,9 @@
 			"Position": "1, 21"
 		},
 		{
-			"Width": 7,
+			"Width": 5,
 			"Height": 1,
-			"Position": "12, 21"
+			"Position": "24, 21"
 		}
 	]
 }

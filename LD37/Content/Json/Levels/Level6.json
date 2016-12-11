@@ -2,31 +2,21 @@
 	"Name": "",
 	"TileEntities": [
 		{
-			"$type": "LD37.Entities.Switch, LD37",
-			"LoadPosition": "27, 10",
-			"TargetIDs": [1]
-		},
-		{
 			"$type": "LD37.Entities.KeyButton, LD37",
-			"LoadPosition": "5, 20"
+			"LoadPosition": "15, 13"
 		}
 	],
 
 	"Platforms": [
 		{
-			"Width": 5,
-			"Height": 3,
-			"Position": "25, 19"
+			"Width": 7,
+			"Height": 1,
+			"Position": "12, 21"
 		},
 		{
 			"Width": 5,
-			"Height": 2,
-			"Position": "17, 15"
-		},
-		{
-			"Width": 5,
-			"Height": 2,
-			"Position": "25, 11"
+			"Height": 1,
+			"Position": "13, 20"
 		}
 	]
 }

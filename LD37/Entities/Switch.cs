@@ -77,9 +77,9 @@ namespace LD37.Entities
 		{
 			set
 			{
-				leverSprite.Position = Position + (Powered ? poweredLeverOffset : unpoweredLeverOffset);
-
 				base.Powered = value;
+
+				leverSprite.Position = Position + (Powered ? poweredLeverOffset : unpoweredLeverOffset);
 			}
 		}
 
