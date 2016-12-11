@@ -32,6 +32,7 @@ namespace LD37.Entities.Lasers
 		{
 			sprite = new Sprite(contentLoader, "Lasers/LaserReceiver", OriginLocations.Center);
 			body = physicsFactory.CreateRectangle(bodyWidth, bodyHeight, Units.Meters, BodyType.Static, this);
+			body.IsSensor = true;
 		}
 
 		public override Vector2 Position

@@ -33,7 +33,7 @@ namespace LD37.Levels
 
 			RetrieveTiles();
 
-			levelCounter = 14;
+			levelCounter = 13;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
