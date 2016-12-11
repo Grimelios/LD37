@@ -23,6 +23,21 @@ namespace LD37
 			return (float)Math.Atan2(dY, dX);
 		}
 
+		public static float ClampAngle(float angle)
+		{
+			if (angle > MathHelper.Pi)
+			{
+				return angle - MathHelper.TwoPi;
+			}
+
+			if (angle < -MathHelper.Pi)
+			{
+				return angle + MathHelper.TwoPi;
+			}
+
+			return angle;
+		}
+
 		public static Vector2 ComputeDirection(float angle)
 		{
 			float x = (float)Math.Cos(angle);

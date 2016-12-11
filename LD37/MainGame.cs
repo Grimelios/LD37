@@ -98,6 +98,7 @@ namespace LD37
 			}, new []
 			{
 				"Tile",
+				"Wire",
 				"Laser",
 				"Player",
 				"Tilemap"

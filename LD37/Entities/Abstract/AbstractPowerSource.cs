@@ -9,6 +9,10 @@ namespace LD37.Entities.Abstract
 
 		private IPowered[] powerTargets;
 
+		protected AbstractPowerSource()
+		{
+		}
+
 		[JsonProperty]
 		public virtual bool Powered
 		{

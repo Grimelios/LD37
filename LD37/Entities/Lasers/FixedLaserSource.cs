@@ -50,6 +50,7 @@ namespace LD37.Entities.Lasers
 
 		public override float Rotation
 		{
+			get { return base.Rotation; }
 			set
 			{
 				sprite.Rotation = value;

@@ -21,6 +21,7 @@ namespace LD37.Entities.Lasers
 		{
 			entityMap = scene.LayerMap["Primary"].EntityMap;
 			laser = new Laser(physicsHelper, primitiveDrawer);
+			Color = Color.Red;
 		}
 		
 		protected int SourceOffset { get; set; }
@@ -66,7 +67,7 @@ namespace LD37.Entities.Lasers
 
 		public override void Update(float dt)
 		{
-			if (Powered)
+			if (powered)
 			{
 				Vector2 laserSource = Position + Vector2.Transform(new Vector2(SourceOffset, 0), Matrix.CreateRotationZ(Rotation));
 				laser.Recast(laserSource, Rotation);

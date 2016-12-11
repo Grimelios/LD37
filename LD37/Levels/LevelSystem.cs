@@ -15,6 +15,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LD37.Levels
 {
+	using EntityMap = Dictionary<string, List<Entity>>;
+
 	internal class LevelSystem : IMessageReceiver
 	{
 		private const float DelayMultiplier = 1.5f;
@@ -24,17 +26,17 @@ namespace LD37.Levels
 		private string levelFilename;
 
 		private InteractionSystem interactionSystem;
-		private Scene scene;
+		private EntityMap entityMap;
 		private Level currentLevel;
 		private Tile[,] tiles;
 
 		public LevelSystem(InteractionSystem interactionSystem, MessageSystem messageSystem, Scene scene)
 		{
 			this.interactionSystem = interactionSystem;
-			this.scene = scene;
 
 			tiles = scene.RetrieveTiles();
-			levelCounter = 2;
+			entityMap = scene.LayerMap["Primary"].EntityMap;
+			levelCounter = 14;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.LevelSave, this);
@@ -63,14 +65,14 @@ namespace LD37.Levels
 		{
 			if (data.KeysPressedThisFrame.Contains(Keys.R))
 			{
-				Refresh(Point.Zero, true, false);
+				//Refresh(Point.Zero, true, false);
 			}
 		}
 
 		private void SaveLevel()
 		{
 			List<Entity> tileEntities = GetTileEntities();
-			Level level = new Level("", tileEntities, currentLevel.Platforms);
+			Level level = new Level("", tileEntities, currentLevel.Platforms, entityMap["Wire"]);
 
 			JsonUtilities.Serialize(level, LevelDirectory + levelFilename);
 		}
@@ -120,6 +122,8 @@ namespace LD37.Levels
 			{
 				CascadeTiles(sourceCoordinates);
 			}
+
+			currentLevel.OtherEntities?.ForEach(entity => entityMap[entity.EntityGroup].Add(entity));
 		}
 
 		private void AttachPlatforms(List<Platform> platforms, bool cascadeTiles)
@@ -156,7 +160,7 @@ namespace LD37.Levels
 			{
 				AbstractPowerSource powerSource = entity as AbstractPowerSource;
 
-				if (powerSource != null)
+				if (powerSource?.TargetIDs != null)
 				{
 					powerSource.PowerTargets = powerSource.TargetIDs.Select(id => entities[id]).Cast<IPowered>().ToArray();
 				}

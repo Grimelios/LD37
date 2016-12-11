@@ -58,6 +58,7 @@ namespace LD37.Entities
 
 		public override float Rotation
 		{
+			get { return base.Rotation; }
 			set
 			{
 				sprite.Rotation = value;

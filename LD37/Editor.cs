@@ -1,4 +1,6 @@
-﻿using LD37.Entities;
+﻿using System;
+using System.Collections.Generic;
+using LD37.Entities;
 using LD37.Entities.Abstract;
 using LD37.Entities.Lasers;
 using LD37.Entities.Organization;
@@ -13,22 +15,33 @@ using Ninject;
 
 namespace LD37
 {
+	using EntityMap = Dictionary<string, List<Entity>>;
+
 	internal class Editor : IMessageReceiver
 	{
+		private const float PiOver8 = MathHelper.PiOver4 / 2;
+
 		private enum EditableEntityTypes
 		{
 			FixedLaserSource,
 			LaserReceiver,
 			KeyButton,
 			Mirror,
-			Switch
+			Switch,
+			Wire
 		}
 
 		private Tile[,] tiles;
+		private Entity selectedEntity;
 		private MessageSystem messageSystem;
 		private StandardKernel kernel;
+		private EntityMap entityMap;
+		private Wire wire;
 
 		private EditableEntityTypes selectedEntityType;
+
+		private bool shiftHeld;
+		private bool pHeld;
 
 		public Editor(MessageSystem messageSystem, Scene scene, StandardKernel kernel)
 		{
@@ -36,6 +49,7 @@ namespace LD37
 			this.kernel = kernel;
 
 			tiles = scene.RetrieveTiles();
+			entityMap = scene.LayerMap["Primary"].EntityMap;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.Mouse, this);
@@ -64,13 +78,26 @@ namespace LD37
 
 			bool controlHeld = false;
 
+			shiftHeld = false;
+			pHeld = false;
+
 			foreach (Keys key in data.KeysDown)
 			{
-				if (key == Keys.LeftControl || key == Keys.RightControl)
+				switch (key)
 				{
-					controlHeld = true;
+					case Keys.LeftControl:
+					case Keys.RightControl:
+						controlHeld = true;
+						break;
 
-					break;
+					case Keys.LeftShift:
+					case Keys.RightShift:
+						shiftHeld = true;
+						break;
+
+					case Keys.P:
+						pHeld = true;
+						break;
 				}
 			}
 
@@ -89,6 +116,7 @@ namespace LD37
 				case Keys.K: return EditableEntityTypes.KeyButton;
 				case Keys.M: return EditableEntityTypes.Mirror;
 				case Keys.S: return EditableEntityTypes.Switch;
+				case Keys.W: return EditableEntityTypes.Wire;
 			}
 
 			return selectedEntityType;
@@ -101,27 +129,154 @@ namespace LD37
 			int screenRight = Constants.RoomWidth * Constants.TileSize;
 			int screenHeight = Constants.RoomHeight * Constants.TileSize;
 
-			if (mousePosition.X < Constants.TileSize || mousePosition.X > screenRight - Constants.TileSize ||
-			    mousePosition.Y < Constants.TileSize || mousePosition.Y > screenHeight - Constants.TileSize)
+			if (mousePosition.X <= Constants.TileSize || mousePosition.X >= screenRight - Constants.TileSize ||
+			    mousePosition.Y <= Constants.TileSize || mousePosition.Y >= screenHeight - Constants.TileSize)
 			{
 				return;
 			}
 
-			Point tileCoordinates = new Point((int)mousePosition.X / Constants.TileSize - 1,
-				(int)mousePosition.Y / Constants.TileSize - 1);
+			if (wire != null)
+			{
+				EditWire(data, mousePosition);
+			}
+			else
+			{
+				ManageEntities(data, mousePosition);
+			}
+		}
+
+		private void EditWire(MouseData data, Vector2 mousePosition)
+		{
+			List<Vector2> points = wire.Points;
+
+			if (data.RightClickState == ClickStates.PressedThisFrame)
+			{
+				points.RemoveAt(points.Count - 1);
+				wire = null;
+
+				return;
+			}
+			
+			Vector2 snappedPosition = GetSnappedWirePosition(mousePosition);
+
+			if (data.LeftClickState == ClickStates.PressedThisFrame)
+			{
+				wire.Points.Add(GetSnappedWirePosition(mousePosition));
+			}
+
+			if (points.Count >= 2)
+			{
+				points.RemoveAt(points.Count - 1);
+			}
+
+			wire.Points.Add(GetSnappedWirePosition(mousePosition));
+		}
+
+		private void ManageEntities(MouseData data, Vector2 mousePosition)
+		{
+			Point tileCoordinates = GetTileCoordinates(mousePosition);
 			Tile tile = tiles[tileCoordinates.X, tileCoordinates.Y];
 
 			if (data.LeftClickState == ClickStates.PressedThisFrame)
 			{
-				Entity entity = CreateEntity();
-				entity.Position = TileConvert.ToPixels(tileCoordinates);
-				tile.AttachedEntity = entity;
+				if (selectedEntity != null)
+				{
+					selectedEntity = null;
+				}
+				else
+				{
+					if (tile.AttachedEntity != null && selectedEntityType != EditableEntityTypes.Wire)
+					{
+						selectedEntity = tile.AttachedEntity;
+					}
+					else if (selectedEntity == null)
+					{
+						Entity entity = CreateEntity();
+
+						if (selectedEntityType == EditableEntityTypes.Wire)
+						{
+							wire = (Wire)entity;
+							wire.Points.Add(GetSnappedWirePosition(mousePosition));
+							entityMap["Wire"].Add(wire);
+						}
+						else
+						{
+							entity.Position = TileConvert.ToPixels(tileCoordinates);
+							tile.AttachedEntity = entity;
+							selectedEntity = entity;
+						}
+					}
+				}
 			}
 			else if (data.RightClickState == ClickStates.PressedThisFrame && tile.AttachedEntity != null)
 			{
 				tile.AttachedEntity.Dispose();
 				tile.AttachedEntity = null;
 			}
+
+			if (selectedEntity != null)
+			{
+				if (pHeld)
+				{
+					IPowered poweredObject = selectedEntity as IPowered;
+
+					if (poweredObject != null)
+					{
+						poweredObject.Powered = !poweredObject.Powered;
+						selectedEntity = null;
+					}
+				}
+				else
+				{
+					RotateSelectedEntity(mousePosition);
+				}
+			}
+		}
+
+		private Point GetTileCoordinates(Vector2 mousePosition)
+		{
+			return new Point((int)mousePosition.X / Constants.TileSize - 1, (int)mousePosition.Y / Constants.TileSize - 1);
+		}
+
+		private Vector2 GetSnappedWirePosition(Vector2 mousePosition)
+		{
+			float x = SnapValue(mousePosition.X);
+			float y = SnapValue(mousePosition.Y);
+
+			return new Vector2(x, y);
+		}
+
+		private float SnapValue(float value)
+		{
+			float leftover = value % Constants.HalfTile;
+
+			if (leftover > Constants.HalfTile)
+			{
+				return value + (Constants.HalfTile - leftover);
+			}
+
+			return value - leftover;
+		}
+
+		private void RotateSelectedEntity(Vector2 mousePosition)
+		{
+			float angle = GameFunctions.ComputeAngle(selectedEntity.Position, mousePosition);
+
+			if (shiftHeld)
+			{
+				float leftover = Math.Abs(angle % MathHelper.PiOver4);
+
+				if (leftover > PiOver8)
+				{
+					angle += (MathHelper.PiOver4 - leftover) * Math.Sign(angle);
+				}
+				else
+				{
+					angle -= leftover * Math.Sign(angle);
+				}
+			}
+
+			selectedEntity.Rotation = angle;
 		}
 
 		private Entity CreateEntity()
@@ -133,6 +288,7 @@ namespace LD37
 				case EditableEntityTypes.KeyButton: return kernel.Get<KeyButton>();
 				case EditableEntityTypes.Mirror: return kernel.Get<Mirror>();
 				case EditableEntityTypes.Switch: return kernel.Get<Switch>();
+				case EditableEntityTypes.Wire: return kernel.Get<Wire>();
 			}
 
 			return null;

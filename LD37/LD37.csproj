@@ -61,6 +61,7 @@
     <Compile Include="Entities\Switch.cs" />
     <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\Tilemap.cs" />
+    <Compile Include="Entities\Wire.cs" />
     <Compile Include="GameFunctions.cs" />
     <Compile Include="Input\GamepadData.cs" />
     <Compile Include="Input\InputGenerator.cs" />
@@ -132,6 +133,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Json\Levels\Level14.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Json\Levels\Level15.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Json\Levels\Level16.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Json\Levels\Level17.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Json\Levels\Level18.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Json\Levels\Level2.json">

@@ -56,11 +56,11 @@ namespace LD37.Entities.Lasers
 				{
 					currentMirror = newMirror;
 
-					float? reflectionAngle = currentMirror.ComputeReflectionAngle(angle);
+					float? reflectionAngle = currentMirror.ComputeReflectionAngle(currentAngle);
 
 					if (reflectionAngle != null)
 					{
-						currentAngle = reflectionAngle.Value;
+						currentAngle = GameFunctions.ClampAngle(reflectionAngle.Value);
 						currentSource = results.Position + GameFunctions.ComputeDirection(currentAngle) * 0.5f;
 					}
 				}
