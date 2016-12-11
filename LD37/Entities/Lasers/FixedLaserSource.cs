@@ -1,4 +1,5 @@
-﻿using LD37.Core;
+﻿using System.Collections.Generic;
+using LD37.Core;
 using LD37.Entities.Organization;
 using LD37.Physics;
 using Microsoft.Xna.Framework;
@@ -6,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LD37.Entities.Lasers
 {
+	using PropertyMap = Dictionary<string, string>;
+
 	internal class FixedLaserSource : AbstractLaserSource
 	{
 		private Sprite sprite;
@@ -13,7 +16,10 @@ namespace LD37.Entities.Lasers
 		public FixedLaserSource(ContentLoader contentLoader, PhysicsHelper physicsHelper, PrimitiveDrawer primitiveDrawer, Scene scene) :
 			base(physicsHelper, primitiveDrawer, scene)
 		{
+			PropertyMap properties = Properties.Load("Laser.properties");
+
 			sprite = new Sprite(contentLoader, "Lasers/FixedLaserSource", OriginLocations.Center);
+			SourceOffset = int.Parse(properties["Fixed.Source.Offset"]);
 		}
 
 		public override Vector2 Position

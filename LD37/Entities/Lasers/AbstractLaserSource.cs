@@ -23,6 +23,8 @@ namespace LD37.Entities.Lasers
 			laser = new Laser(physicsHelper, primitiveDrawer);
 		}
 		
+		protected int SourceOffset { get; set; }
+
 		public virtual Color Color
 		{
 			set { laser.Color = value; }
@@ -66,7 +68,8 @@ namespace LD37.Entities.Lasers
 		{
 			if (Powered)
 			{
-				laser.Recast(Position, Rotation);
+				Vector2 laserSource = Position + Vector2.Transform(new Vector2(SourceOffset, 0), Matrix.CreateRotationZ(Rotation));
+				laser.Recast(laserSource, Rotation);
 			}
 		}
 	}
