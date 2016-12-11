@@ -38,9 +38,8 @@ namespace LD37.Entities.Lasers
 		{
 			set
 			{
-				body.Position = PhysicsConvert.ToMeters(value) + Vector2.Transform(new Vector2(bodyOffset, 0),
-					Matrix.CreateRotationZ(Rotation));
 				sprite.Position = value;
+				body.Position = ComputeBodyPosition(value, Rotation);
 
 				base.Position = value;
 			}
@@ -62,9 +61,16 @@ namespace LD37.Entities.Lasers
 			{
 				sprite.Rotation = value;
 				body.Rotation = value;
+				body.Position = ComputeBodyPosition(Position, value);
 
 				base.Rotation = value;
 			}
+		}
+
+		private Vector2 ComputeBodyPosition(Vector2 position, float rotation)
+		{
+			return PhysicsConvert.ToMeters(position) + Vector2.Transform(new Vector2(bodyOffset, 0),
+					Matrix.CreateRotationZ(rotation));
 		}
 
 		public override void Dispose()
