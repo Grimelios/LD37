@@ -27,22 +27,22 @@
 		{
 			"Width": 7,
 			"Height": 2,
-			"Position": "2, 20"
+			"LoadPosition": "2, 20"
 		},
 		{
 			"Width": 5,
 			"Height": 1,
-			"Position": "3, 19"
+			"LoadPosition": "3, 19"
 		},
 		{
 			"Width": 9,
 			"Height": 3,
-			"Position": "19, 19"
+			"LoadPosition": "19, 19"
 		},
 		{
 			"Width": 7,
 			"Height": 1,
-			"Position": "20, 18"
+			"LoadPosition": "20, 18"
 		}
 	]
 }

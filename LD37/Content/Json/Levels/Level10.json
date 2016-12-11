@@ -17,17 +17,17 @@
 		{
 			"Width": 13,
 			"Height": 4,
-			"Position": "17, 18"
+			"LoadPosition": "17, 18"
 		},
 		{
 			"Width": 9,
 			"Height": 4,
-			"Position": "21, 14"
+			"LoadPosition": "21, 14"
 		},
 		{
 			"Width": 5,
 			"Height": 4,
-			"Position": "25, 10"
+			"LoadPosition": "25, 10"
 		}
 	]
 }

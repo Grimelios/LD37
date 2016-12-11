@@ -3,6 +3,7 @@ using FarseerPhysics.Dynamics;
 using LD37.Entities;
 using LD37.Entities.Abstract;
 using LD37.Entities.Organization;
+using LD37.Entities.Platforms;
 using LD37.Input;
 using LD37.Json;
 using LD37.Levels;
@@ -64,6 +65,7 @@ namespace LD37
 			kernel.Bind<PhysicsHelper>().ToSelf().InSingletonScope();
 			kernel.Bind<PrimitiveDrawer>().ToSelf().InSingletonScope();
 			kernel.Bind<Scene>().ToConstant(scene);
+			kernel.Bind<StandardKernel>().ToConstant((StandardKernel)kernel);
 			kernel.Bind<World>().ToConstant(world);
 
 			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -77,6 +79,8 @@ namespace LD37
 			physicsDebugDrawer = kernel.Get<PhysicsDebugDrawer>();
 
 			CreatePrimaryLayer(kernel);
+
+			kernel.Get<Editor>();
 
 			base.Initialize();
 		}

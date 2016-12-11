@@ -46,6 +46,7 @@ namespace LD37.Entities
 			set { sprite.Scale = value; }
 		}
 
+		[JsonIgnore]
 		public Rectangle InteractionBox { get; private set; }
 		
 		[JsonProperty]

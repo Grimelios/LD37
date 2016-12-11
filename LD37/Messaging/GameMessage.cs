@@ -5,6 +5,7 @@
 		Mouse,
 		Keyboard,
 		Gamepad,
+		LevelSave,
 		LevelRefresh
 	}
 

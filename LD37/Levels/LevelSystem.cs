@@ -18,8 +18,10 @@ namespace LD37.Levels
 	internal class LevelSystem : IMessageReceiver
 	{
 		private const float DelayMultiplier = 1.5f;
+		private const string LevelDirectory = @"C:\Users\Mark\Documents\visual studio 2015\Projects\LD37\LD37\Content\Json\Levels\";
 
 		private int levelCounter;
+		private string levelFilename;
 
 		private InteractionSystem interactionSystem;
 		private Scene scene;
@@ -31,27 +33,12 @@ namespace LD37.Levels
 			this.interactionSystem = interactionSystem;
 			this.scene = scene;
 
-			RetrieveTiles();
-
-			levelCounter = 13;
+			tiles = scene.RetrieveTiles();
+			levelCounter = 2;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
+			messageSystem.Subscribe(MessageTypes.LevelSave, this);
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
-		}
-
-		private void RetrieveTiles()
-		{
-			tiles = new Tile[Constants.RoomWidth - 2, Constants.RoomHeight - 2];
-
-			List<Entity> tileList = scene.LayerMap["Primary"].EntityMap["Tile"];
-
-			for (int i = 0; i < Constants.RoomHeight - 2; i++)
-			{
-				for (int j = 0; j < Constants.RoomWidth - 2; j++)
-				{
-					tiles[j, i] = (Tile)tileList[i * (Constants.RoomWidth - 2) + j];
-				}
-			}
 		}
 
 		public void Receive(GameMessage message)
@@ -60,6 +47,10 @@ namespace LD37.Levels
 			{
 				case MessageTypes.Keyboard:
 					HandleKeyboard(((KeyboardMessage)message).Data);
+					break;
+
+				case MessageTypes.LevelSave:
+					SaveLevel();
 					break;
 
 				case MessageTypes.LevelRefresh:
@@ -76,6 +67,34 @@ namespace LD37.Levels
 			}
 		}
 
+		private void SaveLevel()
+		{
+			List<Entity> tileEntities = GetTileEntities();
+			Level level = new Level("", tileEntities, currentLevel.Platforms);
+
+			JsonUtilities.Serialize(level, LevelDirectory + levelFilename);
+		}
+
+		private List<Entity> GetTileEntities()
+		{
+			List<Entity> tileEntities = new List<Entity>();
+
+			for (int i = 0; i < Constants.RoomHeight - 2; i++)
+			{
+				for (int j = 0; j < Constants.RoomWidth - 2; j++)
+				{
+					Tile tile = tiles[j, i];
+
+					if (tile.AttachedEntity != null && !(tile.AttachedEntity is PlatformSegment))
+					{
+						tileEntities.Add(tile.AttachedEntity);
+					}
+				}
+			}
+
+			return tileEntities;
+		}
+
 		public void Refresh(Point sourceCoordinates, bool cascadeTiles = true, bool incrementLevel = true)
 		{
 			if (incrementLevel)
@@ -85,8 +104,9 @@ namespace LD37.Levels
 
 			interactionSystem.Items.Clear();
 
+			levelFilename = "Level" + levelCounter + ".json";
 			currentLevel?.Dispose();
-			currentLevel = JsonUtilities.Deserialize<Level>("Levels/Level" + levelCounter + ".json");
+			currentLevel = JsonUtilities.Deserialize<Level>("Levels/" + levelFilename);
 			currentLevel.TileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
 
 			if (currentLevel.Platforms != null)

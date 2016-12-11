@@ -14,19 +14,25 @@ namespace LD37.Entities.Abstract
 
 		private float rotation;
 
+		[JsonIgnore]
 		public virtual Vector2 Position
 		{
 			get { return position; }
 			set { position = value; }
 		}
-
-		[JsonProperty]
+		
 		public virtual Vector2 LoadPosition
 		{
-			get { return position; }
+			get
+			{
+				Point tileCoordinates = TileConvert.ToTile(position);
+
+				return new Vector2(tileCoordinates.X, tileCoordinates.Y);
+			}
 			set { Position = TileConvert.ToPixels(value); }
 		}
-
+		
+		[JsonIgnore]
 		public virtual Vector2 Scale
 		{
 			get { return scale; }
@@ -39,6 +45,7 @@ namespace LD37.Entities.Abstract
 			set { rotation = value; }
 		}
 
+		[JsonIgnore]
 		public virtual string EntityGroup => null;
 
 		public virtual void Dispose()

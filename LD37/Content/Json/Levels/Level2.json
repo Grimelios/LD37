@@ -1,17 +1,1 @@
-﻿{
-	"Name": "",
-	"TileEntities": [
-		{
-			"$type": "LD37.Entities.KeyButton, LD37",
-			"LoadPosition": "25, 18"
-		}
-	],
-
-	"Platforms": [
-		{
-			"Width": 9,
-			"Height": 2,
-			"Position": "21, 20"
-		}
-	]
-}
+{"Name":"","TileEntities":[{"$type":"LD37.Entities.KeyButton, LD37","Powered":true,"LoadPosition":"25, 19","Rotation":0.0}],"Platforms":[]}

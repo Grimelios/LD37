@@ -11,12 +11,12 @@
 		{
 			"Width": 10,
 			"Height": 3,
-			"Position": "0, 19"
+			"LoadPosition": "0, 19"
 		},
 		{
 			"Width": 5,
 			"Height": 3,
-			"Position": "0, 16"
+			"LoadPosition": "0, 16"
 		}
 	]
 }

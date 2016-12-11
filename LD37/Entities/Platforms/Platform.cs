@@ -22,11 +22,13 @@ namespace LD37.Entities.Platforms
 			this.physicsFactory = physicsFactory;
 		}
 
+		[JsonIgnore]
 		public PlatformSegment[,] Segments { get; private set; }
 
 		[JsonProperty(Order = 2)]
-		public override Vector2 Position
+		public override Vector2 LoadPosition
 		{
+			get { return base.LoadPosition; }
 			set
 			{
 				body.Position = value + new Vector2(Width, height) / 2 + Vector2.One;
@@ -44,6 +46,8 @@ namespace LD37.Entities.Platforms
 				}
 
 				contentLoader = null;
+
+				base.LoadPosition = value;
 			}
 		}
 
@@ -61,6 +65,16 @@ namespace LD37.Entities.Platforms
 				height = value;
 				body = physicsFactory.CreateRectangle(Width, value, center, Units.Meters, BodyType.Kinematic, this);
 				physicsFactory = null;
+			}
+		}
+
+		public override float Rotation
+		{
+			set
+			{
+				body.Rotation = value;
+
+				base.Rotation = value;
 			}
 		}
 

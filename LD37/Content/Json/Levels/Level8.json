@@ -16,12 +16,12 @@
 		{
 			"Width": 5,
 			"Height": 1,
-			"Position": "1, 21"
+			"LoadPosition": "1, 21"
 		},
 		{
 			"Width": 7,
 			"Height": 1,
-			"Position": "12, 21"
+			"LoadPosition": "12, 21"
 		}
 	]
 }

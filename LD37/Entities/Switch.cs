@@ -71,6 +71,7 @@ namespace LD37.Entities
 			}
 		}
 
+		[JsonIgnore]
 		public Rectangle InteractionBox { get; private set; }
 
 		public override bool Powered

@@ -43,6 +43,7 @@
     <Compile Include="ContentLoader.cs" />
     <Compile Include="Core\Sprite.cs" />
     <Compile Include="Core\Timer.cs" />
+    <Compile Include="Editor.cs" />
     <Compile Include="Entities\Abstract\AbstractPowerSource.cs" />
     <Compile Include="Entities\Abstract\Entity.cs" />
     <Compile Include="Entities\KeyButton.cs" />
@@ -131,9 +132,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Json\Levels\Level14.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Json\Levels\Level15.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Json\Levels\Level2.json">
