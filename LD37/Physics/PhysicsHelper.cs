@@ -1,5 +1,5 @@
 ﻿using FarseerPhysics.Dynamics;
-using LD37.Entities;
+using LD37.Entities.Abstract;
 using Microsoft.Xna.Framework;
 
 namespace LD37.Physics

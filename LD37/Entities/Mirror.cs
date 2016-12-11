@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using LD37.Entities.Abstract;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace LD37.Entities
 {

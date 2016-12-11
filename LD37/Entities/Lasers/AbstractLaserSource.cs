@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using LD37.Entities.Abstract;
 using LD37.Entities.Organization;
 using LD37.Interfaces;
 using LD37.Physics;
@@ -54,7 +55,7 @@ namespace LD37.Entities.Lasers
 		}
 
 		[JsonProperty]
-		public string ColorString
+		public string Tint
 		{
 			set
 			{

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using LD37.Entities;
+using LD37.Entities.Abstract;
 using LD37.Entities.Organization;
 using LD37.Input;
 using LD37.Json;

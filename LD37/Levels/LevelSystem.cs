@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LD37.Entities;
+using LD37.Entities.Abstract;
 using LD37.Entities.Organization;
 using LD37.Entities.Platforms;
 using LD37.Input;
@@ -32,7 +33,7 @@ namespace LD37.Levels
 
 			RetrieveTiles();
 
-			levelCounter = 6;
+			levelCounter = 7;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
@@ -133,7 +134,7 @@ namespace LD37.Levels
 		{
 			foreach (Entity entity in entities)
 			{
-				IPowerSource powerSource = entity as IPowerSource;
+				AbstractPowerSource powerSource = entity as AbstractPowerSource;
 
 				if (powerSource != null)
 				{

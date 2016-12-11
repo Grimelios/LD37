@@ -1,4 +1,5 @@
 ﻿using LD37.Core;
+using LD37.Entities.Abstract;
 using LD37.Interfaces;
 using LD37.Messaging;
 using LD37.Utility;

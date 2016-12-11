@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 
-namespace LD37.Entities
+namespace LD37.Entities.Abstract
 {
 	internal abstract class Entity : IDynamic, IRenderable, IDisposable
 	{

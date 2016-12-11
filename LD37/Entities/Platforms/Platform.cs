@@ -1,4 +1,5 @@
 ﻿using FarseerPhysics.Dynamics;
+using LD37.Entities.Abstract;
 using LD37.Physics;
 using LD37.Utility;
 using Microsoft.Xna.Framework;

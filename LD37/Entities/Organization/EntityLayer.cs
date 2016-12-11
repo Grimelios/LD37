@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using LD37.Entities.Abstract;
 using LD37.Interfaces;
 using Microsoft.Xna.Framework.Graphics;
 

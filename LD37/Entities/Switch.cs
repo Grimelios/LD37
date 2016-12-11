@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using LD37.Core;
+using LD37.Entities.Abstract;
 using LD37.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +10,7 @@ namespace LD37.Entities
 {
 	using PropertyMap = Dictionary<string, string>;
 
-	internal class Switch : Entity, IInteractive, IPowerSource
+	internal class Switch : AbstractPowerSource, IInteractive
 	{
 		private static int interactionWidth;
 		private static int interactionHeight;
@@ -29,10 +30,6 @@ namespace LD37.Entities
 		private Vector2 poweredLeverOffset;
 		private Vector2 unpoweredLeverOffset;
 		private Timer timer;
-
-		private bool powered;
-
-		private IPowered[] powerTargets;
 
 		public Switch(ContentLoader contentLoader, InteractionSystem interactionSystem)
 		{
@@ -54,7 +51,7 @@ namespace LD37.Entities
 			set
 			{
 				mainSprite.Position = value;
-				leverSprite.Position = value + (powered ? poweredLeverOffset : unpoweredLeverOffset);
+				leverSprite.Position = value + (Powered ? poweredLeverOffset : unpoweredLeverOffset);
 
 				Rectangle box = InteractionBox;
 				box.X = (int)value.X - box.Width / 2;
@@ -76,45 +73,20 @@ namespace LD37.Entities
 
 		public Rectangle InteractionBox { get; private set; }
 
-		[JsonProperty]
-		public bool Powered
+		public override bool Powered
 		{
 			set
 			{
-				powered = value;
+				leverSprite.Position = Position + (Powered ? poweredLeverOffset : unpoweredLeverOffset);
 
-				if (powerTargets != null)
-				{
-					foreach (IPowered target in powerTargets)
-					{
-						target.Powered = value;
-					}
-				}
-
-				leverSprite.Position = Position + (powered ? poweredLeverOffset : unpoweredLeverOffset);
-			}
-		}
-
-		[JsonProperty]
-		public int[] TargetIDs { get; set; }
-
-		public IPowered[] PowerTargets
-		{
-			set
-			{
-				powerTargets = value;
-
-				foreach (IPowered target in powerTargets)
-				{
-					target.Powered = powered;
-				}
+				base.Powered = value;
 			}
 		}
 
 		public void InteractionResponse()
 		{
-			Vector2 leverStart = Position + (powered ? poweredLeverOffset : unpoweredLeverOffset);
-			Vector2 leverEnd = Position + (powered ? unpoweredLeverOffset : poweredLeverOffset);
+			Vector2 leverStart = Position + (Powered ? poweredLeverOffset : unpoweredLeverOffset);
+			Vector2 leverEnd = Position + (Powered ? unpoweredLeverOffset : poweredLeverOffset);
 
 			timer = new Timer(toggleTime, (progress) =>
 			{
@@ -125,7 +97,7 @@ namespace LD37.Entities
 				timer = null;
 			});
 
-			Powered = !powered;
+			Powered = !Powered;
 		}
 
 		public override void Update(float dt)

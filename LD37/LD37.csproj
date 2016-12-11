@@ -43,7 +43,8 @@
     <Compile Include="ContentLoader.cs" />
     <Compile Include="Core\Sprite.cs" />
     <Compile Include="Core\Timer.cs" />
-    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Abstract\AbstractPowerSource.cs" />
+    <Compile Include="Entities\Abstract\Entity.cs" />
     <Compile Include="Entities\KeyButton.cs" />
     <Compile Include="Entities\Lasers\FixedLaserSource.cs" />
     <Compile Include="Entities\Lasers\Laser.cs" />
@@ -68,7 +69,6 @@
     <Compile Include="Interfaces\IInteractive.cs" />
     <Compile Include="Interfaces\IMessageReceiver.cs" />
     <Compile Include="Interfaces\IPowered.cs" />
-    <Compile Include="Interfaces\IPowerSource.cs" />
     <Compile Include="Interfaces\IRenderable.cs" />
     <Compile Include="Json\DIContractResolver.cs" />
     <Compile Include="Json\JsonUtilities.cs" />
@@ -139,6 +139,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Json\Levels\Level7.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Json\Levels\Level8.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Json\Tilemaps\OneRoom.json">

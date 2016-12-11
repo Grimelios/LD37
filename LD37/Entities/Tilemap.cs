@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LD37.Entities.Abstract;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 

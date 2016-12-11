@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using LD37.Core;
+using LD37.Entities.Abstract;
 using LD37.Entities.Platforms;
 using LD37.Input;
 using LD37.Interfaces;

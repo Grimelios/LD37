@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using LD37.Entities;
+using LD37.Entities.Abstract;
 using LD37.Entities.Platforms;
 using Newtonsoft.Json;
 
