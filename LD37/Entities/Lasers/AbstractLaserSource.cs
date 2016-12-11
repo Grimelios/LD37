@@ -61,6 +61,8 @@ namespace LD37.Entities.Lasers
 		[JsonProperty]
 		public int PowerID { get; set; }
 
+		public Vector2 WirePosition => Position - GameFunctions.ComputeDirection(Rotation) * Constants.HalfTile;
+
 		public override void Dispose()
 		{
 			if (powered)

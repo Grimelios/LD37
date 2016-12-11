@@ -7,7 +7,7 @@ namespace LD37.Json
 	{
 		public static void Serialize(object value, string filename)
 		{
-			File.WriteAllText(filename, JsonConvert.SerializeObject(value));
+			File.WriteAllText(filename, JsonConvert.SerializeObject(value, Formatting.Indented));
 		}
 
 		public static T Deserialize<T>(string filename)

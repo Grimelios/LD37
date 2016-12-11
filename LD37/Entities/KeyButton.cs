@@ -56,6 +56,8 @@ namespace LD37.Entities
 		[JsonProperty]
 		public int PowerID { get; set; }
 
+		public Vector2 WirePosition => Position;
+
 		public void InteractionResponse()
 		{
 			if (Powered)

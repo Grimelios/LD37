@@ -159,7 +159,8 @@ namespace LD37
 
 				if (poweredEntity != null)
 				{
-					wire.Points.Add(attachedEntity.Position);
+					wire.Points.RemoveAt(wire.Points.Count - 1);
+					wire.Points.Add(poweredEntity.WirePosition);
 
 					AbstractPowerSource powerSource1 = wireEntity as AbstractPowerSource;
 					AbstractPowerSource powerSource2 = attachedEntity as AbstractPowerSource;
@@ -179,10 +180,8 @@ namespace LD37
 
 					return;
 				}
-				else
-				{
-					wire.Points.Add(snappedPosition);
-				}
+
+				wire.Points.Add(snappedPosition);
 			}
 
 			if (points.Count >= 2)
@@ -211,8 +210,8 @@ namespace LD37
 						if (selectedEntityType == EditableEntityTypes.Wire)
 						{
 							wire = (Wire)CreateEntity();
-							wire.Points.Add(TileConvert.ToPixels(tileCoordinates));
 							wireEntity = (IPowered)tile.AttachedEntity;
+							wire.Points.Add(wireEntity.WirePosition);
 							entityMap["Wire"].Add(wire);
 						}
 						else

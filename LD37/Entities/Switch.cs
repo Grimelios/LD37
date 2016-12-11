@@ -71,6 +71,8 @@ namespace LD37.Entities
 			}
 		}
 
+		public override Vector2 WirePosition => Position;
+
 		[JsonIgnore]
 		public Rectangle InteractionBox { get; private set; }
 

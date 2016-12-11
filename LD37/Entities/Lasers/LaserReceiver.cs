@@ -56,6 +56,8 @@ namespace LD37.Entities.Lasers
 			}
 		}
 
+		public override Vector2 WirePosition => Position - GameFunctions.ComputeDirection(Rotation) * Constants.HalfTile;
+
 		public override float Rotation
 		{
 			get { return base.Rotation; }

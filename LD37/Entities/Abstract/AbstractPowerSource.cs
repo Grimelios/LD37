@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using LD37.Interfaces;
+using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 
 namespace LD37.Entities.Abstract
@@ -70,5 +71,8 @@ namespace LD37.Entities.Abstract
 				}
 			}
 		}
+
+		[JsonIgnore]
+		public abstract Vector2 WirePosition { get; }
 	}
 }
