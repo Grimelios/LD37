@@ -13,7 +13,13 @@
 		{
 			"$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
 			"LoadPosition": "0, 12",
+			"Tint": "255, 0, 0"
+		},
+		{
+			"$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
+			"LoadPosition": "28, 12",
 			"Tint": "255, 0, 0",
+			"Rotation": 3.14,
 			"TargetIDs": [1]
 		}
 	],

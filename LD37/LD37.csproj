@@ -49,6 +49,7 @@
     <Compile Include="Entities\Lasers\FixedLaserSource.cs" />
     <Compile Include="Entities\Lasers\Laser.cs" />
     <Compile Include="Entities\Lasers\AbstractLaserSource.cs" />
+    <Compile Include="Entities\Lasers\LaserReceiver.cs" />
     <Compile Include="Entities\Lasers\RotatingLaserSource.cs" />
     <Compile Include="Entities\Mirror.cs" />
     <Compile Include="Entities\Organization\EntityLayer.cs" />

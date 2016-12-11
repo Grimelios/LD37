@@ -13,7 +13,7 @@ namespace LD37.Entities.Lasers
 		public RotatingLaserSource(ContentLoader contentLoader, PhysicsHelper physicsHelper, PrimitiveDrawer primitiveDrawer, Scene scene) :
 			base(physicsHelper, primitiveDrawer, scene)
 		{
-			sprite = new Sprite(contentLoader, "RotatingLaserSource", OriginLocations.Center);
+			sprite = new Sprite(contentLoader, "Lasers/RotatingLaserSource", OriginLocations.Center);
 		}
 
 		public override Vector2 Position

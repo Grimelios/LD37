@@ -57,16 +57,7 @@ namespace LD37.Entities.Lasers
 		[JsonProperty]
 		public string Tint
 		{
-			set
-			{
-				string[] tokens = value.Split(',');
-
-				int r = int.Parse(tokens[0]);
-				int g = int.Parse(tokens[1]);
-				int b = int.Parse(tokens[2]);
-
-				Color = new Color(r, g, b);
-			}
+			set { Color = GameFunctions.ParseColor(value); }
 		}
 
 		[JsonProperty(Order = 1)]
