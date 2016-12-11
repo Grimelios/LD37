@@ -1,0 +1,38 @@
+﻿{
+	"Name": "",
+	"TileEntities": [
+		{
+			"$type": "LD37.Entities.Switch, LD37",
+			"LoadPosition": "2, 15",
+			"TargetIDs": [2]
+		},
+		{
+			"$type": "LD37.Entities.KeyButton, LD37",
+			"LoadPosition": "27, 15"
+		},
+		{
+			"$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
+			"LoadPosition": "0, 19",
+			"Tint": "255, 0, 0"
+		},
+		{
+			"$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
+			"LoadPosition": "29, 19",
+			"Rotation": 3.14,
+			"TargetIDs": [1]
+		}
+	],
+
+	"Platforms": [
+		{
+			"Width": 6,
+			"Height": 2,
+			"Position": "0, 16"
+		},
+		{
+			"Width": 6,
+			"Height": 2,
+			"Position": "24, 16"
+		}
+	]
+}
