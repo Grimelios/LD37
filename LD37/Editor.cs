@@ -38,6 +38,7 @@ namespace LD37
 		private EntityMap entityMap;
 		private Wire wire;
 
+		private IPowered wireEntity;
 		private EditableEntityTypes selectedEntityType;
 
 		private bool shiftHeld;
@@ -148,20 +149,40 @@ namespace LD37
 		private void EditWire(MouseData data, Vector2 mousePosition)
 		{
 			List<Vector2> points = wire.Points;
-
-			if (data.RightClickState == ClickStates.PressedThisFrame)
-			{
-				points.RemoveAt(points.Count - 1);
-				wire = null;
-
-				return;
-			}
-			
 			Vector2 snappedPosition = GetSnappedWirePosition(mousePosition);
 
 			if (data.LeftClickState == ClickStates.PressedThisFrame)
 			{
-				wire.Points.Add(GetSnappedWirePosition(mousePosition));
+				Entity attachedEntity = GetSelectedTile(mousePosition).AttachedEntity;
+
+				IPowered poweredEntity = attachedEntity as IPowered;
+
+				if (poweredEntity != null)
+				{
+					wire.Points.Add(attachedEntity.Position);
+
+					AbstractPowerSource powerSource1 = wireEntity as AbstractPowerSource;
+					AbstractPowerSource powerSource2 = attachedEntity as AbstractPowerSource;
+
+					if (powerSource1 != null)
+					{
+						powerSource1.TargetIDs.Add(poweredEntity.PowerID);
+						powerSource1.PowerTargets.Add(poweredEntity);
+					}
+					else
+					{
+						powerSource2.TargetIDs.Add(wireEntity.PowerID);
+						powerSource2.PowerTargets.Add(wireEntity);
+					}
+
+					wire = null;
+
+					return;
+				}
+				else
+				{
+					wire.Points.Add(snappedPosition);
+				}
 			}
 
 			if (points.Count >= 2)
@@ -169,7 +190,7 @@ namespace LD37
 				points.RemoveAt(points.Count - 1);
 			}
 
-			wire.Points.Add(GetSnappedWirePosition(mousePosition));
+			wire.Points.Add(snappedPosition);
 		}
 
 		private void ManageEntities(MouseData data, Vector2 mousePosition)
@@ -185,26 +206,26 @@ namespace LD37
 				}
 				else
 				{
-					if (tile.AttachedEntity != null && selectedEntityType != EditableEntityTypes.Wire)
+					if (tile.AttachedEntity != null)
 					{
-						selectedEntity = tile.AttachedEntity;
-					}
-					else if (selectedEntity == null)
-					{
-						Entity entity = CreateEntity();
-
 						if (selectedEntityType == EditableEntityTypes.Wire)
 						{
-							wire = (Wire)entity;
-							wire.Points.Add(GetSnappedWirePosition(mousePosition));
+							wire = (Wire)CreateEntity();
+							wire.Points.Add(TileConvert.ToPixels(tileCoordinates));
+							wireEntity = (IPowered)tile.AttachedEntity;
 							entityMap["Wire"].Add(wire);
 						}
 						else
 						{
-							entity.Position = TileConvert.ToPixels(tileCoordinates);
-							tile.AttachedEntity = entity;
-							selectedEntity = entity;
+							selectedEntity = tile.AttachedEntity;
 						}
+					}
+					else if (selectedEntity == null && selectedEntityType != EditableEntityTypes.Wire)
+					{
+						Entity entity = CreateEntity();
+						entity.Position = TileConvert.ToPixels(tileCoordinates);
+						tile.AttachedEntity = entity;
+						selectedEntity = entity;
 					}
 				}
 			}
@@ -244,6 +265,13 @@ namespace LD37
 			float y = SnapValue(mousePosition.Y);
 
 			return new Vector2(x, y);
+		}
+
+		private Tile GetSelectedTile(Vector2 mousePosition)
+		{
+			Point tileCoordinates = GetTileCoordinates(mousePosition);
+
+			return tiles[tileCoordinates.X, tileCoordinates.Y];
 		}
 
 		private float SnapValue(float value)

@@ -1,4 +1,1 @@
-﻿{
-	"TileEntities": [
-	]
-}
+{"Name":"","TileEntities":[{"$type":"LD37.Entities.Lasers.FixedLaserSource, LD37","Rotation":0.0,"PowerID":1,"LoadPosition":"0, 16","Powered":false},{"$type":"LD37.Entities.Switch, LD37","PowerID":0,"TargetIDs":[1],"LoadPosition":"3, 21","Rotation":-2.819842}],"Platforms":null,"OtherEntities":[{"$type":"LD37.Entities.Wire, LD37","Points":["48, 560","48, 720","144, 720","144, 720"],"LoadPosition":"-1, -1","Rotation":0.0}]}

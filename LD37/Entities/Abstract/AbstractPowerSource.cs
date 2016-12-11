@@ -1,16 +1,25 @@
-﻿using LD37.Interfaces;
+﻿using System.Collections.Generic;
+using LD37.Interfaces;
 using Newtonsoft.Json;
 
 namespace LD37.Entities.Abstract
 {
 	internal abstract class AbstractPowerSource : Entity, IPowered
 	{
+		private static int nextID;
+
+		public static int NextID => nextID++;
+
 		private bool powered;
 
-		private IPowered[] powerTargets;
+		private List<int> targetIDs;
+		private List<IPowered> powerTargets;
 
 		protected AbstractPowerSource()
 		{
+			targetIDs = new List<int>();
+			powerTargets = new List<IPowered>();
+			PowerID = NextID;
 		}
 
 		[JsonProperty]
@@ -32,10 +41,25 @@ namespace LD37.Entities.Abstract
 		}
 
 		[JsonProperty]
-		public int[] TargetIDs { get; set; }
+		public int PowerID { get; set; }
 
-		public IPowered[] PowerTargets
+		[JsonProperty]
+		public List<int> TargetIDs
 		{
+			get { return targetIDs; }
+			set
+			{
+				if (value != null)
+				{
+					targetIDs = value;
+				}
+			}
+		}
+
+		[JsonIgnore]
+		public List<IPowered> PowerTargets
+		{
+			get { return powerTargets; }
 			set
 			{
 				powerTargets = value;

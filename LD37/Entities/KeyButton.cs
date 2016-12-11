@@ -24,6 +24,7 @@ namespace LD37.Entities
 			InteractionBox = new Rectangle(0, 0, InteractionSize, InteractionSize);
 			interactionSystem.Items.Add(this);
 			Powered = true;
+			PowerID = AbstractPowerSource.NextID;
 		}
 
 		public override Vector2 Position
@@ -51,6 +52,9 @@ namespace LD37.Entities
 		
 		[JsonProperty]
 		public bool Powered { get; set; }
+
+		[JsonProperty]
+		public int PowerID { get; set; }
 
 		public void InteractionResponse()
 		{

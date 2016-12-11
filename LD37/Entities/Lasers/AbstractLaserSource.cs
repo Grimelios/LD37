@@ -22,6 +22,7 @@ namespace LD37.Entities.Lasers
 			entityMap = scene.LayerMap["Primary"].EntityMap;
 			laser = new Laser(physicsHelper, primitiveDrawer);
 			Color = Color.Red;
+			PowerID = AbstractPowerSource.NextID;
 		}
 		
 		protected int SourceOffset { get; set; }
@@ -56,6 +57,9 @@ namespace LD37.Entities.Lasers
 				}
 			}
 		}
+
+		[JsonProperty]
+		public int PowerID { get; set; }
 
 		public override void Dispose()
 		{

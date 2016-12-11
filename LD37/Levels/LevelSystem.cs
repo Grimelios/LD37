@@ -36,7 +36,7 @@ namespace LD37.Levels
 
 			tiles = scene.RetrieveTiles();
 			entityMap = scene.LayerMap["Primary"].EntityMap;
-			levelCounter = 14;
+			levelCounter = 15;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.LevelSave, this);
@@ -156,13 +156,15 @@ namespace LD37.Levels
 
 		private void WireElements(List<Entity> entities)
 		{
+			List<IPowered> powerList = entities.OfType<IPowered>().OrderBy(item => item.PowerID).ToList();
+
 			foreach (Entity entity in entities)
 			{
 				AbstractPowerSource powerSource = entity as AbstractPowerSource;
 
 				if (powerSource?.TargetIDs != null)
 				{
-					powerSource.PowerTargets = powerSource.TargetIDs.Select(id => entities[id]).Cast<IPowered>().ToArray();
+					powerSource.PowerTargets = powerSource.TargetIDs.Select(id => powerList[id]).ToList();
 				}
 			}
 		}
