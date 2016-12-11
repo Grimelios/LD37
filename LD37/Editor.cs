@@ -151,6 +151,14 @@ namespace LD37
 			List<Vector2> points = wire.Points;
 			Vector2 snappedPosition = GetSnappedWirePosition(mousePosition);
 
+			if (data.RightClickState == ClickStates.PressedThisFrame)
+			{
+				entityMap["Wire"].Remove(wire);
+				wire = null;
+
+				return;
+			}
+
 			if (data.LeftClickState == ClickStates.PressedThisFrame)
 			{
 				Entity attachedEntity = GetSelectedTile(mousePosition).AttachedEntity;

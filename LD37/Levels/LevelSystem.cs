@@ -36,7 +36,7 @@ namespace LD37.Levels
 
 			tiles = scene.RetrieveTiles();
 			entityMap = scene.LayerMap["Primary"].EntityMap;
-			levelCounter = 15;
+			levelCounter = 10;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.LevelSave, this);
@@ -105,6 +105,7 @@ namespace LD37.Levels
 			}
 
 			interactionSystem.Items.Clear();
+			entityMap["Wire"].Clear();
 
 			levelFilename = "Level" + levelCounter + ".json";
 			currentLevel?.Dispose();
