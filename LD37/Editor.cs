@@ -44,6 +44,7 @@ namespace LD37
 		private IPowered wireEntity;
 		private EditableEntityTypes selectedEntityType;
 
+		private bool editorEnabled;
 		private bool shiftHeld;
 		private bool pHeld;
 		private bool platformMode;
@@ -87,21 +88,6 @@ namespace LD37
 
 		private void HandleKeyboard(KeyboardData data)
 		{
-			if (data.KeysPressedThisFrame.Contains(Keys.L))
-			{
-				platformMode = !platformMode;
-
-				if (!platformMode)
-				{
-					platformInProgress = false;
-				}
-			}
-
-			foreach (Keys key in data.KeysPressedThisFrame)
-			{
-				selectedEntityType = GetEntityType(key);
-			}
-
 			bool controlHeld = false;
 
 			shiftHeld = false;
@@ -127,6 +113,31 @@ namespace LD37
 				}
 			}
 
+			if (controlHeld && data.KeysPressedThisFrame.Contains(Keys.E))
+			{
+				editorEnabled = !editorEnabled;
+			}
+
+			if (!editorEnabled)
+			{
+				return;
+			}
+
+			if (data.KeysPressedThisFrame.Contains(Keys.L))
+			{
+				platformMode = !platformMode;
+
+				if (!platformMode)
+				{
+					platformInProgress = false;
+				}
+			}
+
+			foreach (Keys key in data.KeysPressedThisFrame)
+			{
+				selectedEntityType = GetEntityType(key);
+			}
+
 			if (controlHeld && data.KeysPressedThisFrame.Contains(Keys.S))
 			{
 				messageSystem.Send(new LevelSaveMessage(platforms));
@@ -150,6 +161,11 @@ namespace LD37
 
 		private void HandleMouse(MouseData data)
 		{
+			if (!editorEnabled)
+			{
+				return;
+			}
+
 			Vector2 mousePosition = data.WorldPosition;
 
 			int screenWidth = Constants.RoomWidth * Constants.TileSize;

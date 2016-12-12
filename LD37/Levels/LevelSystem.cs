@@ -36,7 +36,7 @@ namespace LD37.Levels
 
 			tiles = scene.RetrieveTiles();
 			entityMap = scene.LayerMap["Primary"].EntityMap;
-			levelCounter = 14;
+			levelCounter = 15;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.LevelSave, this);

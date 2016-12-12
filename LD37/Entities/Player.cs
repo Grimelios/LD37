@@ -63,6 +63,7 @@ namespace LD37.Entities
 			jumpSpeedInitial *= body.Mass;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
+			messageSystem.Subscribe(MessageTypes.Mouse, this);
 		}
 
 		public override Vector2 Position
@@ -106,6 +107,10 @@ namespace LD37.Entities
 			{
 				case MessageTypes.Keyboard:
 					HandleKeyboard(((KeyboardMessage)message).Data);
+					break;
+
+				case MessageTypes.Mouse:
+					HandleMouse(((MouseMessage)message).Data);
 					break;
 			}
 		}
@@ -161,6 +166,14 @@ namespace LD37.Entities
 					velocity.Y = -jumpSpeedLimited;
 					body.LinearVelocity = velocity;
 				}
+			}
+		}
+
+		private void HandleMouse(MouseData data)
+		{
+			if (data.LeftClickState == ClickStates.PressedThisFrame)
+			{
+				interactionSystem.CheckInteraction(boundingBox);
 			}
 		}
 
