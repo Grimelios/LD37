@@ -75,13 +75,13 @@ namespace LD37.Entities.Lasers
 			{
 				if (receiver == null)
 				{
-					activatedReceiver.Powered = false;
+					activatedReceiver.PowerCount--;
 					activatedReceiver = null;
 				}
 				else
 				{
 					activatedReceiver = receiver;
-					activatedReceiver.Powered = true;
+					activatedReceiver.PowerCount++;
 				}
 			}
 		}

@@ -28,6 +28,8 @@ namespace LD37.Entities.Lasers
 		private Sprite sprite;
 		private Body body;
 
+		private int powerCount;
+
 		public LaserReceiver(ContentLoader contentLoader, PhysicsFactory physicsFactory)
 		{
 			sprite = new Sprite(contentLoader, "Lasers/LaserReceiver", OriginLocations.Center);
@@ -68,6 +70,26 @@ namespace LD37.Entities.Lasers
 				body.Position = ComputeBodyPosition(Position, value);
 
 				base.Rotation = value;
+			}
+		}
+
+		public int PowerCount
+		{
+			get { return powerCount; }
+			set
+			{
+				int previousPowerCount = powerCount;
+
+				powerCount = value;
+
+				if (powerCount == 0 && previousPowerCount > 0)
+				{
+					Powered = false;
+				}
+				else if (previousPowerCount == 0 && powerCount == 1)
+				{
+					Powered = true;
+				}
 			}
 		}
 
