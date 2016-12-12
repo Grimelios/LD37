@@ -9,14 +9,12 @@ namespace LD37.Core
 		private SpriteFont font;
 		private Vector2 origin;
 
-		private string value;
-		
 		public SpriteText(SpriteFont font, string value, Vector2 position, Color color)
 		{
 			this.font = font;
-			this.value = value;
 
 			Position = position;
+			Value = value;
 			Scale = 1;
 			Color = color;
 		}
@@ -27,9 +25,11 @@ namespace LD37.Core
 		public float Rotation { get; set; }
 		public float Scale { get; set; }
 
+		public string Value { get; set; }
+
 		public void Render(SpriteBatch sb)
 		{
-			sb.DrawString(font, value, Position, Color, Rotation, origin, Scale, SpriteEffects.None, 0);
+			sb.DrawString(font, Value, Position, Color, Rotation, origin, Scale, SpriteEffects.None, 0);
 		}
 	}
 }

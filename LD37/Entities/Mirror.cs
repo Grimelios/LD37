@@ -80,12 +80,27 @@ namespace LD37.Entities
 
 		public float? ComputeReflectionAngle(float incomingAngle)
 		{
-			if (Math.Abs(Rotation - incomingAngle) > reflectionThreshold)
+			int incomingSign = Math.Sign(incomingAngle);
+			int mirrorSign = Math.Sign(Rotation);
+
+			incomingSign = incomingSign == 0 ? 1 : incomingSign;
+			incomingAngle -= MathHelper.Pi * (incomingSign == 0 ? 1 : incomingSign);
+			incomingSign *= -1;
+
+			float angleDifference = Math.Abs(Rotation - incomingAngle);
+
+			if (Math.Abs(incomingAngle) > MathHelper.PiOver2 && Math.Abs(Rotation) > MathHelper.PiOver2 &&
+			    ((incomingSign == 1 && mirrorSign == -1) || (incomingSign == -1 && mirrorSign == 1)))
+			{
+				angleDifference = MathHelper.TwoPi - angleDifference;
+			}
+
+			if (angleDifference > reflectionThreshold)
 			{
 				return null;
 			}
 
-			return MathHelper.Pi + Rotation * 2 - incomingAngle;
+			return GameFunctions.ClampAngle(Rotation * 2 - incomingAngle);
 		}
 
 		public override void Dispose()
