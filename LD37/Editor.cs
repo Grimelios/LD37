@@ -305,18 +305,12 @@ namespace LD37
 
 						AbstractPowerSource powerSource1 = wireEntity as AbstractPowerSource;
 						AbstractPowerSource powerSource2 = attachedEntity as AbstractPowerSource;
+						AbstractPowerSource validSource = powerSource1 ?? powerSource2;
 
-						if (powerSource1 != null)
-						{
-							powerSource1.TargetIDs.Add(poweredEntity.PowerID);
-							powerSource1.PowerTargets.Add(poweredEntity);
-						}
-						else
-						{
-							powerSource2.TargetIDs.Add(wireEntity.PowerID);
-							powerSource2.PowerTargets.Add(wireEntity);
-						}
-
+						validSource.TargetIDs.Add(poweredEntity.PowerID);
+						validSource.PowerTargets.Add(poweredEntity);
+						validSource.Wire = wire;
+						wire.TargetID = validSource.PowerID;
 						wire = null;
 
 						return;

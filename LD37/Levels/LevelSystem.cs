@@ -29,6 +29,7 @@ namespace LD37.Levels
 		private EntityMap entityMap;
 		private Level currentLevel;
 		private Tile[,] tiles;
+		private List<Entity> wires;
 
 		public LevelSystem(InteractionSystem interactionSystem, MessageSystem messageSystem, Scene scene)
 		{
@@ -36,6 +37,7 @@ namespace LD37.Levels
 
 			tiles = scene.RetrieveTiles();
 			entityMap = scene.LayerMap["Primary"].EntityMap;
+			wires = entityMap["Wire"];
 			levelCounter = 15;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
@@ -74,7 +76,7 @@ namespace LD37.Levels
 		private void SaveLevel(LevelSaveMessage message)
 		{
 			List<Entity> tileEntities = GetTileEntities();
-			Level level = new Level("", tileEntities, message.Platforms, entityMap["Wire"]);
+			Level level = new Level("", tileEntities, message.Platforms, wires);
 
 			JsonUtilities.Serialize(level, LevelDirectory + levelFilename);
 		}
@@ -107,12 +109,15 @@ namespace LD37.Levels
 			}
 
 			interactionSystem.Items.Clear();
-			entityMap["Wire"].Clear();
+			wires.Clear();
 
 			levelFilename = "Level" + levelCounter + ".json";
 			currentLevel?.Dispose();
 			currentLevel = JsonUtilities.Deserialize<Level>("Levels/" + levelFilename);
-			currentLevel.TileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
+
+			List<Entity> tileEntities = currentLevel.TileEntities;
+
+			tileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
 			Editor.Platforms = currentLevel.Platforms ?? new List<Platform>();
 
 			if (currentLevel.Platforms != null)
@@ -120,14 +125,16 @@ namespace LD37.Levels
 				AttachPlatforms(currentLevel.Platforms, cascadeTiles);
 			}
 
-			WireElements(currentLevel.TileEntities);
+			List<IPowered> powerList = tileEntities.OfType<IPowered>().ToList();
+
+			WireElements(tileEntities, powerList);
 
 			if (cascadeTiles)
 			{
 				CascadeTiles(sourceCoordinates);
 			}
 
-			currentLevel.OtherEntities?.ForEach(entity => entityMap[entity.EntityGroup].Add(entity));
+			CreateWires(powerList);
 		}
 
 		private void AttachPlatforms(List<Platform> platforms, bool cascadeTiles)
@@ -158,21 +165,37 @@ namespace LD37.Levels
 			}
 		}
 
-		private void WireElements(List<Entity> entities)
+		private void WireElements(List<Entity> entities, List<IPowered> powerList)
 		{
-			List<IPowered> powerList = entities.OfType<IPowered>().ToList();
-
 			foreach (Entity entity in entities)
 			{
 				AbstractPowerSource powerSource = entity as AbstractPowerSource;
 
-				if (powerSource?.TargetIDs != null)
+				if (powerSource != null)
 				{
 					List<IPowered> powerTargets = powerSource.PowerTargets;
 
 					foreach (int id in powerSource.TargetIDs)
 					{
 						powerTargets.AddRange(powerList.Where(poweredItem => poweredItem.PowerID == id));
+					}
+				}
+			}
+		}
+
+		private void CreateWires(List<IPowered> powerList)
+		{
+			currentLevel.Wires?.ForEach(wire => wires.Add(wire));
+
+			List<AbstractPowerSource> powerSources = powerList.OfType<AbstractPowerSource>().ToList();
+
+			foreach (Wire wire in wires)
+			{
+				foreach (AbstractPowerSource powerSource in powerSources)
+				{
+					if (powerSource.PowerID == wire.TargetID)
+					{
+						powerSource.Wire = wire;
 					}
 				}
 			}

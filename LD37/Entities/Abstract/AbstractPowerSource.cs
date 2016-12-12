@@ -15,12 +15,22 @@ namespace LD37.Entities.Abstract
 
 		private List<int> targetIDs;
 		private List<IPowered> powerTargets;
+		private Wire wire;
 
 		protected AbstractPowerSource()
 		{
 			targetIDs = new List<int>();
 			powerTargets = new List<IPowered>();
 			PowerID = NextID;
+		}
+
+		public Wire Wire
+		{
+			set
+			{
+				wire = value;
+				wire.Powered = powered;
+			}
 		}
 
 		[JsonProperty]
@@ -30,6 +40,11 @@ namespace LD37.Entities.Abstract
 			set
 			{
 				powered = value;
+
+				if (wire != null)
+				{
+					wire.Powered = value;
+				}
 
 				if (powerTargets != null)
 				{

@@ -9,19 +9,19 @@ namespace LD37.Levels
 	internal class Level : IDisposable
 	{
 		[JsonConstructor]
-		public Level(string name, List<Entity> tileEntities, List<Platform> platforms, List<Entity> otherEntities)
+		public Level(string name, List<Entity> tileEntities, List<Platform> platforms, List<Entity> wires)
 		{
 			Name = name;
 			TileEntities = tileEntities;
 			Platforms = platforms;
-			OtherEntities = otherEntities;
+			Wires = wires;
 		}
 
 		public string Name { get; }
 
 		public List<Entity> TileEntities { get; }
 		public List<Platform> Platforms { get; }
-		public List<Entity> OtherEntities { get; }
+		public List<Entity> Wires { get; }
 
 		public void Dispose()
 		{

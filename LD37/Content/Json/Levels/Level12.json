@@ -59,7 +59,7 @@
       "LoadPosition": "20, 18"
     }
   ],
-  "OtherEntities": [
+  "Wires": [
     {
       "$type": "LD37.Entities.Wire, LD37",
       "Points": [
@@ -70,7 +70,8 @@
         "992, 143.974518"
       ],
       "LoadPosition": "-1, -1",
-      "Rotation": 0.0
+      "Rotation": 0.0,
+			"TargetID": 3
     },
     {
       "$type": "LD37.Entities.Wire, LD37",
@@ -82,7 +83,8 @@
         "32, 144"
       ],
       "LoadPosition": "-1, -1",
-      "Rotation": 0.0
+      "Rotation": 0.0,
+			"TargetID": 0
     }
   ]
 }
