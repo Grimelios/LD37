@@ -188,7 +188,7 @@ namespace LD37
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.Transform);
 			scene.Render(spriteBatch);
-			physicsDebugDrawer.Render(spriteBatch);
+			//physicsDebugDrawer.Render(spriteBatch);
 			editor.Render(spriteBatch);
 			spriteBatch.End();
 		}
