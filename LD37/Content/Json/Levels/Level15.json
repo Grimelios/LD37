@@ -1,1 +1,85 @@
-{"Name":"","TileEntities":[{"$type":"LD37.Entities.Mirror, LD37","Rotation":1.57079637,"LoadPosition":"14, 2"},{"$type":"LD37.Entities.Mirror, LD37","Rotation":0.487203449,"LoadPosition":"2, 10"},{"$type":"LD37.Entities.Mirror, LD37","Rotation":2.650861,"LoadPosition":"27, 11"},{"$type":"LD37.Entities.Lasers.FixedLaserSource, LD37","Rotation":-1.57079637,"LoadPosition":"2, 16","Powered":false},{"$type":"LD37.Entities.Lasers.LaserReceiver, LD37","Rotation":-1.57079637,"Powered":false,"TargetIDs":null,"LoadPosition":"27, 16"},{"$type":"LD37.Entities.KeyButton, LD37","Powered":false,"LoadPosition":"21, 20","Rotation":-3.01897144},{"$type":"LD37.Entities.Switch, LD37","TargetIDs":null,"LoadPosition":"8, 21","Rotation":-0.004750558}],"Platforms":null,"OtherEntities":[{"$type":"LD37.Entities.Wire, LD37","Points":["432, 416","432, 560","592, 560"],"LoadPosition":"-1, -1","Rotation":0.0},{"$type":"LD37.Entities.Wire, LD37","Points":["912, 576","912, 656","640, 480"],"LoadPosition":"-1, -1","Rotation":0.0}]}
+{
+  "Name": "",
+  "TileEntities": [
+    {
+      "$type": "LD37.Entities.Mirror, LD37",
+      "Rotation": 1.17826867,
+      "LoadPosition": "7, 7"
+    },
+    {
+      "$type": "LD37.Entities.Mirror, LD37",
+      "Rotation": 1.964247,
+      "LoadPosition": "22, 7"
+    },
+    {
+      "$type": "LD37.Entities.Mirror, LD37",
+      "Rotation": 0.391866028,
+      "LoadPosition": "2, 12"
+    },
+    {
+      "$type": "LD37.Entities.Mirror, LD37",
+      "Rotation": 2.747618,
+      "LoadPosition": "27, 12"
+    },
+    {
+      "$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
+      "Rotation": -1.57079637,
+      "PowerID": 4,
+      "WirePosition": "112, 576",
+      "LoadPosition": "2, 16",
+      "Powered": false
+    },
+    {
+      "$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
+      "Rotation": -1.57079637,
+      "Powered": false,
+      "PowerID": 5,
+      "TargetIDs": [
+        7
+      ],
+      "LoadPosition": "27, 16"
+    },
+    {
+      "$type": "LD37.Entities.KeyButton, LD37",
+      "Powered": false,
+      "PowerID": 7,
+      "WirePosition": "720, 688",
+      "LoadPosition": "21, 20",
+      "Rotation": 2.863293
+    },
+    {
+      "$type": "LD37.Entities.Switch, LD37",
+      "PowerID": 6,
+      "TargetIDs": [
+        4
+      ],
+      "LoadPosition": "8, 21",
+      "Rotation": -2.67794514
+    }
+  ],
+  "Platforms": null,
+  "OtherEntities": [
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "304, 720",
+        "304, 656",
+        "112, 656",
+        "112, 576"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "720, 688",
+        "720, 656",
+        "912, 656",
+        "912, 576"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    }
+  ]
+}

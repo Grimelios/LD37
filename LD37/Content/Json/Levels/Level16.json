@@ -1,52 +1,8 @@
 {
   "Name": "",
   "TileEntities": [
-    {
-      "$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
-      "Rotation": 0.0,
-      "PowerID": 1,
-      "WirePosition": "32, 592",
-      "LoadPosition": "0, 17",
-      "Powered": true
-    },
-    {
-      "$type": "LD37.Entities.Switch, LD37",
-      "PowerID": 0,
-      "TargetIDs": [
-        1,
-        2
-      ],
-      "LoadPosition": "8, 21",
-      "Rotation": -2.3944273
-    },
-    {
-      "$type": "LD37.Entities.KeyButton, LD37",
-      "Powered": true,
-      "PowerID": 2,
-      "WirePosition": "464, 720",
-      "LoadPosition": "13, 21",
-      "Rotation": -2.3561945
-    }
   ],
   "Platforms": null,
   "OtherEntities": [
-    {
-      "$type": "LD37.Entities.Wire, LD37",
-      "Points": [
-        "32, 592",
-        "304, 720"
-      ],
-      "LoadPosition": "-1, -1",
-      "Rotation": 0.0
-    },
-    {
-      "$type": "LD37.Entities.Wire, LD37",
-      "Points": [
-        "464, 720",
-        "304, 720"
-      ],
-      "LoadPosition": "-1, -1",
-      "Rotation": 0.0
-    }
   ]
 }
