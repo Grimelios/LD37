@@ -2,7 +2,8 @@
   "Name": "",
   "TileEntities": [
     {
-      "$type": "LD37.Entities.Switch, LD37",
+			"$type": "LD37.Entities.Switch, LD37",
+			"Powered": true,
       "PowerID": 0,
       "TargetIDs": [
         1
@@ -12,7 +13,6 @@
     },
     {
       "$type": "LD37.Entities.KeyButton, LD37",
-      "Powered": true,
       "PowerID": 1,
       "WirePosition": "208, 688",
       "LoadPosition": "5, 20",
