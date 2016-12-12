@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using LD37.Entities;
 using LD37.Entities.Abstract;
@@ -26,7 +27,6 @@ namespace LD37.Levels
 		private string levelFilename;
 
 		private InteractionSystem interactionSystem;
-		private EntityMap entityMap;
 		private Level currentLevel;
 		private Tile[,] tiles;
 		private List<Entity> wires;
@@ -36,11 +36,9 @@ namespace LD37.Levels
 			this.interactionSystem = interactionSystem;
 
 			tiles = scene.RetrieveTiles();
-			entityMap = scene.LayerMap["Primary"].EntityMap;
-			wires = entityMap["Wire"];
-			levelCounter = 15;
-
-			messageSystem.Subscribe(MessageTypes.Keyboard, this);
+			wires = scene.LayerMap["Primary"].EntityMap["Wire"];
+			levelCounter = 20;
+			
 			messageSystem.Subscribe(MessageTypes.LevelSave, this);
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
 		}
@@ -51,10 +49,6 @@ namespace LD37.Levels
 		{
 			switch (message.Type)
 			{
-				case MessageTypes.Keyboard:
-					HandleKeyboard(((KeyboardMessage)message).Data);
-					break;
-
 				case MessageTypes.LevelSave:
 					SaveLevel((LevelSaveMessage)message);
 					break;
@@ -62,14 +56,6 @@ namespace LD37.Levels
 				case MessageTypes.LevelRefresh:
 					Refresh(((LevelRefreshMessage)message).TileCoordinates);
 					break;
-			}
-		}
-
-		private void HandleKeyboard(KeyboardData data)
-		{
-			if (data.KeysPressedThisFrame.Contains(Keys.R))
-			{
-				//Refresh(Point.Zero, true, false);
 			}
 		}
 
@@ -112,6 +98,12 @@ namespace LD37.Levels
 			wires.Clear();
 
 			levelFilename = "Level" + levelCounter + ".json";
+
+			if (!File.Exists(Paths.Json + levelFilename))
+			{
+				levelFilename = "LevelEnd.json";
+			}
+
 			currentLevel?.Dispose();
 			currentLevel = JsonUtilities.Deserialize<Level>("Levels/" + levelFilename);
 

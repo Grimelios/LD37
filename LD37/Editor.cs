@@ -25,6 +25,7 @@ namespace LD37
 
 		private enum EditableEntityTypes
 		{
+			Endor,
 			FixedLaserSource,
 			LaserReceiver,
 			KeyButton,
@@ -150,6 +151,7 @@ namespace LD37
 		{
 			switch (key)
 			{
+				case Keys.E: return EditableEntityTypes.Endor;
 				case Keys.F: return EditableEntityTypes.FixedLaserSource;
 				case Keys.R: return EditableEntityTypes.LaserReceiver;
 				case Keys.K: return EditableEntityTypes.KeyButton;
@@ -461,6 +463,7 @@ namespace LD37
 		{
 			switch (selectedEntityType)
 			{
+				case EditableEntityTypes.Endor: return kernel.Get<Endor>();
 				case EditableEntityTypes.FixedLaserSource: return kernel.Get<FixedLaserSource>();
 				case EditableEntityTypes.LaserReceiver: return kernel.Get<LaserReceiver>();
 				case EditableEntityTypes.KeyButton: return kernel.Get<KeyButton>();

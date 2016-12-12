@@ -20,6 +20,11 @@ namespace LD37.Core
 		{
 		}
 
+		public Sprite(Texture2D texture, Vector2 origin) :
+			this(texture, origin, null, OriginLocations.Custom)
+		{
+		}
+
 		public Sprite(Texture2D texture, Vector2 origin, Rectangle? sourceRect) :
 			this(texture, origin, sourceRect, OriginLocations.Custom)
 		{

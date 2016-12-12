@@ -1,0 +1,18 @@
+{
+  "Name": "",
+  "TileEntities": [
+    {
+      "$type": "LD37.Entities.Endor, LD37",
+      "InteractionBox": {
+        "X": 512,
+        "Y": 640,
+        "Width": 96,
+        "Height": 160
+      },
+      "LoadPosition": "16, 21",
+      "Rotation": -0.642240047
+    }
+  ],
+  "Platforms": [],
+  "Wires": []
+}

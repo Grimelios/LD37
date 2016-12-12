@@ -46,6 +46,7 @@
     <Compile Include="Editor.cs" />
     <Compile Include="Entities\Abstract\AbstractPowerSource.cs" />
     <Compile Include="Entities\Abstract\Entity.cs" />
+    <Compile Include="Entities\Endor.cs" />
     <Compile Include="Entities\KeyButton.cs" />
     <Compile Include="Entities\Lasers\FixedLaserSource.cs" />
     <Compile Include="Entities\Lasers\Laser.cs" />
@@ -178,6 +179,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Json\Levels\Level11.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Json\Levels\LevelEnd.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Json\Tilemaps\OneRoom.json">
