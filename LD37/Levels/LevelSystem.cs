@@ -17,7 +17,7 @@ namespace LD37.Levels
 
 	internal class LevelSystem : IMessageReceiver
 	{
-		private const float DelayMultiplier = 3;
+		private const float DelayMultiplier = 1.5f;
 		private const string LevelDirectory = @"C:\Users\Mark\Documents\visual studio 2015\Projects\LD37\LD37\Content\Json\Levels\";
 
 		private int levelCounter;
@@ -38,7 +38,7 @@ namespace LD37.Levels
 
 			tiles = scene.RetrieveTiles();
 			wires = entityMap["Wire"];
-			levelCounter = 20;
+			levelCounter = 0;
 			
 			messageSystem.Subscribe(MessageTypes.LevelSave, this);
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
@@ -104,7 +104,7 @@ namespace LD37.Levels
 			{
 				levelFilename = "Level" + levelCounter + ".json";
 
-				if (!File.Exists(Paths.Json + levelFilename))
+				if (!File.Exists(Paths.Json + "Levels/" + levelFilename))
 				{
 					levelFilename = "LevelEnd.json";
 				}
@@ -209,12 +209,14 @@ namespace LD37.Levels
 		{
 			Vector2 source = TileConvert.ToPixels(new Vector2(sourceCoordinates.X, sourceCoordinates.Y));
 
+			int multiplier = endGame ? 2 : 1;
+
 			for (int i = 0; i < Constants.RoomHeight - 2; i++)
 			{
 				for (int j = 0; j < Constants.RoomWidth - 2; j++)
 				{
 					Tile tile = tiles[j, i];
-					tile.Flip(Vector2.Distance(source, tile.Position) * DelayMultiplier, endGame);
+					tile.Flip(Vector2.Distance(source, tile.Position) * DelayMultiplier * multiplier, endGame);
 				}
 			}
 		}
