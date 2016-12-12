@@ -97,36 +97,40 @@ namespace LD37.Levels
 			interactionSystem.Items.Clear();
 			wires.Clear();
 
-			levelFilename = "Level" + levelCounter + ".json";
+			bool endGame = levelFilename == "LevelEnd.json";
 
-			if (!File.Exists(Paths.Json + levelFilename))
+			if (!endGame)
 			{
-				levelFilename = "LevelEnd.json";
+				levelFilename = "Level" + levelCounter + ".json";
+
+				if (!File.Exists(Paths.Json + levelFilename))
+				{
+					levelFilename = "LevelEnd.json";
+				}
+
+				currentLevel?.Dispose();
+				currentLevel = JsonUtilities.Deserialize<Level>("Levels/" + levelFilename);
+
+				List<Entity> tileEntities = currentLevel.TileEntities;
+
+				tileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
+				Editor.Platforms = currentLevel.Platforms ?? new List<Platform>();
+
+				if (currentLevel.Platforms != null)
+				{
+					AttachPlatforms(currentLevel.Platforms, cascadeTiles);
+				}
+
+				List<IPowered> powerList = tileEntities.OfType<IPowered>().ToList();
+
+				WireElements(tileEntities, powerList);
+				CreateWires(powerList);
 			}
-
-			currentLevel?.Dispose();
-			currentLevel = JsonUtilities.Deserialize<Level>("Levels/" + levelFilename);
-
-			List<Entity> tileEntities = currentLevel.TileEntities;
-
-			tileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
-			Editor.Platforms = currentLevel.Platforms ?? new List<Platform>();
-
-			if (currentLevel.Platforms != null)
-			{
-				AttachPlatforms(currentLevel.Platforms, cascadeTiles);
-			}
-
-			List<IPowered> powerList = tileEntities.OfType<IPowered>().ToList();
-
-			WireElements(tileEntities, powerList);
 
 			if (cascadeTiles)
 			{
-				CascadeTiles(sourceCoordinates);
+				CascadeTiles(sourceCoordinates, endGame);
 			}
-
-			CreateWires(powerList);
 		}
 
 		private void AttachPlatforms(List<Platform> platforms, bool cascadeTiles)
@@ -196,7 +200,7 @@ namespace LD37.Levels
 			}
 		}
 
-		private void CascadeTiles(Point sourceCoordinates)
+		private void CascadeTiles(Point sourceCoordinates, bool endGame)
 		{
 			Vector2 source = TileConvert.ToPixels(new Vector2(sourceCoordinates.X, sourceCoordinates.Y));
 
@@ -205,7 +209,7 @@ namespace LD37.Levels
 				for (int j = 0; j < Constants.RoomWidth - 2; j++)
 				{
 					Tile tile = tiles[j, i];
-					tile.Flip(Vector2.Distance(source, tile.Position) * DelayMultiplier);
+					tile.Flip(Vector2.Distance(source, tile.Position) * DelayMultiplier, endGame);
 				}
 			}
 		}

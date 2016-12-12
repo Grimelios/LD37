@@ -21,6 +21,8 @@ namespace LD37.Entities
 		private Sprite sprite;
 		private Timer timer;
 
+		private bool endGame;
+
 		public Tile(ContentLoader contentLoader)
 		{
 			sprite = new Sprite(contentLoader, "Tile", OriginLocations.Center);
@@ -59,8 +61,10 @@ namespace LD37.Entities
 		public Entity AttachedEntity { get; set; }
 		public Entity ReversedEntity { get; set; }
 
-		public void Flip(float initialDelay = 0)
+		public void Flip(float initialDelay = 0, bool endGame = false)
 		{
+			this.endGame = endGame;
+
 			timer = new Timer(initialDelay, BeginFlip);
 		}
 
@@ -74,6 +78,14 @@ namespace LD37.Entities
 
 		private void ReverseFlip()
 		{
+			if (endGame)
+			{
+				timer = null;
+				Scale = Vector2.Zero;
+
+				return;
+			}
+
 			AttachedEntity = ReversedEntity;
 			ReversedEntity = null;
 
