@@ -38,7 +38,7 @@ namespace LD37.Levels
 
 			tiles = scene.RetrieveTiles();
 			wires = entityMap["Wire"];
-			levelCounter = 15;
+			levelCounter = 16;
 			
 			messageSystem.Subscribe(MessageTypes.LevelSave, this);
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);

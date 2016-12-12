@@ -99,7 +99,7 @@ namespace LD37.Entities
 				jumpEnabled = true;
 			}
 
-			return true;
+			return !(entity is Mirror);
 		}
 
 		public void Receive(GameMessage message)
