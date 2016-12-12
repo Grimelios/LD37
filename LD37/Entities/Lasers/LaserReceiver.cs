@@ -5,6 +5,7 @@ using LD37.Entities.Abstract;
 using LD37.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 
 namespace LD37.Entities.Lasers
 {
@@ -73,6 +74,7 @@ namespace LD37.Entities.Lasers
 			}
 		}
 
+		[JsonIgnore]
 		public int PowerCount
 		{
 			get { return powerCount; }
