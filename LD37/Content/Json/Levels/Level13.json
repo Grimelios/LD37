@@ -1,38 +1,78 @@
-﻿{
-	"Name": "",
-	"TileEntities": [
-		{
-			"$type": "LD37.Entities.Switch, LD37",
-			"LoadPosition": "2, 15",
-			"TargetIDs": [2]
-		},
-		{
-			"$type": "LD37.Entities.KeyButton, LD37",
-			"LoadPosition": "27, 14"
-		},
-		{
-			"$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
-			"LoadPosition": "0, 19",
-			"Tint": "255, 0, 0"
-		},
-		{
-			"$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
-			"LoadPosition": "29, 19",
-			"Rotation": 3.14,
-			"TargetIDs": [1]
-		}
-	],
-
-	"Platforms": [
-		{
-			"Width": 6,
-			"Height": 2,
-			"LoadPosition": "0, 16"
-		},
-		{
-			"Width": 6,
-			"Height": 2,
-			"LoadPosition": "24, 16"
-		}
-	]
+{
+  "Name": "",
+  "TileEntities": [
+    {
+      "$type": "LD37.Entities.KeyButton, LD37",
+      "Powered": false,
+      "PowerID": 0,
+      "WirePosition": "912, 496",
+      "LoadPosition": "27, 14",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Switch, LD37",
+      "PowerID": 1,
+      "TargetIDs": [
+        2
+      ],
+      "LoadPosition": "2, 15",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
+      "Rotation": 0.0,
+      "PowerID": 2,
+      "WirePosition": "32, 656",
+      "LoadPosition": "0, 19",
+      "Powered": false
+    },
+    {
+      "$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
+      "Rotation": 3.14159274,
+      "Powered": false,
+      "PowerID": 3,
+      "TargetIDs": [
+        0
+      ],
+      "LoadPosition": "29, 19"
+    }
+  ],
+  "Platforms": [
+    {
+      "Width": 6,
+      "Height": 2,
+      "LoadPosition": "0, 16"
+    },
+    {
+      "Width": 6,
+      "Height": 2,
+      "LoadPosition": "24, 16"
+    }
+  ],
+  "OtherEntities": [
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "992, 656",
+        "1008, 656",
+        "1008, 400",
+        "912, 400",
+        "912, 496"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "112, 528",
+        "112, 368",
+        "16, 368",
+        "16, 656",
+        "32, 656"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    }
+  ]
 }

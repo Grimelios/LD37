@@ -26,7 +26,7 @@ namespace LD37.Entities
 		{
 			for (int i = 0; i < Points.Count - 1; i++)
 			{
-				primitiveDrawer.DrawLine(sb, Points[i], Points[i + 1], Color.LightGray);
+				primitiveDrawer.DrawLine(sb, Points[i], Points[i + 1], Color.Gray);
 			}
 		}
 	}

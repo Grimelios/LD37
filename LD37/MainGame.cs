@@ -97,11 +97,11 @@ namespace LD37
 				"Player"
 			}, new []
 			{
+				"Tilemap",
 				"Tile",
 				"Wire",
 				"Laser",
 				"Player",
-				"Tilemap"
 			});
 
 			EntityMap entityMap = primaryLayer.EntityMap;

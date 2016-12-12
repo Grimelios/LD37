@@ -1,48 +1,88 @@
-﻿{
-	"Name": "",
-	"TileEntities": [
-		{
-			"$type": "LD37.Entities.Switch, LD37",
-			"LoadPosition": "5, 18",
-			"TargetIDs": [2]
-		},
-		{
-			"$type": "LD37.Entities.KeyButton, LD37",
-			"LoadPosition": "23, 16"
-		},
-		{
-			"$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
-			"LoadPosition": "29, 3",
-			"Rotation": 3.14,
-			"Tint": "255, 0, 0"
-		},
-		{
-			"$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
-			"LoadPosition": "0, 3",
-			"TargetIDs": [1]
-		}
-	],
-
-	"Platforms": [
-		{
-			"Width": 7,
-			"Height": 2,
-			"LoadPosition": "2, 20"
-		},
-		{
-			"Width": 5,
-			"Height": 1,
-			"LoadPosition": "3, 19"
-		},
-		{
-			"Width": 9,
-			"Height": 3,
-			"LoadPosition": "19, 19"
-		},
-		{
-			"Width": 7,
-			"Height": 1,
-			"LoadPosition": "20, 18"
-		}
-	]
+{
+  "Name": "",
+  "TileEntities": [
+    {
+      "$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
+      "Rotation": 0.0,
+      "Powered": false,
+      "PowerID": 0,
+      "TargetIDs": [
+        2
+      ],
+      "LoadPosition": "0, 3"
+    },
+    {
+      "$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
+      "Rotation": 3.14,
+      "PowerID": 1,
+      "WirePosition": "992, 143.974518",
+      "LoadPosition": "29, 3",
+      "Powered": false
+    },
+    {
+      "$type": "LD37.Entities.KeyButton, LD37",
+      "Powered": false,
+      "PowerID": 2,
+      "WirePosition": "784, 560",
+      "LoadPosition": "23, 16",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Switch, LD37",
+      "PowerID": 3,
+      "TargetIDs": [
+        1
+      ],
+      "LoadPosition": "5, 18",
+      "Rotation": 1.3258177
+    }
+  ],
+  "Platforms": [
+    {
+      "Width": 7,
+      "Height": 2,
+      "LoadPosition": "2, 20"
+    },
+    {
+      "Width": 5,
+      "Height": 1,
+      "LoadPosition": "3, 19"
+    },
+    {
+      "Width": 9,
+      "Height": 3,
+      "LoadPosition": "19, 19"
+    },
+    {
+      "Width": 7,
+      "Height": 1,
+      "LoadPosition": "20, 18"
+    }
+  ],
+  "OtherEntities": [
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "208, 624",
+        "208, 272",
+        "1008, 272",
+        "1008, 144",
+        "992, 143.974518"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "784, 560",
+        "784, 208",
+        "16, 208",
+        "16, 144",
+        "32, 144"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    }
+  ]
 }

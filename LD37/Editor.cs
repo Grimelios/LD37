@@ -127,26 +127,30 @@ namespace LD37
 		{
 			Vector2 mousePosition = data.WorldPosition;
 
-			int screenRight = Constants.RoomWidth * Constants.TileSize;
+			int screenWidth = Constants.RoomWidth * Constants.TileSize;
 			int screenHeight = Constants.RoomHeight * Constants.TileSize;
 
-			if (mousePosition.X <= Constants.TileSize || mousePosition.X >= screenRight - Constants.TileSize ||
-			    mousePosition.Y <= Constants.TileSize || mousePosition.Y >= screenHeight - Constants.TileSize)
+			bool inBounds = mousePosition.X >= 0 && mousePosition.X <= screenWidth &&
+				mousePosition.Y >= 0 && mousePosition.Y <= screenHeight;
+			bool inTileBounds = mousePosition.X > Constants.TileSize && mousePosition.X < screenWidth - Constants.TileSize &&
+				mousePosition.Y > Constants.TileSize && mousePosition.Y < screenHeight - Constants.TileSize;
+
+			if (!inBounds)
 			{
 				return;
 			}
 
 			if (wire != null)
 			{
-				EditWire(data, mousePosition);
+				EditWire(data, mousePosition, inTileBounds);
 			}
-			else
+			else if (inTileBounds)
 			{
 				ManageEntities(data, mousePosition);
 			}
 		}
 
-		private void EditWire(MouseData data, Vector2 mousePosition)
+		private void EditWire(MouseData data, Vector2 mousePosition, bool inTileBounds)
 		{
 			List<Vector2> points = wire.Points;
 			Vector2 snappedPosition = GetSnappedWirePosition(mousePosition);
@@ -161,32 +165,35 @@ namespace LD37
 
 			if (data.LeftClickState == ClickStates.PressedThisFrame)
 			{
-				Entity attachedEntity = GetSelectedTile(mousePosition).AttachedEntity;
-
-				IPowered poweredEntity = attachedEntity as IPowered;
-
-				if (poweredEntity != null)
+				if (inTileBounds)
 				{
-					wire.Points.RemoveAt(wire.Points.Count - 1);
-					wire.Points.Add(poweredEntity.WirePosition);
+					Entity attachedEntity = GetSelectedTile(mousePosition).AttachedEntity;
 
-					AbstractPowerSource powerSource1 = wireEntity as AbstractPowerSource;
-					AbstractPowerSource powerSource2 = attachedEntity as AbstractPowerSource;
+					IPowered poweredEntity = attachedEntity as IPowered;
 
-					if (powerSource1 != null)
+					if (poweredEntity != null)
 					{
-						powerSource1.TargetIDs.Add(poweredEntity.PowerID);
-						powerSource1.PowerTargets.Add(poweredEntity);
-					}
-					else
-					{
-						powerSource2.TargetIDs.Add(wireEntity.PowerID);
-						powerSource2.PowerTargets.Add(wireEntity);
-					}
+						wire.Points.RemoveAt(wire.Points.Count - 1);
+						wire.Points.Add(poweredEntity.WirePosition);
 
-					wire = null;
+						AbstractPowerSource powerSource1 = wireEntity as AbstractPowerSource;
+						AbstractPowerSource powerSource2 = attachedEntity as AbstractPowerSource;
 
-					return;
+						if (powerSource1 != null)
+						{
+							powerSource1.TargetIDs.Add(poweredEntity.PowerID);
+							powerSource1.PowerTargets.Add(poweredEntity);
+						}
+						else
+						{
+							powerSource2.TargetIDs.Add(wireEntity.PowerID);
+							powerSource2.PowerTargets.Add(wireEntity);
+						}
+
+						wire = null;
+
+						return;
+					}
 				}
 
 				wire.Points.Add(snappedPosition);

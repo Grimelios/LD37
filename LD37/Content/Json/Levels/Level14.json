@@ -1,1 +1,71 @@
-{"Name":"","TileEntities":[{"$type":"LD37.Entities.Mirror, LD37","Rotation":0.0,"LoadPosition":"2, 2"},{"$type":"LD37.Entities.Lasers.FixedLaserSource, LD37","Rotation":0.0,"LoadPosition":"29, 2","Powered":false},{"$type":"LD37.Entities.KeyButton, LD37","Powered":true,"LoadPosition":"6, 20","Rotation":0.0},{"$type":"LD37.Entities.Lasers.LaserReceiver, LD37","Rotation":0.0,"Powered":true,"TargetIDs":[1],"LoadPosition":"2, 21"},{"$type":"LD37.Entities.Switch, LD37","TargetIDs":[2],"LoadPosition":"10, 21","Rotation":0.0}],"Platforms":[]}
+{
+  "Name": "",
+  "TileEntities": [
+    {
+      "$type": "LD37.Entities.Mirror, LD37",
+      "Rotation": 0.7853982,
+      "LoadPosition": "2, 2"
+    },
+    {
+      "$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
+      "Rotation": 3.14159274,
+      "PowerID": 0,
+      "WirePosition": "992, 112",
+      "LoadPosition": "29, 2",
+      "Powered": false
+    },
+    {
+      "$type": "LD37.Entities.KeyButton, LD37",
+      "Powered": false,
+      "PowerID": 1,
+      "WirePosition": "240, 688",
+      "LoadPosition": "6, 20",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
+      "Rotation": -1.57079637,
+      "Powered": false,
+      "PowerID": 2,
+      "TargetIDs": [
+        1
+      ],
+      "LoadPosition": "2, 21"
+    },
+    {
+      "$type": "LD37.Entities.Switch, LD37",
+      "PowerID": 3,
+      "TargetIDs": [
+        0
+      ],
+      "LoadPosition": "10, 21",
+      "Rotation": 0.0
+    }
+  ],
+  "Platforms": [],
+  "OtherEntities": [
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "992, 112",
+        "1008, 112",
+        "1008, 528",
+        "368, 528",
+        "368, 720"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "112, 736",
+        "112, 752",
+        "240, 752",
+        "240, 688"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    }
+  ]
+}

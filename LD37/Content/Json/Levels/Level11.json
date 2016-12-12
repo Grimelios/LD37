@@ -1,38 +1,78 @@
-﻿{
-	"Name": "",
-	"TileEntities": [
-		{
-			"$type": "LD37.Entities.Switch, LD37",
-			"LoadPosition": "3, 20",
-			"TargetIDs": [2]
-		},
-		{
-			"$type": "LD37.Entities.KeyButton, LD37",
-			"LoadPosition": "26, 19"
-		},
-		{
-			"$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
-			"LoadPosition": "0, 12",
-			"Tint": "255, 0, 0"
-		},
-		{
-			"$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
-			"LoadPosition": "29, 12",
-			"Rotation": 3.14,
-			"TargetIDs": [1]
-		}
-	],
-
-	"Platforms": [
-		{
-			"Width": 5,
-			"Height": 1,
-			"LoadPosition": "1, 21"
-		},
-		{
-			"Width": 5,
-			"Height": 1,
-			"LoadPosition": "24, 21"
-		}
-	]
+{
+  "Name": "",
+  "TileEntities": [
+    {
+      "$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
+      "Rotation": 0.0,
+      "PowerID": 0,
+      "WirePosition": "32, 432",
+      "LoadPosition": "0, 12",
+      "Powered": false
+    },
+    {
+      "$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
+      "Rotation": 3.14,
+      "Powered": false,
+      "PowerID": 1,
+      "TargetIDs": [
+        2
+      ],
+      "LoadPosition": "29, 12"
+    },
+    {
+      "$type": "LD37.Entities.KeyButton, LD37",
+      "Powered": false,
+      "PowerID": 2,
+      "WirePosition": "880, 656",
+      "LoadPosition": "26, 19",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Switch, LD37",
+      "PowerID": 3,
+      "TargetIDs": [
+        0
+      ],
+      "LoadPosition": "3, 20",
+      "Rotation": 0.0
+    }
+  ],
+  "Platforms": [
+    {
+      "Width": 5,
+      "Height": 1,
+      "LoadPosition": "1, 21"
+    },
+    {
+      "Width": 5,
+      "Height": 1,
+      "LoadPosition": "24, 21"
+    }
+  ],
+  "OtherEntities": [
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "144, 688",
+        "144, 496",
+        "16, 496",
+        "16, 432",
+        "32, 432"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "880, 656",
+        "880, 496",
+        "1008, 496",
+        "1008, 432",
+        "992, 431.974518"
+      ],
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    }
+  ]
 }
