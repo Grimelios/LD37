@@ -24,6 +24,7 @@ namespace LD37.Entities
 		private Sprite sprite;
 		private Body body;
 		private Rectangle boundingBox;
+		private Rotator rotator;
 
 		private float acceleration;
 		private float deceleration;
@@ -117,13 +118,37 @@ namespace LD37.Entities
 
 		private void HandleKeyboard(KeyboardData data)
 		{
-			if (data.KeysPressedThisFrame.Contains(Keys.E))
+			rotator = interactionSystem.QueryRotator(boundingBox);
+
+			if (rotator != null)
+			{
+				HandleRotator(data);
+			}
+			else if (data.KeysPressedThisFrame.Contains(Keys.E))
 			{
 				interactionSystem.CheckInteraction(boundingBox);
 			}
 
 			HandleRunning(data);
 			HandleJumping(data);
+		}
+
+		private void HandleRotator(KeyboardData data)
+		{
+			bool qDown = data.KeysDown.Contains(Keys.Q);
+			bool eDown = data.KeysDown.Contains(Keys.E);
+
+			if (qDown ^ eDown)
+			{
+				if (qDown)
+				{
+					rotator.RotateLeft();
+				}
+				else
+				{
+					rotator.RotateRight();
+				}
+			}
 		}
 
 		private void HandleRunning(KeyboardData data)

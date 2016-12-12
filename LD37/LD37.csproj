@@ -58,6 +58,7 @@
     <Compile Include="Entities\Platforms\Platform.cs" />
     <Compile Include="Entities\Platforms\PlatformSegment.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\Rotator.cs" />
     <Compile Include="Entities\Switch.cs" />
     <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\Tilemap.cs" />
@@ -191,6 +192,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Properties\Player.properties">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Properties\Rotator.properties">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Properties\Switch.properties">

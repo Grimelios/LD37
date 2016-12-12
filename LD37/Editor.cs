@@ -29,6 +29,7 @@ namespace LD37
 			LaserReceiver,
 			KeyButton,
 			Mirror,
+			Rotator,
 			Switch,
 			Wire
 		}
@@ -152,6 +153,7 @@ namespace LD37
 				case Keys.R: return EditableEntityTypes.LaserReceiver;
 				case Keys.K: return EditableEntityTypes.KeyButton;
 				case Keys.M: return EditableEntityTypes.Mirror;
+				case Keys.O: return EditableEntityTypes.Rotator;
 				case Keys.S: return EditableEntityTypes.Switch;
 				case Keys.W: return EditableEntityTypes.Wire;
 			}
@@ -454,6 +456,7 @@ namespace LD37
 				case EditableEntityTypes.LaserReceiver: return kernel.Get<LaserReceiver>();
 				case EditableEntityTypes.KeyButton: return kernel.Get<KeyButton>();
 				case EditableEntityTypes.Mirror: return kernel.Get<Mirror>();
+				case EditableEntityTypes.Rotator: return kernel.Get<Rotator>();
 				case EditableEntityTypes.Switch: return kernel.Get<Switch>();
 				case EditableEntityTypes.Wire: return kernel.Get<Wire>();
 			}
