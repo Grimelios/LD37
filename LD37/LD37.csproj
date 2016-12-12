@@ -83,6 +83,7 @@
     <Compile Include="Messaging\Input\KeyboardMessage.cs" />
     <Compile Include="Messaging\Input\MouseMessage.cs" />
     <Compile Include="Messaging\LevelRefreshMessage.cs" />
+    <Compile Include="Messaging\LevelSaveMessage.cs" />
     <Compile Include="Messaging\MessageSystem.cs" />
     <Compile Include="Paths.cs" />
     <Compile Include="Physics\PhysicsConvert.cs" />

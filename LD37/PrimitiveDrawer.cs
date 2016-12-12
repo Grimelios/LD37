@@ -34,10 +34,5 @@ namespace LD37
 			DrawLine(sb, topRight, bottomRight, color);
 			DrawLine(sb, bottomLeft, bottomRight, color);
 		}
-
-		public void FillRectangle(SpriteBatch sb, Rectangle rect, Color color)
-		{
-			sb.Draw(pixelTexture, rect, color);
-		}
 	}
 }

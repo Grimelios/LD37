@@ -3,7 +3,6 @@ using FarseerPhysics.Dynamics;
 using LD37.Entities;
 using LD37.Entities.Abstract;
 using LD37.Entities.Organization;
-using LD37.Entities.Platforms;
 using LD37.Input;
 using LD37.Json;
 using LD37.Levels;
@@ -34,6 +33,7 @@ namespace LD37
 		private SpriteBatch spriteBatch;
 
 		private Camera camera;
+		private Editor editor;
 		private InputGenerator inputGenerator;
 		private PhysicsDebugDrawer physicsDebugDrawer;
 		private Scene scene;
@@ -80,7 +80,7 @@ namespace LD37
 
 			CreatePrimaryLayer(kernel);
 
-			kernel.Get<Editor>();
+			editor = kernel.Get<Editor>();
 
 			base.Initialize();
 		}
@@ -179,7 +179,8 @@ namespace LD37
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.Transform);
 			scene.Render(spriteBatch);
-			//physicsDebugDrawer.Render(spriteBatch);
+			physicsDebugDrawer.Render(spriteBatch);
+			editor.Render(spriteBatch);
 			spriteBatch.End();
 		}
 	}

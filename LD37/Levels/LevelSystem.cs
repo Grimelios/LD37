@@ -36,7 +36,7 @@ namespace LD37.Levels
 
 			tiles = scene.RetrieveTiles();
 			entityMap = scene.LayerMap["Primary"].EntityMap;
-			levelCounter = 9;
+			levelCounter = 15;
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.LevelSave, this);
@@ -52,7 +52,7 @@ namespace LD37.Levels
 					break;
 
 				case MessageTypes.LevelSave:
-					SaveLevel();
+					SaveLevel((LevelSaveMessage)message);
 					break;
 
 				case MessageTypes.LevelRefresh:
@@ -69,10 +69,13 @@ namespace LD37.Levels
 			}
 		}
 
-		private void SaveLevel()
+		private void SaveLevel(LevelSaveMessage message)
 		{
 			List<Entity> tileEntities = GetTileEntities();
-			Level level = new Level("", tileEntities, currentLevel.Platforms, entityMap["Wire"]);
+			List<Platform> platforms = currentLevel.Platforms ?? new List<Platform>();
+			platforms.AddRange(message.CreatedPlatforms);
+
+			Level level = new Level("", tileEntities, platforms, entityMap["Wire"]);
 
 			JsonUtilities.Serialize(level, LevelDirectory + levelFilename);
 		}
@@ -169,13 +172,7 @@ namespace LD37.Levels
 
 					foreach (int id in powerSource.TargetIDs)
 					{
-						foreach (IPowered poweredItem in powerList)
-						{
-							if (poweredItem.PowerID == id)
-							{
-								powerSource.PowerTargets.Add(poweredItem);
-							}
-						}
+						powerTargets.AddRange(powerList.Where(poweredItem => poweredItem.PowerID == id));
 					}
 				}
 			}

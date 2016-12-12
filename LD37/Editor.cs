@@ -4,12 +4,14 @@ using LD37.Entities;
 using LD37.Entities.Abstract;
 using LD37.Entities.Lasers;
 using LD37.Entities.Organization;
+using LD37.Entities.Platforms;
 using LD37.Input;
 using LD37.Interfaces;
 using LD37.Messaging;
 using LD37.Messaging.Input;
 using LD37.Utility;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Ninject;
 
@@ -17,7 +19,7 @@ namespace LD37
 {
 	using EntityMap = Dictionary<string, List<Entity>>;
 
-	internal class Editor : IMessageReceiver
+	internal class Editor : IRenderable, IMessageReceiver
 	{
 		private const float PiOver8 = MathHelper.PiOver4 / 2;
 
@@ -34,6 +36,7 @@ namespace LD37
 		private Tile[,] tiles;
 		private Entity selectedEntity;
 		private MessageSystem messageSystem;
+		private PrimitiveDrawer primitiveDrawer;
 		private StandardKernel kernel;
 		private EntityMap entityMap;
 		private Wire wire;
@@ -43,17 +46,26 @@ namespace LD37
 
 		private bool shiftHeld;
 		private bool pHeld;
+		private bool platformMode;
+		private bool platformInProgress;
 
-		public Editor(MessageSystem messageSystem, Scene scene, StandardKernel kernel)
+		private Vector2 platformStart;
+		private Vector2 platformEnd;
+		private List<Platform> createdPlatforms;
+
+		public Editor(MessageSystem messageSystem, PrimitiveDrawer primitiveDrawer, Scene scene, StandardKernel kernel)
 		{
+			this.primitiveDrawer = primitiveDrawer;
 			this.messageSystem = messageSystem;
 			this.kernel = kernel;
 
 			tiles = scene.RetrieveTiles();
 			entityMap = scene.LayerMap["Primary"].EntityMap;
+			createdPlatforms = new List<Platform>();
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.Mouse, this);
+			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
 		}
 
 		public void Receive(GameMessage message)
@@ -67,11 +79,25 @@ namespace LD37
 				case MessageTypes.Mouse:
 					HandleMouse(((MouseMessage)message).Data);
 					break;
+
+				case MessageTypes.LevelRefresh:
+					createdPlatforms.Clear();
+					break;
 			}
 		}
 
 		private void HandleKeyboard(KeyboardData data)
 		{
+			if (data.KeysPressedThisFrame.Contains(Keys.L))
+			{
+				platformMode = !platformMode;
+
+				if (!platformMode)
+				{
+					platformInProgress = false;
+				}
+			}
+
 			foreach (Keys key in data.KeysPressedThisFrame)
 			{
 				selectedEntityType = GetEntityType(key);
@@ -104,7 +130,7 @@ namespace LD37
 
 			if (controlHeld && data.KeysPressedThisFrame.Contains(Keys.S))
 			{
-				messageSystem.Send(new GameMessage(MessageTypes.LevelSave));
+				messageSystem.Send(new LevelSaveMessage(createdPlatforms));
 			}
 		}
 
@@ -140,6 +166,13 @@ namespace LD37
 				return;
 			}
 
+			if (platformMode)
+			{
+				ManagePlatforms(data, mousePosition);
+
+				return;
+			}
+
 			if (wire != null)
 			{
 				EditWire(data, mousePosition, inTileBounds);
@@ -147,6 +180,55 @@ namespace LD37
 			else if (inTileBounds)
 			{
 				ManageEntities(data, mousePosition);
+			}
+		}
+
+		private void ManagePlatforms(MouseData data, Vector2 mousePosition)
+		{
+			Point tileCoordinates = GetTileCoordinates(mousePosition);
+			Vector2 tileCenter = TileConvert.ToPixels(tileCoordinates);
+
+			if (platformInProgress)
+			{
+				platformEnd = tileCenter;
+
+				if (data.LeftClickState == ClickStates.PressedThisFrame)
+				{
+					float minX = MathHelper.Min(platformStart.X, platformEnd.X);
+					float minY = MathHelper.Min(platformStart.Y, platformEnd.Y);
+					float maxX = MathHelper.Max(platformStart.X, platformEnd.X);
+					float maxY = MathHelper.Max(platformStart.Y, platformEnd.Y);
+
+					Point minPoint = TileConvert.ToTile(new Vector2(minX, minY));
+					Point maxPoint = TileConvert.ToTile(new Vector2(maxX, maxY));
+
+					Platform platform = kernel.Get<Platform>();
+					platform.Width = maxPoint.X - minPoint.X + 1;
+					platform.Height = maxPoint.Y - minPoint.Y + 1;
+					platform.LoadPosition = new Vector2(minPoint.X, minPoint.Y);
+
+					PlatformSegment[,] segments = platform.Segments;
+
+					for (int i = 0; i < platform.Height; i++)
+					{
+						for (int j = 0; j < platform.Width; j++)
+						{
+							PlatformSegment segment = segments[j, i];
+							Point tilePoint = TileConvert.ToTile(segment.Position);
+
+							tiles[tilePoint.X, tilePoint.Y].AttachedEntity = segment;
+						}
+					}
+
+					createdPlatforms.Add(platform);
+					platformInProgress = false;
+				}
+			}
+			else if (data.LeftClickState == ClickStates.PressedThisFrame)
+			{
+				platformInProgress = true;
+				platformStart = tileCenter;
+				platformEnd = tileCenter;
 			}
 		}
 
@@ -334,6 +416,21 @@ namespace LD37
 			}
 
 			return null;
+		}
+
+		public void Render(SpriteBatch sb)
+		{
+			if (platformMode && platformInProgress)
+			{
+				int left = (int)MathHelper.Min(platformStart.X, platformEnd.X);
+				int right = (int)MathHelper.Max(platformStart.X, platformEnd.X);
+				int top = (int)MathHelper.Min(platformStart.Y, platformEnd.Y);
+				int bottom = (int)MathHelper.Max(platformStart.Y, platformEnd.Y);
+
+				Rectangle rectangle = new Rectangle(left, top, right - left, bottom - top);
+
+				primitiveDrawer.DrawRectangle(sb, rectangle, Color.Purple);
+			}
 		}
 	}
 }
