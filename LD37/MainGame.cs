@@ -178,7 +178,7 @@ namespace LD37
 
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(new Color(90, 90, 90));
+			GraphicsDevice.Clear(new Color(130, 130, 130));
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.Transform);
 			scene.Render(spriteBatch);
