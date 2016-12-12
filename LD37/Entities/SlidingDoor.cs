@@ -93,7 +93,7 @@ namespace LD37.Entities
 			}
 		}
 
-		public Vector2 WirePosition => Position - new Vector2(0, Constants.TileSize * 3);
+		public Vector2 WirePosition => Position - new Vector2(0, Constants.HalfTile * 7);
 
 		public override void Dispose()
 		{
