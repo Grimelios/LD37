@@ -57,7 +57,18 @@
       "Rotation": -2.67794514
     }
   ],
-  "Platforms": null,
+  "Platforms": [
+    {
+      "Width": 5,
+      "Height": 5,
+      "LoadPosition": "0, 17"
+    },
+    {
+      "Width": 5,
+      "Height": 5,
+      "LoadPosition": "25, 17"
+    }
+  ],
   "OtherEntities": [
     {
       "$type": "LD37.Entities.Wire, LD37",

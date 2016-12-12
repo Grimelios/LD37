@@ -64,7 +64,6 @@ namespace LD37
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.Mouse, this);
-			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
 		}
 
 		public List<Platform> Platforms
@@ -82,10 +81,6 @@ namespace LD37
 
 				case MessageTypes.Mouse:
 					HandleMouse(((MouseMessage)message).Data);
-					break;
-
-				case MessageTypes.LevelRefresh:
-					platforms.Clear();
 					break;
 			}
 		}

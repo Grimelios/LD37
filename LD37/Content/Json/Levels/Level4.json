@@ -1,17 +1,21 @@
-﻿{
-	"Name": "",
-	"TileEntities": [
-		{
-			"$type": "LD37.Entities.KeyButton, LD37",
-			"LoadPosition": "18, 14"
-		}
-	],
-
-	"Platforms": [
-		{
-			"Width": 5,
-			"Height": 6,
-			"LoadPosition": "16, 16"
-		}
-	]
+{
+  "Name": "",
+  "TileEntities": [
+    {
+      "$type": "LD37.Entities.KeyButton, LD37",
+      "Powered": true,
+      "PowerID": 4,
+      "WirePosition": "624, 496",
+      "LoadPosition": "18, 14",
+      "Rotation": 0.0
+    }
+  ],
+  "Platforms": [
+    {
+      "Width": 5,
+      "Height": 6,
+      "LoadPosition": "16, 16"
+    }
+  ],
+  "OtherEntities": []
 }

@@ -3,6 +3,7 @@
 	"TileEntities": [
 		{
 			"$type": "LD37.Entities.KeyButton, LD37",
+			"Powered": true,
 			"LoadPosition": "15, 20"
 		}
 	]

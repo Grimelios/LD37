@@ -23,7 +23,6 @@ namespace LD37.Entities
 			sprite = new Sprite(contentLoader, "KeyButton", OriginLocations.Center);
 			InteractionBox = new Rectangle(0, 0, InteractionSize, InteractionSize);
 			interactionSystem.Items.Add(this);
-			Powered = true;
 			PowerID = AbstractPowerSource.NextID;
 		}
 
