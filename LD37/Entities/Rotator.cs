@@ -71,6 +71,14 @@ namespace LD37.Entities
 				value = GameFunctions.ClampAngle(value);
 				innerSprite.Rotation = value;
 
+				if (Powered)
+				{
+					foreach (IPowered target in PowerTargets)
+					{
+						((Entity)target).Rotation = value;
+					}
+				}
+
 				base.Rotation = value;
 			}
 		}

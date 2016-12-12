@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
 using LD37.Core;
 using LD37.Entities.Abstract;
+using LD37.Interfaces;
 using LD37.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 
 namespace LD37.Entities
 {
 	using PropertyMap = Dictionary<string, string>;
 
-	internal class Mirror : Entity
+	internal class Mirror : Entity, IPowered
 	{
 		private static float bodyLength;
 		private static float reflectionThreshold;
@@ -67,6 +69,13 @@ namespace LD37.Entities
 				base.Rotation = value;
 			}
 		}
+
+		[JsonProperty]
+		public int PowerID { get; set; }
+
+		public bool Powered { get; set; }
+
+		public Vector2 WirePosition => Position;
 
 		public float? ComputeReflectionAngle(float incomingAngle)
 		{
