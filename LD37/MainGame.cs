@@ -34,6 +34,7 @@ namespace LD37
 
 		private Camera camera;
 		private Editor editor;
+		private LevelSystem levelSystem;
 		private InputGenerator inputGenerator;
 		private PhysicsDebugDrawer physicsDebugDrawer;
 		private Scene scene;
@@ -81,6 +82,8 @@ namespace LD37
 			CreatePrimaryLayer(kernel);
 
 			editor = kernel.Get<Editor>();
+			levelSystem.Editor = editor;
+			levelSystem.Refresh(Point.Zero, false);
 
 			base.Initialize();
 		}
@@ -112,8 +115,8 @@ namespace LD37
 			AddRoomEdges(kernel, tilemap);
 			CreateTiles(kernel);
 
-			LevelSystem levelSystem = kernel.Get<LevelSystem>();
-			levelSystem.Refresh(Point.Zero, false);
+			levelSystem = kernel.Get<LevelSystem>();
+			levelSystem.Editor = editor;
 		}
 
 		private void CreateTiles(IKernel kernel)

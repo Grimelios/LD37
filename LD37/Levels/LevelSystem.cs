@@ -43,6 +43,8 @@ namespace LD37.Levels
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
 		}
 
+		public Editor Editor { get; set; }
+
 		public void Receive(GameMessage message)
 		{
 			switch (message.Type)
@@ -72,10 +74,7 @@ namespace LD37.Levels
 		private void SaveLevel(LevelSaveMessage message)
 		{
 			List<Entity> tileEntities = GetTileEntities();
-			List<Platform> platforms = currentLevel.Platforms ?? new List<Platform>();
-			platforms.AddRange(message.CreatedPlatforms);
-
-			Level level = new Level("", tileEntities, platforms, entityMap["Wire"]);
+			Level level = new Level("", tileEntities, message.Platforms, entityMap["Wire"]);
 
 			JsonUtilities.Serialize(level, LevelDirectory + levelFilename);
 		}
@@ -114,6 +113,7 @@ namespace LD37.Levels
 			currentLevel?.Dispose();
 			currentLevel = JsonUtilities.Deserialize<Level>("Levels/" + levelFilename);
 			currentLevel.TileEntities.ForEach(entity => AttachToTile(entity, cascadeTiles));
+			Editor.Platforms = currentLevel.Platforms ?? new List<Platform>();
 
 			if (currentLevel.Platforms != null)
 			{

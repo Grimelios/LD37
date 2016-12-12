@@ -14,16 +14,6 @@
     },
     {
       "Width": 4,
-      "Height": 4,
-      "LoadPosition": "8, 10"
-    },
-    {
-      "Width": 15,
-      "Height": 5,
-      "LoadPosition": "10, 13"
-    },
-    {
-      "Width": 4,
       "Height": 9,
       "LoadPosition": "0, 13"
     },
@@ -36,6 +26,11 @@
       "Width": 2,
       "Height": 3,
       "LoadPosition": "6, 19"
+    },
+    {
+      "Width": 3,
+      "Height": 3,
+      "LoadPosition": "15, 8"
     }
   ],
   "OtherEntities": []

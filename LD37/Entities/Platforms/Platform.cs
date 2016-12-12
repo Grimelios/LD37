@@ -40,7 +40,8 @@ namespace LD37.Entities.Platforms
 					{
 						Segments[j, i] = new PlatformSegment(contentLoader)
 						{
-							Position = TileConvert.ToPixels(value + new Vector2(j, i))
+							Position = TileConvert.ToPixels(value + new Vector2(j, i)),
+							Parent = this
 						};
 					}
 				}

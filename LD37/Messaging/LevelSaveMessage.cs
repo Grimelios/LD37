@@ -5,11 +5,11 @@ namespace LD37.Messaging
 {
 	internal class LevelSaveMessage : GameMessage
 	{
-		public LevelSaveMessage(List<Platform> createdPlatforms) : base(MessageTypes.LevelSave)
+		public LevelSaveMessage(List<Platform> platforms) : base(MessageTypes.LevelSave)
 		{
-			CreatedPlatforms = createdPlatforms;
+			Platforms = platforms;
 		}
 
-		public List<Platform> CreatedPlatforms { get; }
+		public List<Platform> Platforms { get; }
 	}
 }

@@ -14,6 +14,8 @@ namespace LD37.Entities.Platforms
 			sprite = new Sprite(contentLoader, "Tilesheets/Platform", OriginLocations.Center);
 		}
 
+		public Platform Parent { get; set; }
+
 		public override Vector2 Position
 		{
 			set

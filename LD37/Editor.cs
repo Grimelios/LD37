@@ -51,7 +51,7 @@ namespace LD37
 
 		private Vector2 platformStart;
 		private Vector2 platformEnd;
-		private List<Platform> createdPlatforms;
+		private List<Platform> platforms;
 
 		public Editor(MessageSystem messageSystem, PrimitiveDrawer primitiveDrawer, Scene scene, StandardKernel kernel)
 		{
@@ -61,11 +61,15 @@ namespace LD37
 
 			tiles = scene.RetrieveTiles();
 			entityMap = scene.LayerMap["Primary"].EntityMap;
-			createdPlatforms = new List<Platform>();
 
 			messageSystem.Subscribe(MessageTypes.Keyboard, this);
 			messageSystem.Subscribe(MessageTypes.Mouse, this);
 			messageSystem.Subscribe(MessageTypes.LevelRefresh, this);
+		}
+
+		public List<Platform> Platforms
+		{
+			set { platforms = value; }
 		}
 
 		public void Receive(GameMessage message)
@@ -81,7 +85,7 @@ namespace LD37
 					break;
 
 				case MessageTypes.LevelRefresh:
-					createdPlatforms.Clear();
+					platforms.Clear();
 					break;
 			}
 		}
@@ -130,7 +134,7 @@ namespace LD37
 
 			if (controlHeld && data.KeysPressedThisFrame.Contains(Keys.S))
 			{
-				messageSystem.Send(new LevelSaveMessage(createdPlatforms));
+				messageSystem.Send(new LevelSaveMessage(platforms));
 			}
 		}
 
@@ -192,6 +196,13 @@ namespace LD37
 			{
 				platformEnd = tileCenter;
 
+				if (data.RightClickState == ClickStates.PressedThisFrame)
+				{
+					platformInProgress = false;
+
+					return;
+				}
+
 				if (data.LeftClickState == ClickStates.PressedThisFrame)
 				{
 					float minX = MathHelper.Min(platformStart.X, platformEnd.X);
@@ -220,7 +231,7 @@ namespace LD37
 						}
 					}
 
-					createdPlatforms.Add(platform);
+					platforms.Add(platform);
 					platformInProgress = false;
 				}
 			}
@@ -229,6 +240,27 @@ namespace LD37
 				platformInProgress = true;
 				platformStart = tileCenter;
 				platformEnd = tileCenter;
+			}
+			else if (data.RightClickState == ClickStates.PressedThisFrame)
+			{
+				PlatformSegment attachedSegment = tiles[tileCoordinates.X, tileCoordinates.Y].AttachedEntity as PlatformSegment;
+
+				if (attachedSegment != null)
+				{
+					Platform platform = attachedSegment.Parent;
+					Point cornerPoint = TileConvert.ToTile(platform.Position);
+
+					for (int i = cornerPoint.Y; i < cornerPoint.Y + platform.Height; i++)
+					{
+						for (int j = cornerPoint.X; j < cornerPoint.X + platform.Width; j++)
+						{
+							tiles[j, i].AttachedEntity = null;
+						}
+					}
+
+					platform.Dispose();
+					platforms.Remove(platform);
+				}
 			}
 		}
 
