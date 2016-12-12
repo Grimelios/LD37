@@ -1,6 +1,8 @@
 {
   "Name": "",
-  "TileEntities": [],
-  "Platforms": [],
-  "OtherEntities": []
+  "TileEntities": [
+  ],
+  "Platforms": null,
+  "Wires": [
+  ]
 }

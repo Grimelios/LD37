@@ -30,6 +30,7 @@ namespace LD37
 			KeyButton,
 			Mirror,
 			Rotator,
+			SlidingDoor,
 			Switch,
 			Wire
 		}
@@ -154,6 +155,7 @@ namespace LD37
 				case Keys.K: return EditableEntityTypes.KeyButton;
 				case Keys.M: return EditableEntityTypes.Mirror;
 				case Keys.O: return EditableEntityTypes.Rotator;
+				case Keys.I: return EditableEntityTypes.SlidingDoor;
 				case Keys.S: return EditableEntityTypes.Switch;
 				case Keys.W: return EditableEntityTypes.Wire;
 			}
@@ -464,6 +466,7 @@ namespace LD37
 				case EditableEntityTypes.KeyButton: return kernel.Get<KeyButton>();
 				case EditableEntityTypes.Mirror: return kernel.Get<Mirror>();
 				case EditableEntityTypes.Rotator: return kernel.Get<Rotator>();
+				case EditableEntityTypes.SlidingDoor: return kernel.Get<SlidingDoor>();
 				case EditableEntityTypes.Switch: return kernel.Get<Switch>();
 				case EditableEntityTypes.Wire: return kernel.Get<Wire>();
 			}

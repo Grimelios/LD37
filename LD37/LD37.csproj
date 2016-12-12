@@ -59,6 +59,7 @@
     <Compile Include="Entities\Platforms\PlatformSegment.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\Rotator.cs" />
+    <Compile Include="Entities\SlidingDoor.cs" />
     <Compile Include="Entities\Switch.cs" />
     <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\Tilemap.cs" />

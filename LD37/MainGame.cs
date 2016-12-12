@@ -17,12 +17,6 @@ namespace LD37
 {
 	using EntityMap = Dictionary<string, List<Entity>>;
 
-	internal enum OriginLocations
-	{
-		Center,
-		Default
-	}
-
 	internal class MainGame : Game
 	{
 		private const int DefaultScreenWidth = 1024;
