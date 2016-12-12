@@ -5,14 +5,11 @@ using LD37.Entities;
 using LD37.Entities.Abstract;
 using LD37.Entities.Organization;
 using LD37.Entities.Platforms;
-using LD37.Input;
 using LD37.Interfaces;
 using LD37.Json;
 using LD37.Messaging;
-using LD37.Messaging.Input;
 using LD37.Utility;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 namespace LD37.Levels
 {
@@ -20,13 +17,14 @@ namespace LD37.Levels
 
 	internal class LevelSystem : IMessageReceiver
 	{
-		private const float DelayMultiplier = 1.5f;
+		private const float DelayMultiplier = 3;
 		private const string LevelDirectory = @"C:\Users\Mark\Documents\visual studio 2015\Projects\LD37\LD37\Content\Json\Levels\";
 
 		private int levelCounter;
 		private string levelFilename;
 
 		private InteractionSystem interactionSystem;
+		private MessageSystem messageSystem;
 		private Level currentLevel;
 		private Tile[,] tiles;
 		private List<Entity> wires;
@@ -34,9 +32,12 @@ namespace LD37.Levels
 		public LevelSystem(InteractionSystem interactionSystem, MessageSystem messageSystem, Scene scene)
 		{
 			this.interactionSystem = interactionSystem;
+			this.messageSystem = messageSystem;
+
+			EntityMap entityMap = scene.LayerMap["Primary"].EntityMap;
 
 			tiles = scene.RetrieveTiles();
-			wires = scene.LayerMap["Primary"].EntityMap["Wire"];
+			wires = entityMap["Wire"];
 			levelCounter = 20;
 			
 			messageSystem.Subscribe(MessageTypes.LevelSave, this);
@@ -125,6 +126,10 @@ namespace LD37.Levels
 
 				WireElements(tileEntities, powerList);
 				CreateWires(powerList);
+			}
+			else
+			{
+				messageSystem.Send(new GameMessage(MessageTypes.EndGame));
 			}
 
 			if (cascadeTiles)

@@ -6,7 +6,8 @@
 		Keyboard,
 		Gamepad,
 		LevelSave,
-		LevelRefresh
+		LevelRefresh,
+		EndGame
 	}
 
 	internal class GameMessage

@@ -42,7 +42,11 @@
     <Compile Include="Constants.cs" />
     <Compile Include="ContentLoader.cs" />
     <Compile Include="Core\Sprite.cs" />
+    <Compile Include="Core\SpriteText.cs" />
     <Compile Include="Core\Timer.cs" />
+    <Compile Include="Dialogue\DialogueLine.cs" />
+    <Compile Include="Dialogue\DialogueCharacter.cs" />
+    <Compile Include="Dialogue\EndGameDialogueCreator.cs" />
     <Compile Include="Editor.cs" />
     <Compile Include="Entities\Abstract\AbstractPowerSource.cs" />
     <Compile Include="Entities\Abstract\Entity.cs" />
@@ -127,6 +131,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Content\Fonts\Primary.spritefont" />
+    <None Include="Content\Fonts\Secondary.spritefont" />
     <None Include="Content\Json\Levels\Level1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

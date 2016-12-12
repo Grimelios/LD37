@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using FarseerPhysics.Dynamics;
+using LD37.Dialogue;
 using LD37.Entities;
 using LD37.Entities.Abstract;
 using LD37.Entities.Organization;
 using LD37.Input;
+using LD37.Interfaces;
 using LD37.Json;
 using LD37.Levels;
 using LD37.Messaging;
@@ -17,10 +19,8 @@ namespace LD37
 {
 	using EntityMap = Dictionary<string, List<Entity>>;
 
-	internal class MainGame : Game
+	internal class MainGame : Game, IMessageReceiver
 	{
-		private const int DefaultScreenWidth = 1024;
-		private const int DefaultScreenHeight = 768;
 		private const int Gravity = 30;
 
 		private GraphicsDeviceManager graphics;
@@ -28,18 +28,20 @@ namespace LD37
 
 		private Camera camera;
 		private Editor editor;
+		private EndGameDialogueCreator dialogueCreator;
 		private LevelSystem levelSystem;
 		private InputGenerator inputGenerator;
 		private PhysicsDebugDrawer physicsDebugDrawer;
 		private Scene scene;
+		private StandardKernel kernel;
 		private World world;
 
 		public MainGame()
 		{
 			graphics = new GraphicsDeviceManager(this)
 			{
-				PreferredBackBufferWidth = DefaultScreenWidth,
-				PreferredBackBufferHeight = DefaultScreenHeight
+				PreferredBackBufferWidth = Constants.ScreenWidth,
+				PreferredBackBufferHeight = Constants.ScreenHeight
 			};
 
 			Content.RootDirectory = "Content";
@@ -52,7 +54,7 @@ namespace LD37
 			world = new World(new Vector2(0, Gravity));
 			scene = new Scene();
 
-			IKernel kernel = new StandardKernel();
+			kernel = new StandardKernel();
 			kernel.Bind<ContentLoader>().ToConstant(new ContentLoader(Content));
 			kernel.Bind<InteractionSystem>().ToSelf().InSingletonScope();
 			kernel.Bind<MessageSystem>().ToSelf().InSingletonScope();
@@ -79,6 +81,8 @@ namespace LD37
 			levelSystem.Editor = editor;
 			levelSystem.Refresh(Point.Zero, false);
 
+			kernel.Get<MessageSystem>().Subscribe(MessageTypes.EndGame, this);
+
 			base.Initialize();
 		}
 
@@ -91,7 +95,8 @@ namespace LD37
 			EntityLayer primaryLayer = new EntityLayer(new []
 			{
 				"Tile",
-				"Player"
+				"Player",
+				"Dialogue"
 			}, new []
 			{
 				"Tilemap",
@@ -99,6 +104,7 @@ namespace LD37
 				"Wire",
 				"Laser",
 				"Player",
+				"Dialogue"
 			});
 
 			EntityMap entityMap = primaryLayer.EntityMap;
@@ -160,6 +166,11 @@ namespace LD37
 		{
 		}
 
+		public void Receive(GameMessage message)
+		{
+			dialogueCreator = kernel.Get<EndGameDialogueCreator>();
+		}
+
 		protected override void Update(GameTime gameTime)
 		{
 			float dt = (float)gameTime.ElapsedGameTime.Milliseconds / 1000;
@@ -168,6 +179,7 @@ namespace LD37
 			world.Step(dt);
 			scene.Update(dt);
 			camera.Update(dt);
+			dialogueCreator?.Update(dt);
 		}
 
 		protected override void Draw(GameTime gameTime)
