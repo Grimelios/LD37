@@ -132,6 +132,7 @@ namespace LD37.Entities
 			if (aDown ^ dDown)
 			{
 				force.X = aDown ? -acceleration : acceleration;
+				sprite.Effects = aDown ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 			}
 			else if (movementSign != 0)
 			{
