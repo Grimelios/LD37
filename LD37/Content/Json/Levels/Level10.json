@@ -8,7 +8,8 @@
         1
       ],
       "LoadPosition": "27, 9",
-      "Rotation": 0.0
+			"Rotation": 0.0,
+			"Powered": true
     },
     {
       "$type": "LD37.Entities.KeyButton, LD37",

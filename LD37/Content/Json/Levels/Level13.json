@@ -61,7 +61,7 @@
       ],
       "LoadPosition": "-1, -1",
       "Rotation": 0.0,
-			"TargetID": 1
+			"TargetID": 3
     },
     {
       "$type": "LD37.Entities.Wire, LD37",
@@ -74,7 +74,7 @@
       ],
       "LoadPosition": "-1, -1",
       "Rotation": 0.0,
-			"TargetID": 3
+			"TargetID": 1
     }
   ]
 }
