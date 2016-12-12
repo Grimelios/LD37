@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LD37.Core;
 using LD37.Entities.Abstract;
 using LD37.Interfaces;
@@ -11,16 +12,23 @@ namespace LD37.Entities
 
 	internal class Rotator : AbstractPowerSource, IInteractive
 	{
-		private static float rotationSpeed;
+		private static float angularAcceleration;
+		private static float angularDeceleration;
+		private static float angularMaxSpeed;
 
 		static Rotator()
 		{
 			PropertyMap properties = Properties.Load("Rotator.properties");
-			rotationSpeed = float.Parse(properties["Rotation.Speed"]);
+			angularAcceleration = float.Parse(properties["Angular.Acceleration"]);
+			angularDeceleration = float.Parse(properties["Angular.Deceleration"]);
+			angularMaxSpeed = float.Parse(properties["Angular.Max.Speed"]);
 		}
 
 		private Sprite mainSprite;
 		private Sprite innerSprite;
+
+		private bool accelerating;
+		private float angularVelocity;
 
 		public Rotator(ContentLoader contentLoader, InteractionSystem interactionSystem)
 		{
@@ -68,14 +76,18 @@ namespace LD37.Entities
 		{
 			set
 			{
+				float previousRotation = Rotation;
+
 				value = GameFunctions.ClampAngle(value);
 				innerSprite.Rotation = value;
 
 				if (Powered)
 				{
+					float rotationChange = value - previousRotation;
+
 					foreach (IPowered target in PowerTargets)
 					{
-						((Entity)target).Rotation = value;
+						((Entity)target).Rotation += rotationChange;
 					}
 				}
 
@@ -92,7 +104,9 @@ namespace LD37.Entities
 				return;
 			}
 
-			Rotation -= rotationSpeed;
+			angularVelocity -= angularAcceleration;
+			angularVelocity = angularVelocity < -angularMaxSpeed ? -angularMaxSpeed : angularVelocity;
+			accelerating = true;
 		}
 
 		public void RotateRight()
@@ -102,11 +116,31 @@ namespace LD37.Entities
 				return;
 			}
 
-			Rotation += rotationSpeed;
+			angularVelocity += angularAcceleration;
+			angularVelocity = angularVelocity > angularMaxSpeed ? angularMaxSpeed : angularVelocity;
+			accelerating = true;
 		}
 
 		public void InteractionResponse()
 		{
+		}
+
+		public override void Update(float dt)
+		{
+			if (!accelerating && angularVelocity != 0)
+			{
+				int previousSign = Math.Sign(angularVelocity);
+
+				angularVelocity -= angularDeceleration * previousSign;
+
+				if (Math.Sign(angularVelocity) != previousSign)
+				{
+					angularVelocity = 0;
+				}
+			}
+
+			Rotation += angularVelocity * dt;
+			accelerating = false;
 		}
 
 		public override void Render(SpriteBatch sb)

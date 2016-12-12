@@ -65,7 +65,11 @@ namespace LD37.Entities
 			set
 			{
 				sprite.Rotation = value;
-				body.Rotation = value;
+
+				if (!body.IsDisposed)
+				{
+					body.Rotation = value;
+				}
 
 				base.Rotation = value;
 			}
