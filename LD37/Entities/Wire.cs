@@ -18,6 +18,7 @@ namespace LD37.Entities
 			this.primitiveDrawer = primitiveDrawer;
 
 			Points = new List<Vector2>();
+			color = Color.Gray;
 		}
 
 		[JsonProperty]
@@ -30,7 +31,7 @@ namespace LD37.Entities
 			set
 			{
 				powered = value;
-				color = powered ? Color.DarkOrange : Color.Gray;
+				color = value ? Color.DarkOrange : Color.Gray;
 			}
 		}
 

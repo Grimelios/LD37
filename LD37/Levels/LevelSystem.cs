@@ -191,11 +191,14 @@ namespace LD37.Levels
 
 			foreach (Wire wire in wires)
 			{
+				int targetID = wire.TargetID;
+
 				foreach (AbstractPowerSource powerSource in powerSources)
 				{
-					if (powerSource.PowerID == wire.TargetID)
+					if (powerSource.PowerID == targetID)
 					{
-						powerSource.Wire = wire;
+						wire.Powered = powerSource.Powered;
+						powerSource.Wires.Add(wire);
 					}
 				}
 			}

@@ -15,23 +15,16 @@ namespace LD37.Entities.Abstract
 
 		private List<int> targetIDs;
 		private List<IPowered> powerTargets;
-		private Wire wire;
 
 		protected AbstractPowerSource()
 		{
 			targetIDs = new List<int>();
 			powerTargets = new List<IPowered>();
 			PowerID = NextID;
+			Wires = new List<Wire>();
 		}
 
-		public Wire Wire
-		{
-			set
-			{
-				wire = value;
-				wire.Powered = powered;
-			}
-		}
+		public List<Wire> Wires { get; set; }
 
 		[JsonProperty]
 		public virtual bool Powered
@@ -40,11 +33,7 @@ namespace LD37.Entities.Abstract
 			set
 			{
 				powered = value;
-
-				if (wire != null)
-				{
-					wire.Powered = value;
-				}
+				Wires.ForEach(wire => wire.Powered = value);
 
 				if (powerTargets != null)
 				{

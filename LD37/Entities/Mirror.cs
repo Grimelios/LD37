@@ -35,6 +35,7 @@ namespace LD37.Entities
 
 			sprite = new Sprite(contentLoader, "Mirror", OriginLocations.Center);
 			body = physicsFactory.CreateEdge(halfVector, -halfVector, Units.Meters, this);
+			PowerID = AbstractPowerSource.NextID;
 		}
 
 		public override Vector2 Position

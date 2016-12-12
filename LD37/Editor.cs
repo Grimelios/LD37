@@ -296,20 +296,33 @@ namespace LD37
 				{
 					Entity attachedEntity = GetSelectedTile(mousePosition).AttachedEntity;
 
-					IPowered poweredEntity = attachedEntity as IPowered;
+					IPowered attachedPoweredItem = attachedEntity as IPowered;
 
-					if (poweredEntity != null)
+					if (attachedPoweredItem != null)
 					{
 						wire.Points.RemoveAt(wire.Points.Count - 1);
-						wire.Points.Add(poweredEntity.WirePosition);
+						wire.Points.Add(attachedPoweredItem.WirePosition);
 
 						AbstractPowerSource powerSource1 = wireEntity as AbstractPowerSource;
 						AbstractPowerSource powerSource2 = attachedEntity as AbstractPowerSource;
-						AbstractPowerSource validSource = powerSource1 ?? powerSource2;
+						AbstractPowerSource validSource;
 
-						validSource.TargetIDs.Add(poweredEntity.PowerID);
-						validSource.PowerTargets.Add(poweredEntity);
-						validSource.Wire = wire;
+						IPowered otherPoweredItem;
+
+						if (powerSource1 != null)
+						{
+							validSource = powerSource1;
+							otherPoweredItem = attachedPoweredItem;
+						}
+						else
+						{
+							validSource = powerSource2;
+							otherPoweredItem = wireEntity;
+						}
+
+						validSource.TargetIDs.Add(otherPoweredItem.PowerID);
+						validSource.PowerTargets.Add(otherPoweredItem);
+						validSource.Wires.Add(wire);
 						wire.TargetID = validSource.PowerID;
 						wire = null;
 
