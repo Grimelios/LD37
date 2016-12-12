@@ -87,11 +87,21 @@ namespace LD37.Entities
 
 		public void RotateLeft()
 		{
+			if (!Powered)
+			{
+				return;
+			}
+
 			Rotation -= rotationSpeed;
 		}
 
 		public void RotateRight()
 		{
+			if (!Powered)
+			{
+				return;
+			}
+
 			Rotation += rotationSpeed;
 		}
 
