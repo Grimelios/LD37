@@ -64,6 +64,7 @@ namespace LD37.Entities
 			get { return base.Rotation; }
 			set
 			{
+				value = GameFunctions.ClampAngle(value);
 				sprite.Rotation = value;
 
 				if (!body.IsDisposed)
