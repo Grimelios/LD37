@@ -77,7 +77,7 @@ namespace LD37
 
 		public void Receive(GameMessage message)
 		{
-			//return;
+			return;
 
 			switch (message.Type)
 			{

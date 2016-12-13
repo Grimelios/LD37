@@ -48,8 +48,6 @@ namespace LD37.Levels
 
 		public void Receive(GameMessage message)
 		{
-			return;
-
 			switch (message.Type)
 			{
 				case MessageTypes.LevelSave:
