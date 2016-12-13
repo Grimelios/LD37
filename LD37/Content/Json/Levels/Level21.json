@@ -4,48 +4,10 @@
     {
       "$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
       "Rotation": 0.0,
-      "Wires": [
-        {
-          "Points": [
-            "160, 208",
-            "80, 208",
-            "80, 624",
-            "240, 624"
-          ],
-          "Powered": false,
-          "TargetID": 5,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "160, 208",
-            "80, 208",
-            "80, 624",
-            "240, 624"
-          ],
-          "Powered": false,
-          "TargetID": 5,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "160, 208",
-            "80, 208",
-            "80, 624",
-            "240, 624"
-          ],
-          "Powered": false,
-          "TargetID": 5,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        }
-      ],
       "Powered": false,
       "PowerID": 5,
       "TargetIDs": [
-        7
+        9
       ],
       "LoadPosition": "4, 5"
     },
@@ -54,14 +16,12 @@
       "Rotation": -2.04057884,
       "PowerID": 3,
       "Powered": false,
-      "WirePosition": "912, 208",
       "LoadPosition": "27, 5"
     },
     {
       "$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
       "Rotation": 0.0,
       "PowerID": 4,
-      "WirePosition": "160, 272",
       "LoadPosition": "4, 7",
       "Powered": false
     },
@@ -70,7 +30,6 @@
       "Rotation": 2.05913019,
       "PowerID": 2,
       "Powered": false,
-      "WirePosition": "912, 272",
       "LoadPosition": "27, 7"
     },
     {
@@ -81,47 +40,6 @@
         "Width": 32,
         "Height": 32
       },
-      "Wires": [
-        {
-          "Points": [
-            "912, 464",
-            "912, 400",
-            "944, 400",
-            "944, 208",
-            "912, 208"
-          ],
-          "Powered": false,
-          "TargetID": 0,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "912, 464",
-            "912, 400",
-            "944, 400",
-            "944, 208",
-            "912, 208"
-          ],
-          "Powered": false,
-          "TargetID": 0,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "912, 464",
-            "912, 400",
-            "944, 400",
-            "944, 208",
-            "912, 208"
-          ],
-          "Powered": false,
-          "TargetID": 0,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        }
-      ],
       "Powered": false,
       "PowerID": 0,
       "TargetIDs": [
@@ -131,155 +49,6 @@
     },
     {
       "$type": "LD37.Entities.Switch, LD37",
-      "Wires": [
-        {
-          "Points": [
-            "624, 592",
-            "624, 656",
-            "720, 656",
-            "720, 592"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "624, 592",
-            "624, 656",
-            "720, 656",
-            "720, 592"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "624, 592",
-            "624, 720",
-            "912, 720",
-            "912, 464"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "624, 592",
-            "624, 656",
-            "720, 656",
-            "720, 592"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "624, 592",
-            "624, 720",
-            "912, 720",
-            "912, 464"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "160, 272",
-            "112, 272",
-            "112, 496",
-            "624, 496",
-            "624, 592"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "624, 592",
-            "624, 656",
-            "720, 656",
-            "720, 592"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "624, 592",
-            "624, 720",
-            "912, 720",
-            "912, 464"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "160, 272",
-            "112, 272",
-            "112, 496",
-            "624, 496",
-            "624, 592"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "624, 592",
-            "624, 656",
-            "720, 656",
-            "720, 592"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "624, 592",
-            "624, 720",
-            "912, 720",
-            "912, 464"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "160, 272",
-            "112, 272",
-            "112, 496",
-            "624, 496",
-            "624, 592"
-          ],
-          "Powered": false,
-          "TargetID": 6,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        }
-      ],
       "PowerID": 6,
       "TargetIDs": [
         1,
@@ -297,44 +66,6 @@
         "Width": 32,
         "Height": 32
       },
-      "Wires": [
-        {
-          "Points": [
-            "720, 592",
-            "720, 336",
-            "912, 336",
-            "912, 272"
-          ],
-          "Powered": false,
-          "TargetID": 1,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "720, 592",
-            "720, 336",
-            "912, 336",
-            "912, 272"
-          ],
-          "Powered": false,
-          "TargetID": 1,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        },
-        {
-          "Points": [
-            "720, 592",
-            "720, 336",
-            "912, 336",
-            "912, 272"
-          ],
-          "Powered": false,
-          "TargetID": 1,
-          "LoadPosition": "-1, -1",
-          "Rotation": 0.0
-        }
-      ],
       "Powered": false,
       "PowerID": 1,
       "TargetIDs": [
@@ -345,23 +76,12 @@
     {
       "$type": "LD37.Entities.KeyButton, LD37",
       "Powered": false,
-      "PowerID": 7,
-      "WirePosition": "240, 624",
-      "LoadPosition": "6, 18",
-      "Rotation": 0.321750551
+      "PowerID": 9,
+      "LoadPosition": "5, 18",
+      "Rotation": 2.55359
     }
   ],
   "Platforms": [
-    {
-      "Width": 7,
-      "Height": 1,
-      "LoadPosition": "3, 21"
-    },
-    {
-      "Width": 5,
-      "Height": 1,
-      "LoadPosition": "4, 20"
-    },
     {
       "Width": 14,
       "Height": 4,
@@ -381,6 +101,16 @@
       "Width": 22,
       "Height": 1,
       "LoadPosition": "4, 6"
+    },
+    {
+      "Width": 7,
+      "Height": 1,
+      "LoadPosition": "2, 21"
+    },
+    {
+      "Width": 5,
+      "Height": 1,
+      "LoadPosition": "3, 20"
     }
   ],
   "Wires": [
@@ -427,19 +157,6 @@
     {
       "$type": "LD37.Entities.Wire, LD37",
       "Points": [
-        "160, 208",
-        "80, 208",
-        "80, 624",
-        "240, 624"
-      ],
-      "Powered": false,
-      "TargetID": 5,
-      "LoadPosition": "-1, -1",
-      "Rotation": 0.0
-    },
-    {
-      "$type": "LD37.Entities.Wire, LD37",
-      "Points": [
         "720, 592",
         "720, 336",
         "912, 336",
@@ -461,6 +178,19 @@
       ],
       "Powered": false,
       "TargetID": 0,
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "160, 208",
+        "80, 208",
+        "80, 624",
+        "208, 624"
+      ],
+      "Powered": false,
+      "TargetID": 5,
       "LoadPosition": "-1, -1",
       "Rotation": 0.0
     }
