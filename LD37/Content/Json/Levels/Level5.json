@@ -4,22 +4,27 @@
     {
       "$type": "LD37.Entities.KeyButton, LD37",
       "Powered": true,
-      "PowerID": 5,
-      "WirePosition": "784, 560",
-      "LoadPosition": "23, 16",
-      "Rotation": 0.0
+      "PowerID": 3,
+      "WirePosition": "880, 528",
+      "LoadPosition": "26, 15",
+      "Rotation": 0.4636476
     }
   ],
   "Platforms": [
     {
-      "Width": 7,
-      "Height": 1,
-      "LoadPosition": "20, 21"
+      "Width": 5,
+      "Height": 6,
+      "LoadPosition": "16, 16"
     },
     {
-      "Width": 5,
+      "Width": 9,
+      "Height": 3,
+      "LoadPosition": "21, 19"
+    },
+    {
+      "Width": 16,
       "Height": 1,
-      "LoadPosition": "21, 20"
+      "LoadPosition": "0, 21"
     }
   ],
   "Wires": []

@@ -34,6 +34,11 @@
       "Width": 5,
       "Height": 2,
       "LoadPosition": "25, 11"
+    },
+    {
+      "Width": 13,
+      "Height": 1,
+      "LoadPosition": "12, 21"
     }
   ],
   "Wires": [
@@ -45,9 +50,10 @@
         "912, 240",
         "912, 368"
       ],
+      "Powered": false,
+      "TargetID": 0,
       "LoadPosition": "-1, -1",
-			"Rotation": 0.0,
-			"TargetID": 0
+      "Rotation": 0.0
     }
   ]
 }

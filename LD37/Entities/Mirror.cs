@@ -81,6 +81,7 @@ namespace LD37.Entities
 
 		public bool Powered { get; set; }
 
+		[JsonIgnore]
 		public Vector2 WirePosition => Position;
 
 		public float? ComputeReflectionAngle(float incomingAngle)
