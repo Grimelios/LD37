@@ -77,6 +77,8 @@ namespace LD37
 
 		public void Receive(GameMessage message)
 		{
+			//return;
+
 			switch (message.Type)
 			{
 				case MessageTypes.Keyboard:

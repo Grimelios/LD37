@@ -82,7 +82,7 @@ namespace LD37.Entities.Lasers
 			{
 				int previousPowerCount = powerCount;
 
-				powerCount = value;
+				powerCount = MathHelper.Max(value, 0);
 
 				if (powerCount == 0 && previousPowerCount > 0)
 				{

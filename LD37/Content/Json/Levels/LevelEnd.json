@@ -4,8 +4,8 @@
     {
       "$type": "LD37.Entities.Endor, LD37",
       "InteractionBox": {
-        "X": 512,
-        "Y": 640,
+        "X": 480,
+        "Y": 576,
         "Width": 96,
         "Height": 160
       },
@@ -13,6 +13,12 @@
       "Rotation": -0.642240047
     }
   ],
-  "Platforms": [],
+  "Platforms": [
+    {
+      "Width": 5,
+      "Height": 3,
+      "LoadPosition": "0, 19"
+    }
+  ],
   "Wires": []
 }
