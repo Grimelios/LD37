@@ -4,13 +4,14 @@
     {
       "$type": "LD37.Entities.Mirror, LD37",
       "Rotation": 0.7853982,
+      "PowerID": 8,
+      "Powered": false,
       "LoadPosition": "2, 2"
     },
     {
       "$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
       "Rotation": 3.14159274,
       "PowerID": 0,
-      "WirePosition": "992, 112",
       "LoadPosition": "29, 2",
       "Powered": false
     },
@@ -18,7 +19,6 @@
       "$type": "LD37.Entities.KeyButton, LD37",
       "Powered": false,
       "PowerID": 1,
-      "WirePosition": "240, 688",
       "LoadPosition": "6, 20",
       "Rotation": 0.0
     },
@@ -42,7 +42,28 @@
       "Rotation": 0.0
     }
   ],
-  "Platforms": [],
+  "Platforms": [
+    {
+      "Width": 17,
+      "Height": 6,
+      "LoadPosition": "13, 6"
+    },
+    {
+      "Width": 2,
+      "Height": 4,
+      "LoadPosition": "11, 7"
+    },
+    {
+      "Width": 2,
+      "Height": 2,
+      "LoadPosition": "9, 8"
+    },
+    {
+      "Width": 6,
+      "Height": 2,
+      "LoadPosition": "24, 16"
+    }
+  ],
   "Wires": [
     {
       "$type": "LD37.Entities.Wire, LD37",
@@ -53,9 +74,10 @@
         "368, 528",
         "368, 720"
       ],
+      "Powered": false,
+      "TargetID": 3,
       "LoadPosition": "-1, -1",
-      "Rotation": 0.0,
-			"TargetID": 3
+      "Rotation": 0.0
     },
     {
       "$type": "LD37.Entities.Wire, LD37",
@@ -65,9 +87,10 @@
         "240, 752",
         "240, 688"
       ],
+      "Powered": false,
+      "TargetID": 2,
       "LoadPosition": "-1, -1",
-      "Rotation": 0.0,
-			"TargetID": 2
+      "Rotation": 0.0
     }
   ]
 }
