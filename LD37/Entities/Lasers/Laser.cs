@@ -29,7 +29,7 @@ namespace LD37.Entities.Lasers
 		{
 			if (activatedReceiver != null)
 			{
-				activatedReceiver.Powered = false;
+				activatedReceiver.PowerCount--;
 				activatedReceiver = null;
 			}
 		}

@@ -1,0 +1,298 @@
+{
+  "Name": "",
+  "TileEntities": [
+    {
+      "$type": "LD37.Entities.Lasers.LaserReceiver, LD37",
+      "Rotation": 1.57079637,
+      "Wires": [
+        {
+          "Points": [
+            "912, 32",
+            "912, 16",
+            "784, 16",
+            "784, 592",
+            "592, 592",
+            "592, 656"
+          ],
+          "Powered": false,
+          "TargetID": 5,
+          "LoadPosition": "-1, -1",
+          "Rotation": 0.0
+        }
+      ],
+      "Powered": false,
+      "PowerID": 5,
+      "TargetIDs": [
+        18
+      ],
+      "LoadPosition": "27, 0"
+    },
+    {
+      "$type": "LD37.Entities.Mirror, LD37",
+      "Rotation": 1.57079637,
+      "PowerID": 3,
+      "Powered": false,
+      "WirePosition": "368, 112",
+      "LoadPosition": "10, 2"
+    },
+    {
+      "$type": "LD37.Entities.Mirror, LD37",
+      "Rotation": 0.0,
+      "PowerID": 0,
+      "Powered": false,
+      "WirePosition": "144, 336",
+      "LoadPosition": "3, 9"
+    },
+    {
+      "$type": "LD37.Entities.Mirror, LD37",
+      "Rotation": -3.14159274,
+      "PowerID": 1,
+      "Powered": false,
+      "WirePosition": "368, 560",
+      "LoadPosition": "10, 16"
+    },
+    {
+      "$type": "LD37.Entities.Lasers.FixedLaserSource, LD37",
+      "Rotation": 3.14159274,
+      "PowerID": 2,
+      "WirePosition": "992, 560",
+      "LoadPosition": "29, 16",
+      "Powered": false
+    },
+    {
+      "$type": "LD37.Entities.Rotator, LD37",
+      "InteractionBox": {
+        "X": 160,
+        "Y": 608,
+        "Width": 32,
+        "Height": 32
+      },
+      "Wires": [
+        {
+          "Points": [
+            "176, 624",
+            "176, 560",
+            "368, 560"
+          ],
+          "Powered": false,
+          "TargetID": 8,
+          "LoadPosition": "-1, -1",
+          "Rotation": 0.0
+        },
+        {
+          "Points": [
+            "176, 624",
+            "176, 560",
+            "368, 560"
+          ],
+          "Powered": false,
+          "TargetID": 8,
+          "LoadPosition": "-1, -1",
+          "Rotation": 0.0
+        },
+        {
+          "Points": [
+            "176, 624",
+            "176, 560",
+            "368, 560"
+          ],
+          "Powered": false,
+          "TargetID": 8,
+          "LoadPosition": "-1, -1",
+          "Rotation": 0.0
+        }
+      ],
+      "Powered": false,
+      "PowerID": 8,
+      "TargetIDs": [
+        1
+      ],
+      "LoadPosition": "4, 18"
+    },
+    {
+      "$type": "LD37.Entities.KeyButton, LD37",
+      "Powered": false,
+      "PowerID": 18,
+      "WirePosition": "592, 656",
+      "LoadPosition": "17, 19",
+      "Rotation": -0.186979264
+    },
+    {
+      "$type": "LD37.Entities.Mirror, LD37",
+      "Rotation": -1.96782768,
+      "PowerID": 4,
+      "Powered": false,
+      "WirePosition": "912, 656",
+      "LoadPosition": "27, 19"
+    },
+    {
+      "$type": "LD37.Entities.Switch, LD37",
+      "Wires": [
+        {
+          "Points": [
+            "464, 688",
+            "464, 720",
+            "1008, 720",
+            "1008, 560",
+            "992, 560"
+          ],
+          "Powered": false,
+          "TargetID": 6,
+          "LoadPosition": "-1, -1",
+          "Rotation": 0.0
+        },
+        {
+          "Points": [
+            "464, 688",
+            "464, 720",
+            "1008, 720",
+            "1008, 560",
+            "992, 560"
+          ],
+          "Powered": false,
+          "TargetID": 6,
+          "LoadPosition": "-1, -1",
+          "Rotation": 0.0
+        },
+        {
+          "Points": [
+            "464, 688",
+            "464, 496",
+            "80, 496",
+            "80, 688",
+            "176, 688",
+            "176, 624"
+          ],
+          "Powered": false,
+          "TargetID": 6,
+          "LoadPosition": "-1, -1",
+          "Rotation": 0.0
+        },
+        {
+          "Points": [
+            "464, 688",
+            "464, 720",
+            "1008, 720",
+            "1008, 560",
+            "992, 560"
+          ],
+          "Powered": false,
+          "TargetID": 6,
+          "LoadPosition": "-1, -1",
+          "Rotation": 0.0
+        },
+        {
+          "Points": [
+            "464, 688",
+            "464, 496",
+            "80, 496",
+            "80, 688",
+            "176, 688",
+            "176, 624"
+          ],
+          "Powered": false,
+          "TargetID": 6,
+          "LoadPosition": "-1, -1",
+          "Rotation": 0.0
+        }
+      ],
+      "PowerID": 6,
+      "TargetIDs": [
+        2,
+        8
+      ],
+      "LoadPosition": "13, 20",
+      "Rotation": -0.7853982
+    }
+  ],
+  "Platforms": [
+    {
+      "Width": 30,
+      "Height": 1,
+      "LoadPosition": "0, 21"
+    },
+    {
+      "Width": 2,
+      "Height": 21,
+      "LoadPosition": "0, 0"
+    },
+    {
+      "Width": 2,
+      "Height": 8,
+      "LoadPosition": "28, 0"
+    },
+    {
+      "Width": 6,
+      "Height": 8,
+      "LoadPosition": "21, 0"
+    },
+    {
+      "Width": 3,
+      "Height": 3,
+      "LoadPosition": "18, 0"
+    },
+    {
+      "Width": 5,
+      "Height": 2,
+      "LoadPosition": "2, 19"
+    }
+  ],
+  "Wires": [
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "176, 624",
+        "176, 560",
+        "368, 560"
+      ],
+      "Powered": false,
+      "TargetID": 8,
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "464, 688",
+        "464, 720",
+        "1008, 720",
+        "1008, 560",
+        "992, 560"
+      ],
+      "Powered": false,
+      "TargetID": 6,
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "464, 688",
+        "464, 496",
+        "80, 496",
+        "80, 688",
+        "176, 688",
+        "176, 624"
+      ],
+      "Powered": false,
+      "TargetID": 6,
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    },
+    {
+      "$type": "LD37.Entities.Wire, LD37",
+      "Points": [
+        "912, 32",
+        "912, 16",
+        "784, 16",
+        "784, 592",
+        "592, 592",
+        "592, 656"
+      ],
+      "Powered": false,
+      "TargetID": 5,
+      "LoadPosition": "-1, -1",
+      "Rotation": 0.0
+    }
+  ]
+}

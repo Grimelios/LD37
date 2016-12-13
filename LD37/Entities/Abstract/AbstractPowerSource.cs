@@ -24,6 +24,7 @@ namespace LD37.Entities.Abstract
 			Wires = new List<Wire>();
 		}
 
+		[JsonIgnore]
 		public List<Wire> Wires { get; set; }
 
 		[JsonProperty]
