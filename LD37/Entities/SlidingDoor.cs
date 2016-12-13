@@ -104,7 +104,11 @@ namespace LD37.Entities
 		public override void Update(float dt)
 		{
 			timer?.Update(dt);
-			body.Position = PhysicsConvert.ToMeters(doorSprite.Position);
+
+			if (!body.IsDisposed)
+			{
+				body.Position = PhysicsConvert.ToMeters(doorSprite.Position);
+			}
 		}
 
 		public override void Render(SpriteBatch sb)
